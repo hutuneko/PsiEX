@@ -11,9 +11,9 @@ import vazkii.psi.api.spell.piece.PieceSelector;
 
 import java.util.List;
 
-public class PieceSelector_ScrollData extends PieceSelector {
+public class PieceSelector_ItemData extends PieceSelector {
 
-    public PieceSelector_ScrollData(Spell spell) {
+    public PieceSelector_ItemData(Spell spell) {
         super(spell);
     }
 

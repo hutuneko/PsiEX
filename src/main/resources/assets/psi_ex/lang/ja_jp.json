@@ -11,8 +11,8 @@
   "psi_ex.spellpiece.piecetrick_castscroll.desc": "iron'sのスクロールを発動します。",
   "psi_ex.spellpiece.piecetrick_arsscrollcast": "魔法発動",
   "psi_ex.spellpiece.piecetrick_arsscrollcast.desc": "arsの魔法を発動します。",
-  "psi_ex.spellpiece.pieceselector_scrolldata": "アイテム取得",
-  "psi_ex.spellpiece.pieceselector_scrolldata.desc": "CADの隣にあるアイテムを取得します。",
+  "psi_ex.spellpiece.pieceselector_itemdata": "アイテム取得",
+  "psi_ex.spellpiece.pieceselector_itemdata.desc": "CADの隣にあるアイテムを取得します。",
   "psi_ex.spellpiece.piecetrick_offhandattack": "オフハンドアタック",
   "psi_ex.spellpiece.piecetrick_offhandattack.desc": "オフハンドの武器で攻撃します。",
   "psi_ex.spellpiece.piecetrick_oredouble": "鉱石倍加",
@@ -30,12 +30,14 @@
   "psi_ex.spellpiece.piecetrick_geteye": "標的捕捉",
   "psi_ex.spellpiece.piecetrick_geteye.desc": "精霊の眼からエンティティを取得します",
 
-  "psi_ex.item.psi_arrow": "術式矢",
-  "psi_ex.item.psi_curio_bullet": "CAD拡張スロット",
-  "psi_ex.item.psi_spellbook": "CADスペルブック",
-  "psi_ex.item.psi_mana_lens": "マナレンズ: 術式",
-  "psi_ex.item.psi_spirits_eye": "精霊の眼",
-  "psi_ex.item.psi_needle": "術式針",
+  "item.psi_ex.psi_arrow": "術式矢",
+  "item.psi_ex.extended_cad_socket": "CAD拡張スロット",
+  "item.psi_ex.psi_spellbook": "CADスペルブック",
+  "item.psi_ex.psi_mana_lens": "マナレンズ: 術式",
+  "item.psi_ex.psi_spirits_eye": "精霊の眼",
+  "item.psi_ex.psi_needle": "術式針",
+  "item.psi_ex.personal_tuner": "パーソナルチューナー",
+
 
   "itemGroup.tab.psi_ex": "PsiEX"
 

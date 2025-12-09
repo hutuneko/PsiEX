@@ -11,9 +11,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import vazkii.psi.api.PsiAPI;
 
-public class Itemtestbullet extends Item {
+public class ItemPersonalTuner extends Item {
 
-    public Itemtestbullet(Properties properties) {
+    public ItemPersonalTuner(Properties properties) {
         super(properties);
     }
 

@@ -25,7 +25,7 @@ public class CuriosCompatModule extends AddonModule {
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_geteye"), PieceSelector_getEye.class);
 
 
-        PsiEXRegistry.PSI_CURIO_BULLET = PsiEXRegistry.ITEMS.register("psi_curio_bullet", () ->
+        PsiEXRegistry.PSI_CURIO_BULLET = PsiEXRegistry.ITEMS.register("extended_cad_socket", () ->
                 new PsiCuriosbullet(new Item.Properties().stacksTo(1))
         );
         PsiEXRegistry.PSI_SPIRITS_EYE = PsiEXRegistry.ITEMS.register("psi_spirits_eye", () ->

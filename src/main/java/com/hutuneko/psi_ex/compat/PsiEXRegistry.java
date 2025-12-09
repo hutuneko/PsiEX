@@ -3,8 +3,6 @@ package com.hutuneko.psi_ex.compat;
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.system.attribute.AttributeEditorMenu;
-import mekanism.common.registration.impl.GasDeferredRegister;
-import mekanism.common.registration.impl.GasRegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -20,8 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class PsiEXRegistry {
-    public static final GasDeferredRegister GASES =
-            new GasDeferredRegister(PsiEX.MOD_ID);
+
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, PsiEX.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS =
@@ -42,17 +39,19 @@ public class PsiEXRegistry {
             DeferredRegister.create(Registries.MENU, PsiEX.MOD_ID);
 
     public static RegistryObject<Item> PSI_MANA_LENS = null;
-    public static RegistryObject<Item> STORAGE = null;
-    public static RegistryObject<Item> CAST_SCROLL = null;
-    public static RegistryObject<Item> TESTBULLET = null;
+
+    public static RegistryObject<Item> PERSONAL_TUNER = null;
     public static RegistryObject<Item> PSI_ARROW = null;
     public static RegistryObject<Item> PSI_CURIO_BULLET = null;
     public static RegistryObject<Item> PSI_SPELLBOOK = null;
     public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
     public static RegistryObject<Item> PSI_NEEDLE_DART = null;
-    public static RegistryObject<Item> PSI_BOW = null;
 
-    public static GasRegistryObject PSI_GAS = null;
+    public static RegistryObject<Item> PSI_BOW = null;
+    public static RegistryObject<Item> STORAGE = null;
+    public static RegistryObject<Item> CAST_SCROLL = null;
+
+
 
     public static RegistryObject<EntityType<PsiArrowEntity>> PSI_ARROW_ENTITY = null;
     public static RegistryObject<EntityType<PsiNeedleDartEntity>> PSI_NEEDLE_DARTENTITY = null;

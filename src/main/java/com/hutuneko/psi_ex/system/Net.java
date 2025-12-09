@@ -16,7 +16,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public final class Net {
 
     // チャンネルは 1 本化（"main"）
-    private static final String PROTOCOL = "1"; // 旧 "0" から上げてもOK。左右一致が必須
+    private static final String PROTOCOL = "1";
     public static SimpleChannel CHANNEL;
     private static int id = 0;
 
@@ -52,12 +52,5 @@ public final class Net {
                     .add();
         });
     }
-
-    // ★ 旧コードの以下は削除
-    // private static final String PROTOCOL0 = "0";
-    // public static SimpleChannel CHANNEL; （上で再定義済）
-    // public static final String PROTOCOL1 = "1";
-    // public static final SimpleChannel CH = ...;
-    // public static void init() { CH.registerMessage(...); ... }
 }
 

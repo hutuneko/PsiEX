@@ -31,11 +31,13 @@
   "psi_ex.spellpiece.piecetrick_geteye.desc": "Retrieves an entity from the spirit's eye",
 
   "psi_ex.item.psi_arrow": "Spell Arrow",
-  "psi_ex.item.psi_curio_bullet": "CAD Expansion Slot",
+  "psi_ex.item.extended_cad_socket": "CAD Expansion Slot",
   "psi_ex.item.psi_spellbook": "CAD Spellbook",
   "psi_ex.item.psi_mana_lens": "Mana Lens: Spell",
   "psi_ex.item.psi_spirits_eye": "Spirit Eye",
   "psi_ex.item.psi_needle": "Spell Needle",
+  "item.psi_ex.personal_tuner": "Personal Tuner",
+
 
   "itemGroup.tab.psi_ex": "PsiEX"
 

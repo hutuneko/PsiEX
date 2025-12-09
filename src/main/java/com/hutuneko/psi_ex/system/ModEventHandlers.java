@@ -30,7 +30,7 @@ public class ModEventHandlers {
     public static void gatherData(GatherDataEvent event) {
         var gen = event.getGenerator();
         var out = gen.getPackOutput();
-
-        gen.addProvider(event.includeServer(), GenPsiPieceConditions.create(out, PsiEX.MOD_ID));
+        var a = event.getExistingFileHelper();
+//        gen.addProvider(event.includeServer(), GenPsiPieceConditions.create(out, PsiEX.MOD_ID,a));
     }
 }

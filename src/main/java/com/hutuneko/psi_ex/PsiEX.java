@@ -21,13 +21,11 @@ public class PsiEX {
     public static final String MOD_ID = "psi_ex";
     private static final Logger LOGGER = LogUtils.getLogger();
     public PsiEX() {
-
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(this::commonSetup);
         PsiEXRegistry.ITEMS.register(modBus);
         PsiEXRegistry.TYPES.register(modBus);
         PsiEXRegistry.BLOCKS.register(modBus);
-        PsiEXRegistry.GASES.register(modBus);
         PsiEXRegistry.SERIALIZERS.register(modBus);
         PsiEXRegistry.BLOCK_ENTITIES.register(modBus);
         PsiEXRegistry.ENTITIES.register(modBus);

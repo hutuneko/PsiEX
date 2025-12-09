@@ -4,6 +4,7 @@ import com.hutuneko.psi_ex.system.Net;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +32,7 @@ public class AttributeEditorScreen extends Screen {
         final Component label;
         double current; // 実値（MIN_PER..MAX_PER）
         Slider slider;
-
+        EditBox editBox;
         Row(ResourceLocation id, double current) {
             this.id = id;
             this.label = Component.literal(id.toString());
@@ -53,12 +54,29 @@ public class AttributeEditorScreen extends Screen {
         int left = this.width / 2 - 160;
         int sliderX = this.width / 2 - 30; // ラベルの右にスライダー
         int sliderW = 210;
-
+        int editBoxX = this.width / 2 + 130; // スライダーの右に配置
+        int editBoxW = 60;
         for (Row r : rows) {
             // 実値→[0..1]へ正規化
             double norm = denormalize(r.current);
             r.slider = new Slider(sliderX, y - 4, sliderW, 20, r, norm);
             addRenderableWidget(r.slider);
+
+            // 【追加】EditBoxの初期化
+            r.editBox = new net.minecraft.client.gui.components.EditBox(
+                    this.font, editBoxX, y, editBoxW, 20, Component.empty()
+            );
+            r.editBox.setMaxLength(10); // 最大文字数（適宜調整）
+            // 初期値を設定
+            r.editBox.setValue(String.format(Locale.ROOT, "%.2f", r.current));
+            // 数字のみを許可するフィルターを設定
+            r.editBox.setFilter(s -> s.matches("^-?\\d*(\\.\\d*)?$"));
+
+            // 値が変更されたときのリスナー
+            r.editBox.setResponder(this::onEditBoxChange);
+
+            addRenderableWidget(r.editBox); // 画面に追加
+
             y += 24;
         }
 
@@ -157,6 +175,16 @@ public class AttributeEditorScreen extends Screen {
             this.row.current = normalize(this.value);
             updateMessage();
         }
+        public void setNormalizedValue(double v01) {
+            // protected の 'value' にアクセスできるのは Slider クラス内のみ
+            this.value = clamp(v01, 0, 1);
+
+            // 値が変更されたら、実値への変換とクランプ処理を行う
+            // EditBox側で既にクランプと合計チェックは済んでいるので、
+            // ここでは単に実値と表示を同期させる目的で applyValue() を呼び出します。
+            applyValue();
+            updateMessage();
+        }
     }
 
     /* ------------- 合計・補助 ------------- */
@@ -197,5 +225,66 @@ public class AttributeEditorScreen extends Screen {
         rows.forEach(r -> Net.CHANNEL.sendToServer(new C2SSetAttribute(r.id, r.current)));
         super.removed();
     }
+    private void onEditBoxChange(String text) {
+        // 現在フォーカスされている EditBox を特定する
+        Row targetRow = null;
+        for (Row r : rows) {
+            if (r.editBox != null && r.editBox.isFocused()) {
+                targetRow = r;
+                break;
+            }
+        }
 
+        if (targetRow == null || text.isEmpty() || text.equals("-") || text.equals(".")) {
+            // 無効な入力の場合は処理しない
+            return;
+        }
+
+        try {
+            double proposedValue = Double.parseDouble(text);
+
+            // 1. 合計上限チェックとクランプ
+            double others = totalExcept(targetRow);
+            // 許容される最大値 (MAX_TOTAL - 他の属性値)
+            double allowed = clamp(MAX_TOTAL - others, MIN_PER, MAX_PER);
+            // 個別上限と合計上限でクランプ
+            double clampedValue = clamp(proposedValue, MIN_PER, allowed);
+
+            // 2. 実値とスライダーの更新
+            targetRow.current = clampedValue;
+            double backNorm = denormalize(clampedValue);
+            targetRow.slider.setNormalizedValue(backNorm);
+            targetRow.slider.updateMessage(); // スライダーの表示を更新 (ここは空なので実質不要)
+
+            // 3. EditBoxの表示をクランプ後の値に更新
+            // ※クランプされた場合、入力値と表示値を一致させる
+            if (clampedValue != proposedValue) {
+                targetRow.editBox.setValue(String.format(Locale.ROOT, "%.2f", clampedValue));
+            }
+
+            // 4. 即時送信（EditBoxの場合はエンターキーやフォーカス喪失で確定送信の方が一般的ですが、ここでは即時送信の例）
+            // Net.CHANNEL.sendToServer(new C2SSetAttribute(targetRow.id, targetRow.current));
+
+        } catch (NumberFormatException ignored) {
+            // 数字として解析できない場合は無視
+        }
+    }
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (super.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+
+        // ENTERキーで確定とみなし、サーバーへ送信
+        if (keyCode == 257 || keyCode == 335) { // 257: ENTER, 335: NUMPAD_ENTER
+            for (Row r : rows) {
+                if (r.editBox != null && r.editBox.isFocused()) {
+                    Net.CHANNEL.sendToServer(new C2SSetAttribute(r.id, r.current));
+                    r.editBox.setFocused(false); // フォーカスを外す
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
