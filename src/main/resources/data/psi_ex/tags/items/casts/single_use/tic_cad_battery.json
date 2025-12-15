@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "psi_ex:tic_cad_battery_sand_cast",
+      "required": false
+    },
+    {
+      "id": "psi_ex:tic_cad_battery_red_sand_cast",
+      "required": false
+    }
+  ]
+}

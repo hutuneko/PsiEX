@@ -19,7 +19,7 @@ import java.util.List;
 @Mod(PsiEX.MOD_ID)
 public class PsiEX {
     public static final String MOD_ID = "psi_ex";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public PsiEX() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(this::commonSetup);
@@ -32,7 +32,6 @@ public class PsiEX {
         PsiEXRegistry.TABS.register(modBus);
         PsiEXAttributes.register(modBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        Config.registerConfig();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

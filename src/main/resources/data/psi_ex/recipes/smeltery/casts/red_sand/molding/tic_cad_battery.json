@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:molding_table",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "psi_ex:ticcompat"
+    }
+  ],
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": {
+    "item": "psi_ex:tic_cad_battery"
+  },
+  "result": "psi_ex:tic_cad_battery_red_sand_cast"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "psi_ex:casts/multi_use/tic_cad_core"
+  },
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "psi_ex:ticcompat"
+    }
+  ],
+  "item_cost": 2,
+  "result": "psi_ex:tic_cad_core"
+}

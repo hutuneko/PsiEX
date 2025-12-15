@@ -29,6 +29,8 @@
   "psi_ex.spellpiece.piecetrick_eyesave.desc": "精霊の眼にエンティティを保存します",
   "psi_ex.spellpiece.piecetrick_geteye": "標的捕捉",
   "psi_ex.spellpiece.piecetrick_geteye.desc": "精霊の眼からエンティティを取得します",
+  "psi_ex.spellpiece.piecetrick_ticattack": "鍛冶屋構築アタック！！",
+  "psi_ex.spellpiece.piecetrick_ticattack.desc": "※TiCCAD限定",
 
   "item.psi_ex.psi_arrow": "術式矢",
   "item.psi_ex.extended_cad_socket": "CAD拡張スロット",
@@ -37,8 +39,32 @@
   "item.psi_ex.psi_spirits_eye": "精霊の眼",
   "item.psi_ex.psi_needle": "術式針",
   "item.psi_ex.personal_tuner": "パーソナルチューナー",
+  "item.psi_ex.tic_cad_core": "TiCCADコア",
+  "item.psi_ex.tic_cad_assembly": "TiCCAD素体",
+  "item.psi_ex.tic_cad_battery": "TiCCADバッテリー",
+  "item.psi_ex.tic_cad_socket": "TiCCADソケット",
+  "item.psi_ex.tic_cad": "TiCCAD",
+
+  "pattern.psi_ex.tic_cad_core": "TiCCADコア",
+  "pattern.psi_ex.tic_cad_assembly": "TiCCAD素体",
+  "pattern.psi_ex.tic_cad_battery": "TiCCADバッテリー",
+  "pattern.psi_ex.tic_cad_battery": "TiCCADソケット",
+
+  "item.psi_ex.tic_cad_core_cast": "TiCCADコア金型",
+  "item.psi_ex.tic_cad_assembly_cast": "TiCCAD素体金型",
+  "item.psi_ex.tic_cad_battery_cast": "TiCCADバッテリー金型",
+  "item.psi_ex.tic_cad_socket_cast": "TiCCADソケット金型",
+  "item.psi_ex.tic_cad_core_sand_cast": "TiCCADコア砂型",
+  "item.psi_ex.tic_cad_assembly_sand_cast": "TiCCAD素体砂型",
+  "item.psi_ex.tic_cad_battery_sand_cast": "TiCCADバッテリー砂型",
+  "item.psi_ex.tic_cad_socket_sand_cast": "TiCCADソケット砂型",
+  "item.psi_ex.tic_cad_core_red_sand_cast": "TiCCADコア赤砂型",
+  "item.psi_ex.tic_cad_assembly_red_sand_cast": "TiCCAD素体赤砂型",
+  "item.psi_ex.tic_cad_battery_red_sand_cast": "TiCCADバッテリー赤砂型",
+  "item.psi_ex.tic_cad_socket_red_sand_cast": "TiCCADソケット赤砂型",
 
 
+  "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
 
 }

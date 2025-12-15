@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.system;
 
-import com.hutuneko.psi_ex.cc.PsiGlobalAPI;
+import com.hutuneko.psi_ex.compat.cc.PsiGlobalAPI;
 import dan200.computercraft.api.ComputerCraftAPI;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 

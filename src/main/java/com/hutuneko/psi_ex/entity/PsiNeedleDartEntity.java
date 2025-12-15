@@ -39,7 +39,6 @@ public class PsiNeedleDartEntity extends ThrowableItemProjectile {
         Entity target = result.getEntity();
         target.hurt(damageSources().thrown(this, this.getOwner()), 1.0F);
         Spell spell = ItemSpellDrive.getSpell(getNeedleStack());
-        System.out.println(spell);
 
         if (!level().isClientSide) {
             if (!(spell == null)) {

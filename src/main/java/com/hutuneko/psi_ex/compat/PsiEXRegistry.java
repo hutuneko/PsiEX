@@ -4,6 +4,8 @@ import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.system.attribute.AttributeEditorMenu;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.inventory.MenuType;
@@ -16,6 +18,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.tconstruct.library.tools.part.ToolPartItem;
 
 public class PsiEXRegistry {
 
@@ -47,11 +51,10 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
     public static RegistryObject<Item> PSI_NEEDLE_DART = null;
 
+
     public static RegistryObject<Item> PSI_BOW = null;
     public static RegistryObject<Item> STORAGE = null;
     public static RegistryObject<Item> CAST_SCROLL = null;
-
-
 
     public static RegistryObject<EntityType<PsiArrowEntity>> PSI_ARROW_ENTITY = null;
     public static RegistryObject<EntityType<PsiNeedleDartEntity>> PSI_NEEDLE_DARTENTITY = null;
@@ -62,4 +65,6 @@ public class PsiEXRegistry {
     public static RegistryObject<MenuType<AttributeEditorMenu>> ATTRIBUTE_EDITOR = null;
 
     public static RegistryObject<CreativeModeTab> CREATIVE_TAB_ITEMS = null;
+
+    public static ResourceKey<DamageType> PSI_FAKE_DAMAGE = null;
 }

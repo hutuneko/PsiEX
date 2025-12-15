@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "psi_ex:tic_cad_socket"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "psi_ex:ticcompat"
+    }
+  ],
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_gold"
+  },
+  "result": "psi_ex:tic_cad_socket_cast",
+  "switch_slots": true
+}

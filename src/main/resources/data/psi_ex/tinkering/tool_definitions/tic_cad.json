@@ -1,0 +1,48 @@
+{
+  "modules": [
+    {
+      "type": "tconstruct:part_stats",
+      "parts": [
+        "psi_ex:tic_cad_core",
+        "psi_ex:tic_cad_assembly",
+        "psi_ex:tic_cad_battery",
+        "psi_ex:tic_cad_socket"
+      ],
+      "primary_part": 0
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": {
+            "max": 6,
+            "min": 3
+          }
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": {
+            "max": 6,
+            "min": 3
+          }
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:modifier_slots",
+      "slots": {
+        "abilities": 1,
+        "upgrades": 3
+      }
+    }
+  ]
+}

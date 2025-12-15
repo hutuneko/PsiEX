@@ -2,6 +2,13 @@ package com.hutuneko.psi_ex.compat;
 
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.compat.ars.ArsCompatModule;
+import com.hutuneko.psi_ex.compat.botania.BotaniaCompatModule;
+import com.hutuneko.psi_ex.compat.cc.CCCuriosModule;
+import com.hutuneko.psi_ex.compat.curios.CuriosCompatModule;
+import com.hutuneko.psi_ex.compat.iron.IronsCompatModule;
+import com.hutuneko.psi_ex.compat.mek.MekanismCompatModule;
+import com.hutuneko.psi_ex.compat.tic.TiCCompatModule;
 import moffy.addonapi.AddonModuleProvider;
 import net.minecraft.resources.ResourceLocation;
 
@@ -36,6 +43,10 @@ public class CompatModule extends AddonModuleProvider {
                 "CCC Compat",
                 CCCuriosModule.class,
                 new String[] { "psi", "curios", "computercraft" });
+        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "ticcompat"),
+                "TiC Compat",
+                TiCCompatModule.class,
+                new String[] { "psi", "tconstruct" });
     }
     @Override
     public String getModId() {

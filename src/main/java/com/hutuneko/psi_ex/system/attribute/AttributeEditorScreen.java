@@ -51,40 +51,42 @@ public class AttributeEditorScreen extends Screen {
     @Override
     protected void init() {
         int y = 34;
-        int left = this.width / 2 - 160;
-        int sliderX = this.width / 2 - 30; // ラベルの右にスライダー
+        int sliderX = this.width / 2 - 30;
         int sliderW = 210;
-        int editBoxX = this.width / 2 + 130; // スライダーの右に配置
-        int editBoxW = 60;
+
+        // 修正: EditBoxのX座標を右端の現在値ラベルの位置に合わせる
+        // 以前の valX = this.width / 2 + 190 を使用します。
+        int editBoxX = this.width / 2 + 190;
+        int editBoxW = 70; // 幅を少し広げても良いかもしれません
+
         for (Row r : rows) {
-            // 実値→[0..1]へ正規化
+            // スライダーの初期化... (変更なし)
             double norm = denormalize(r.current);
             r.slider = new Slider(sliderX, y - 4, sliderW, 20, r, norm);
             addRenderableWidget(r.slider);
 
-            // 【追加】EditBoxの初期化
-            r.editBox = new net.minecraft.client.gui.components.EditBox(
-                    this.font, editBoxX, y, editBoxW, 20, Component.empty()
+            // EditBoxの初期化 (座標を修正)
+            // Y座標はスライダーに合わせて y-4 に修正
+            r.editBox = new EditBox(
+                    this.font, editBoxX, y - 4, editBoxW, 20, Component.empty()
             );
-            r.editBox.setMaxLength(10); // 最大文字数（適宜調整）
-            // 初期値を設定
+            r.editBox.setMaxLength(10);
             r.editBox.setValue(String.format(Locale.ROOT, "%.2f", r.current));
-            // 数字のみを許可するフィルターを設定
             r.editBox.setFilter(s -> s.matches("^-?\\d*(\\.\\d*)?$"));
-
-            // 値が変更されたときのリスナー
             r.editBox.setResponder(this::onEditBoxChange);
 
-            addRenderableWidget(r.editBox); // 画面に追加
+            // 修正: 右端のラベルと位置を合わせるため、右寄せにする
+            r.editBox.setResponder(this::onEditBoxChange);
+
+            addRenderableWidget(r.editBox);
 
             y += 24;
         }
 
-        // Close ボタン
+        // Close ボタン... (変更なし)
         addRenderableWidget(Button.builder(Component.literal("Close"), b -> onClose())
-                .bounds(this.width / 2 - 0, this.height - 28, 80, 20).build());
+                .bounds(this.width / 2, this.height - 28, 80, 20).build());
     }
-
     @Override
     public void render(@NotNull GuiGraphics g, int mx, int my, float pt) {
         renderBackground(g);
@@ -97,15 +99,9 @@ public class AttributeEditorScreen extends Screen {
                 "Total: " + String.format(Locale.ROOT, "%.2f / %.2f", total(), MAX_TOTAL)
         ), left, sumY, 0xFFD080, false);
 
-        // ラベル群
         int y = 36;
         for (Row r : rows) {
-            // 左にラベル、右端に現在値の数値表示
             g.drawString(this.font, r.label, left, y, 0xAAAAAA, false);
-            String val = String.format(Locale.ROOT, "%.2f", r.current);
-            int valX = this.width / 2 + 190;
-            g.drawString(this.font, Component.literal(val), valX, y, 0xFFFFFF, false);
-            y += 24;
         }
 
         super.render(g, mx, my, pt);

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "psi_ex:ticcompat"
+    }
+  ],
+  "cost": 4,
+  "pattern": "psi_ex:tic_cad_socket",
+  "pattern_item": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "result": {
+    "item": "psi_ex:tic_cad_socket"
+  }
+}

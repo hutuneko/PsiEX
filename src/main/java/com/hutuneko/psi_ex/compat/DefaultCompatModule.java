@@ -1,15 +1,14 @@
 package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
-import com.hutuneko.psi_ex.entity.PsiAirEntity;
-import com.hutuneko.psi_ex.entity.PsiArrowEntity;
-import com.hutuneko.psi_ex.entity.PsiNeedleDartEntity;
+import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
 import com.hutuneko.psi_ex.spell.selector.PieceSelector_ItemData;
-import com.hutuneko.psi_ex.spell.selector.PieceSelector_data;
 import com.hutuneko.psi_ex.spell.trick.*;
 import moffy.addonapi.AddonModule;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -47,8 +46,8 @@ public class DefaultCompatModule extends AddonModule {
         );
         PsiEXRegistry.PSI_ARROW = PsiEXRegistry.ITEMS.register("psi_arrow", () ->
                 new PsiArrowItem(new Item.Properties()));
-        PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
-                new ItemNeedleDart(new Item.Properties()));
+//        PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
+//                new ItemNeedleDart(new Item.Properties()));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
 
@@ -64,7 +63,7 @@ public class DefaultCompatModule extends AddonModule {
                         .sized(0.1F, 0.1F)
                         .clientTrackingRange(4)
                         .updateInterval(20)
-                        .build("psi_needle_dartentity"));
+                        .build(new ResourceLocation(PsiEX.MOD_ID, "psi_needle_dartentity").toString()));
 
 //        PsiEXRegistry.PSI_TEST_ENTITY = PsiEXRegistry.ENTITIES.register("dummy_villager",
 //                () -> EntityType.Builder.of(PsiTestEntity::new, MobCategory.MISC)
@@ -92,9 +91,8 @@ public class DefaultCompatModule extends AddonModule {
                                 .clientTrackingRange(64)
                                 .updateInterval(10)
                                 .build(new ResourceLocation(PsiEX.MOD_ID, "needle_projectile").toString()));
-//        PsiEXRegistry.ATTRIBUTE_EDITOR = PsiEXRegistry.MENUS.register("attribute_editor", () ->
-//                        IForgeMenuType.create((windowId, inv, buf) ->
-//                        new AttributeEditorMenu(windowId, inv)
-//                ));
+        PsiEXRegistry.PSI_FAKE_DAMAGE = ResourceKey.create(
+                Registries.DAMAGE_TYPE, new ResourceLocation(PsiEX.MOD_ID, "psi_fake_damage")
+        );
     }
 }

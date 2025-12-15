@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "psi_ex:ticcompat"
+    }
+  ],
+  "pattern": "psi_ex:tic_cad_assembly",
+  "pattern_item": {
+    "tag": "forge:sand/colorless"
+  },
+  "result": {
+    "count": 4,
+    "item": "psi_ex:tic_cad_assembly_sand_cast"
+  }
+}

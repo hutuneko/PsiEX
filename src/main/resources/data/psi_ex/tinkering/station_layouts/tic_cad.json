@@ -1,0 +1,45 @@
+{
+  "icon": {
+    "pattern": "psi_ex:tic_cad"
+  },
+  "input_slots": [
+    {
+      "filter": {
+        "item": "psi_ex:tic_cad_core"
+      },
+      "icon": "psi_ex:tic_cad_core",
+      "translation_key": "item.psi_ex.tic_cad_core",
+      "x": 42,
+      "y": 34
+    },
+    {
+      "filter": {
+        "item": "psi_ex:tic_cad_assembly"
+      },
+      "icon": "psi_ex:tic_cad_assembly",
+      "translation_key": "item.psi_ex.tic_cad_assembly",
+      "x": 42,
+      "y": 56
+    },
+    {
+      "filter": {
+        "item": "psi_ex:tic_cad_battery"
+      },
+      "icon": "psi_ex:tic_cad_battery",
+      "translation_key": "item.psi_ex.tic_cad_battery",
+      "x": 24,
+      "y": 34
+    },
+    {
+      "filter": {
+        "item": "psi_ex:tic_cad_socket"
+      },
+      "icon": "psi_ex:tic_cad_socket",
+      "translation_key": "item.psi_ex.tic_cad_socket",
+      "x": 24,
+      "y": 56
+    }
+  ],
+  "sortIndex": 14,
+  "translation_key": "gui.psi_ex.tic_cad"
+}

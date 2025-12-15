@@ -1,7 +1,6 @@
 package com.hutuneko.psi_ex.system;
 
 import com.hutuneko.psi_ex.PsiEX;
-import com.hutuneko.psi_ex.datagen.GenPsiPieceConditions;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -25,12 +24,5 @@ public class ModEventHandlers {
         event.add(EntityType.PLAYER, PsiEXAttributes.PSI_WEIGHTING_POINT.get());
         event.add(EntityType.PLAYER, PsiEXAttributes.PSI_VIBRATION_POINT.get());
         event.add(EntityType.PLAYER, PsiEXAttributes.PSI_ANCIENTRITES_POINT.get());
-    }
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        var gen = event.getGenerator();
-        var out = gen.getPackOutput();
-        var a = event.getExistingFileHelper();
-//        gen.addProvider(event.includeServer(), GenPsiPieceConditions.create(out, PsiEX.MOD_ID,a));
     }
 }
