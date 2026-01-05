@@ -46,8 +46,8 @@ public class DefaultCompatModule extends AddonModule {
         );
         PsiEXRegistry.PSI_ARROW = PsiEXRegistry.ITEMS.register("psi_arrow", () ->
                 new PsiArrowItem(new Item.Properties()));
-//        PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
-//                new ItemNeedleDart(new Item.Properties()));
+        PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
+                new ItemNeedleDart(new Item.Properties()));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
 

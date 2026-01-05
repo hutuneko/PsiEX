@@ -102,6 +102,7 @@ public class AttributeEditorScreen extends Screen {
         int y = 36;
         for (Row r : rows) {
             g.drawString(this.font, r.label, left, y, 0xAAAAAA, false);
+            y += 24;
         }
 
         super.render(g, mx, my, pt);

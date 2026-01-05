@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonlib:mods_available",
+      "required_raw_module": "botaniacompat"
+    }
+  ],
+  "pattern": [
+    "ACA",
+    "CBC",
+    "ACA"
+  ],
+  "key": {
+    "A": {
+      "item": "psi:ebony_substance"
+    },
+    "B": {
+      "item": "botania:lens_normal"
+    },
+    "C": {
+      "item": "psi:ivory_substance"
+    }
+  },
+  "result": {
+    "item": "psi_ex:psi_arrow",
+    "count": 8
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonlib:mods_available",
+      "required_raw_module": "ironscompat"
+    }
+  ],
+  "pattern": [
+    "ABC",
+    "ADE",
+    "AFG"
+  ],
+  "key": {
+    "A": {
+      "item": "irons_spellbooks:dragonskin"
+    },
+    "B": {
+      "item": "psi:cad_battery_ultradense"
+    },
+    "C": {
+      "item": "psi:cad_core_radiative"
+    },
+    "D": {
+      "item": "irons_spellbooks:energized_core"
+    },
+    "E": {
+      "item": "irons_spellbooks:eldritch_manuscript"
+    },
+    "F": {
+      "item": "psi:cad_socket_huge"
+    },
+    "G": {
+      "item": "psi:cad_assembly_ebony_psimetal"
+    }
+  },
+  "result": {
+    "item": "psi_ex:psi_spellbook",
+    "count": 1
+  }
+}

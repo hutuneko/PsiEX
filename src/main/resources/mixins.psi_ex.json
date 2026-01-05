@@ -9,7 +9,8 @@
   "mixins": [
     "AccessorSpellPiece",
     "MixinCompiledSpellAction_Redirect",
-    "MixinPlayer"
+    "MixinPlayer",
+    "MixinSLevel"
   ],
   "injectors": {
     "defaultRequire": 1

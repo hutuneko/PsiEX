@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "addonlib:mods_available",
+      "required_raw_module": "curioscompat"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "psi:cad_socket_basic"
+    },
+    {
+      "item": "psi:ebony_psimetal"
+    }
+  ],
+  "result": {
+    "item": "psi_ex:extended_cad_socket",
+    "count": 1
+  }
+}

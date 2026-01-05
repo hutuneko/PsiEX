@@ -3,7 +3,7 @@ package com.hutuneko.psi_ex.spell.trick;
 
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.entity.PsiBarrierEntity;
-import com.hutuneko.psi_ex.system.ParamCompoundTag;
+import com.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import vazkii.psi.api.internal.Vector3;

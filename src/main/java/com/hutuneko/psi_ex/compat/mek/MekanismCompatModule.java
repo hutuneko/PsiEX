@@ -7,16 +7,11 @@ import moffy.addonapi.AddonModule;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class MekanismCompatModule extends AddonModule {
-
-
+    public static GasRegistryObject PSI_GAS = null;
+    public static final GasDeferredRegister GASES =
+            new GasDeferredRegister(PsiEX.MOD_ID);
     public MekanismCompatModule() {
-        GasRegistryObject PSI_GAS = null;
-
-        final GasDeferredRegister GASES =
-                new GasDeferredRegister(PsiEX.MOD_ID);
         GASES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-
         PSI_GAS = GASES.register("psi_gas",0x8A2BE2);
     }
 

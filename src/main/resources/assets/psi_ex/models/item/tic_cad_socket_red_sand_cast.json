@@ -1,5 +1,5 @@
 {
-  "parent": "forge:item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "psi_ex:item/casts/tic_cad_socket_red_sand_cast"
   }

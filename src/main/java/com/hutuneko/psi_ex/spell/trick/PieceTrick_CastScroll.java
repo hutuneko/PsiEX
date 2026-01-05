@@ -2,7 +2,7 @@ package com.hutuneko.psi_ex.spell.trick;
 
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.api.CopyPlayerInventory;
-import com.hutuneko.psi_ex.system.ParamCompoundTag;
+import com.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
 import com.mojang.authlib.GameProfile;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;

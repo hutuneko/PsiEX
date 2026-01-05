@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonlib:mods_available",
+      "required_raw_module": "defaultcompatmodule"
+    }
+  ],
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:arrow"
+    },
+    "B": {
+      "item": "psi:psidust"
+    }
+  },
+  "result": {
+    "item": "psi_ex:psi_arrow",
+    "count": 8
+  }
+}

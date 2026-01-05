@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.spell.trick;
 
-import com.hutuneko.psi_ex.system.ParamCompoundTag;
+import com.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
 import net.minecraft.nbt.CompoundTag;
 import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.piece.PieceTrick;

@@ -258,6 +258,12 @@ dependencies {
 mixin {
     add sourceSets.main, 'mixins.psi_ex.refmap.json'
     config 'mixins.psi_ex.json'
+    debug.verbose = true
+    debug.export = true
+    dumpTargetOnFailure = true
+
+    // Options for the Annotation Processor
+    quiet
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17

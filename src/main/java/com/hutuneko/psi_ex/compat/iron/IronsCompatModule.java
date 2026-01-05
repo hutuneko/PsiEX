@@ -7,13 +7,13 @@ import com.hutuneko.psi_ex.spell.trick.PieceTrick_CastScroll;
 import com.hutuneko.psi_ex.system.CuriosUtil;
 import io.redspace.ironsspellbooks.api.events.SpellDamageEvent;
 import moffy.addonapi.AddonModule;
-import moffy.ticex.modules.general.TicEXRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModList;
 import top.theillusivec4.curios.api.SlotResult;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.ISocketable;
@@ -35,7 +35,11 @@ public class IronsCompatModule extends AddonModule {
 
         var caster = e.getSpellDamageSource().getEntity();
         if (!(caster instanceof Player p)) return;
-        if (!hasMySpecialSpellbook(p)) return;
+        if ( ModList.get().isLoaded("ticex")){
+            if (!IfTiCEX.hasMySpecialSpellbook(p)) return;
+        }else {
+            if (!hasMySpecialSpellbook(p)) return;
+        }
 
         Optional<SlotResult> res = CuriosUtil.findFirstByItem(p, PsiEXRegistry.PSI_SPELLBOOK.get());
         if (res.isEmpty()) return;
@@ -58,13 +62,8 @@ public class IronsCompatModule extends AddonModule {
 
         spellContext.cspell.safeExecute(spellContext);
     }
-
-    private static boolean hasMySpecialSpellbook(Player p) {
-        boolean hasBullet = CuriosUtil.findFirstByItem(p, PsiEXRegistry.PSI_SPELLBOOK.get()).isPresent();
-        boolean hasCatalyst = CuriosUtil.findFirstByItem(p, TicEXRegistry.CATALYST_IRONS_SPELLBOOK.get()).isPresent();
-
-        // どちらか一方でも装備していれば true
-        return hasBullet || hasCatalyst;
+    public static boolean hasMySpecialSpellbook(Player p) {
+        return CuriosUtil.findFirstByItem(p, PsiEXRegistry.PSI_SPELLBOOK.get()).isPresent();
     }
 }
 

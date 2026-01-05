@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonlib:mods_available",
+      "required_raw_module": "curioscompat"
+    }
+  ],
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "psi:psidust"
+    },
+    "B": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "psi_ex:psi_arrow",
+    "count": 8
+  }
+}

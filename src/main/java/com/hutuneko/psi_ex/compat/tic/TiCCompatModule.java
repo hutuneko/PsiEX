@@ -52,6 +52,8 @@ public class TiCCompatModule extends AddonModule {
         TIC_CAD_BATTERY_CAST = castItemObject("tic_cad_battery",() -> new Item(new Item.Properties()));
         TIC_CAD_SOCKET_CAST = castItemObject("tic_cad_socket",() -> new Item(new Item.Properties()));
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onDamage);
+        MinecraftForge.EVENT_BUS.addListener(TiCEvent::onLightningStrike);
+        MinecraftForge.EVENT_BUS.addListener(TiCEvent::tick);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ticattack"), PieceTrick_TiCAttack.class);
     }

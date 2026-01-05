@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "psi_ex:tic_cad_core_sand_cast",
+      "required": false
+    },
+    {
+      "id": "psi_ex:tic_cad_assembly_sand_cast",
+      "required": false
+    },
+    {
+      "id": "psi_ex:tic_cad_battery_sand_cast",
+      "required": false
+    },
+    {
+      "id": "psi_ex:tic_cad_socket_sand_cast",
+      "required": false
+    }
+  ]
+}
