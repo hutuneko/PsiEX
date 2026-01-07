@@ -55,7 +55,7 @@ public class PieceTrick_PoisonousBee extends PieceTrick {
         float current = living.getHealth();
         float hp = (max - current) * hpVal;
         if (hp >= current){
-            e.getPersistentData().putBoolean("psi_ex:death",true);
+            living.setHealth(0);
         }else {
             e.hurt(e.level().damageSources().
                     thrown(e, e), hp);

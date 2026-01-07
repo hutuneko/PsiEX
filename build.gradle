@@ -1,15 +1,25 @@
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
 plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
 group = mod_group_id
 
+apply plugin: 'org.spongepowered.mixin'
 base {
     archivesName = mod_id
 }
@@ -217,6 +227,7 @@ minecraft {
     runs {
         client {
             jvmArgs "-Dmixin.env.disableRefMap=true"
+            jvmArgs "-Dmixin.env.remapRefMap=true"
             jvmArgs "-Dforge.logging.mojang.level=debug"
             jvmArgs "-Dmixin.debug.export=true"
         }
@@ -251,13 +262,18 @@ dependencies {
         implementation fg.deobf("curse.maven:placebo-283644:6274231")
 //        implementation fg.deobf(files("libs/psitweaks-0.5.0.jar"))
         implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:6860192")
+        implementation fg.deobf("curse.maven:selene-499980:7388296")
         implementation fg.deobf("curse.maven:ticex-tinkers-construct-ex-1242469:7101320")
         implementation fg.deobf("curse.maven:tinkers-construct-74072:6777068")
         implementation fg.deobf("curse.maven:mantle-74924:6819217")
+        implementation fg.deobf("curse.maven:apoex-apotheosis-ex-1415746:7399188")
+        implementation fg.deobf("curse.maven:apotheosis-313970:6461960")
+        implementation fg.deobf("curse.maven:apothic-attributes-898963:5634071")
     }
 mixin {
-    add sourceSets.main, 'mixins.psi_ex.refmap.json'
-    config 'mixins.psi_ex.json'
+    add sourceSets.main, "refmap.${mod_id}.json"
+
+    config "mixins.${mod_id}.json"
     debug.verbose = true
     debug.export = true
     dumpTargetOnFailure = true

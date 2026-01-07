@@ -8,9 +8,12 @@
   },
   "mixins": [
     "AccessorSpellPiece",
+    "AssembleCADEventMixin",
+    "ItemMixin",
     "MixinCompiledSpellAction_Redirect",
     "MixinPlayer",
-    "MixinSLevel"
+    "MixinSLevel",
+    "PsiAPIMixin"
   ],
   "injectors": {
     "defaultRequire": 1

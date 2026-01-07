@@ -1,7 +1,6 @@
 package com.hutuneko.psi_ex.mixin;
 
 import com.hutuneko.psi_ex.api.SpellTriggerContext;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
