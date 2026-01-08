@@ -1,6 +1,5 @@
 package com.hutuneko.psi_ex.system.attribute;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
@@ -29,10 +28,20 @@ public record S2COpenEditor(Map<ResourceLocation, Double> values) {
     }
     public static void handle(S2COpenEditor msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player == null) return;
-            mc.setScreen(new AttributeEditorScreen(msg.values));
+            // 直接 Minecraft クラスに触れず、別のメソッドを経由させる
+            if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
+                ClientHandler.handle(msg);
+            }
         });
         ctx.get().setPacketHandled(true);
+    }
+
+    // クライアント専用の内部クラスを作って隔離する（重要）
+    private static class ClientHandler {
+        public static void handle(S2COpenEditor msg) {
+            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+            if (mc.player == null) return;
+            mc.setScreen(new AttributeEditorScreen(msg.values));
+        }
     }
 }

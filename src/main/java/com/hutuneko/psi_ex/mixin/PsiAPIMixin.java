@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.ICAD;
+import vazkii.psi.common.item.ItemCAD;
 
 @Mixin(value = PsiAPI.class, remap = false)
 public class PsiAPIMixin {
@@ -23,31 +24,32 @@ public class PsiAPIMixin {
     private static void onGetPlayerCAD(Player player, CallbackInfoReturnable<ItemStack> cir) {
         if (player == null) {
             cir.setReturnValue(ItemStack.EMPTY);
+            cir.cancel();
             return;
         }
 
         ItemStack foundCad = ItemStack.EMPTY;
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+        for(int i = 0; i < player.getInventory().getContainerSize(); ++i) {
             ItemStack stackAt = player.getInventory().getItem(i);
-
-            // ここで独自の isCAD チェックを挟む
-            if (!stackAt.isEmpty() && CadBehavior.isCAD(stackAt)) {
-                if (stackAt.getItem() instanceof ICAD) {
-                    if (!foundCad.isEmpty()) {
-                        cir.setReturnValue(ItemStack.EMPTY);
-                        return;
-                    }
-                    foundCad = stackAt;
+            if (!stackAt.isEmpty() && (stackAt.getItem() instanceof ItemCAD || CadBehavior.isCAD(stackAt))) {
+                if (!foundCad.isEmpty()) {
+                    cir.setReturnValue(ItemStack.EMPTY);
+                    cir.cancel();
+                    return;
                 }
+
+                foundCad = stackAt;
             }
         }
         cir.setReturnValue(foundCad);
+        cir.cancel();
     }
 
     @Inject(method = "getPlayerCADSlot", at = @At("HEAD"), cancellable = true)
     private static void onGetPlayerCADSlot(Player player, CallbackInfoReturnable<Integer> cir) {
         if (player == null) {
             cir.setReturnValue(-1);
+            cir.cancel();
             return;
         }
 
@@ -55,10 +57,11 @@ public class PsiAPIMixin {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stackAt = player.getInventory().getItem(i);
 
-            if (!stackAt.isEmpty() && CadBehavior.isCAD(stackAt)) {
+            if (!stackAt.isEmpty() && (stackAt.getItem() instanceof ItemCAD || CadBehavior.isCAD(stackAt))) {
                 if (stackAt.getItem() instanceof ICAD) {
                     if (slot != -1) {
                         cir.setReturnValue(-1);
+                        cir.cancel();
                         return;
                     }
                     slot = i;
@@ -66,5 +69,6 @@ public class PsiAPIMixin {
             }
         }
         cir.setReturnValue(slot);
+        cir.cancel();
     }
 }

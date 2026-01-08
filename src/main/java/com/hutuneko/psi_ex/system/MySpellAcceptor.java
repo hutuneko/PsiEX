@@ -11,12 +11,7 @@ import vazkii.psi.common.item.ItemSpellDrive;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
-public class MySpellAcceptor implements ISpellAcceptor {
-    private final ItemStack stack;
-
-    public MySpellAcceptor(ItemStack stack) {
-        this.stack = stack;
-    }
+public record MySpellAcceptor(ItemStack stack) implements ISpellAcceptor {
 
     @Override
     public boolean containsSpell() {

@@ -9,13 +9,13 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.psi.api.cad.CADStatEvent;
 import vazkii.psi.api.cad.EnumCADStat;
 import vazkii.psi.common.item.ItemCAD;
+import vazkii.psi.common.item.base.ModItems;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +24,9 @@ public class CadBehavior {
     public CadBehavior() {}
     public ItemCAD getCad() {
         if (cad == null){
-            cad = new ItemCAD(new Item.Properties());
+            if (ModItems.cad instanceof ItemCAD newcad){
+                this.cad = newcad;
+            }
         }
         return cad;
     }

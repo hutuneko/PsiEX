@@ -1,6 +1,7 @@
 package com.hutuneko.psi_ex.mixin;
 
 import com.hutuneko.psi_ex.api.CadBehavior;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -9,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,6 +20,7 @@ import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.EnumCADStat;
 import vazkii.psi.api.cad.ICAD;
 import vazkii.psi.api.internal.Vector3;
+import vazkii.psi.common.item.ItemCAD;
 
 @Mixin(Item.class)
 @Implements(@Interface(iface = ICAD.class, prefix = "icad$"))
@@ -76,13 +78,22 @@ public abstract class ItemMixin {
         if (!CadBehavior.isCAD(stack)) return Vector3.zero; // 修正: nullではなくゼロベクトルを返す
         return psi_ex_1_20_1$cad.getCad().getStoredVector(stack, memorySlot);
     }
-    @OnlyIn(Dist.CLIENT)
     public int icad$getSpellColor(ItemStack stack) {
-        if (!CadBehavior.isCAD(stack)) return 1295871;
-        return psi_ex_1_20_1$cad.getCad().getSpellColor(stack);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            if (CadBehavior.isCAD(stack)) {
+                return psi_ex_1_20_1$cad.getCad().getSpellColor(stack);
+            }
+        }
+        return 1295871;
     }
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void onInventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected, CallbackInfo ci) {
+        if (((Item)(Object)this) instanceof ItemCAD) {
+            CompoundTag nbt = stack.getOrCreateTag();
+            if (!nbt.contains("psiex_iscad")) {
+                nbt.putBoolean("psiex_iscad", true);
+            }
+        }
         if (CadBehavior.isCAD(stack)) {
             psi_ex_1_20_1$cad.getCad().inventoryTick(stack, world, entity, itemSlot, isSelected);
         }
@@ -91,10 +102,8 @@ public abstract class ItemMixin {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void psi_ex$use(Level pLevel, Player pPlayer, InteractionHand pUsedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        // CADとして振る舞うべき時だけ処理
         if (CadBehavior.isCAD(stack)) {
             InteractionResultHolder<ItemStack> result = psi_ex_1_20_1$cad.use(pLevel, pPlayer, pUsedHand);
-            // 修正: 結果がnullでない場合のみ、元の処理をキャンセルして結果を返す
             if (result != null) {
                 cir.setReturnValue(result);
             }
