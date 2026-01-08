@@ -78,7 +78,7 @@ public class PieceTrick_CastScroll extends PieceTrick {
         fake.setYRot(player.getYRot());
         fake.setXRot(player.getXRot());
         fake.setYHeadRot(player.getYHeadRot());
-        CopyPlayerInventory.copyInventory((ServerPlayer) player,fake);
+        CopyPlayerInventory.copyFeke((ServerPlayer) player,fake);
         long currentTick = sWorld.getGameTime();
         long removeTick = currentTick + 20 * 10;
 

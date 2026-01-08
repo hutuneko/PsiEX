@@ -34,7 +34,7 @@ public class DefaultCompatModule extends AddonModule {
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), PieceOperator_getSeve_Number.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_poisonousbee"), PieceTrick_PoisonousBee.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_compressedair"), PieceTrick_CompressedAir.class);
-
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_selfbigexplosion"),PieceTrick_SelfBigExplosion.class);
 //        PsiEXRegistry.STORAGE = PsiEXRegistry.ITEMS.register("storage", () ->
 //                new ItemStorage(new Item.Properties().stacksTo(1))
 //        );

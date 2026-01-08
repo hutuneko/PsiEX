@@ -14,6 +14,5 @@ public class MekanismCompatModule extends AddonModule {
         GASES.register(FMLJavaModLoadingContext.get().getModEventBus());
         PSI_GAS = GASES.register("psi_gas",0x8A2BE2);
     }
-
 }
 

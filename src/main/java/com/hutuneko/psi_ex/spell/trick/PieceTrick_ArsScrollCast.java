@@ -81,7 +81,7 @@ public class PieceTrick_ArsScrollCast extends PieceTrick {
         fake.setPos(v.x, v.y, v.z);
         fake.setYRot(player.getYRot());
         fake.setXRot(player.getXRot());
-        CopyPlayerInventory.copyInventory((ServerPlayer) player,fake);
+        CopyPlayerInventory.copyFeke((ServerPlayer) player,fake);
 
         com.hollingsworth.arsnouveau.api.spell.SpellContext arsCtx =
                 com.hollingsworth.arsnouveau.api.spell.SpellContext.fromEntity(

@@ -1,0 +1,8 @@
+{
+  "all": [
+    { "type": "attribute_at_least", "attribute": "psi_ex:psi_emission_point", "value": 100, "mode": "TOTAL" },
+    { "type": "attribute_at_least", "attribute": "psi_ex:psi_convergence_point", "value": 100, "mode": "TOTAL" }
+  ],
+  "message": "psi_ex:psi_emission_pointが100.0、psi_ex:psi_convergence_pointが100.0必要です",
+  "piece": "psi:trick_explode"
+}
