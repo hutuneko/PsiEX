@@ -75,7 +75,7 @@ public abstract class ItemMixin {
     }
 
     public Vector3 icad$getStoredVector(ItemStack stack, int memorySlot) throws Exception {
-        if (!CadBehavior.isCAD(stack)) return Vector3.zero; // 修正: nullではなくゼロベクトルを返す
+        if (!CadBehavior.isCAD(stack)) return Vector3.zero;
         return psi_ex_1_20_1$cad.getCad().getStoredVector(stack, memorySlot);
     }
     public int icad$getSpellColor(ItemStack stack) {

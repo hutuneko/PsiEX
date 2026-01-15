@@ -14,11 +14,6 @@ public abstract class AssembleCADEventMixin {
 
     @Shadow(remap = false) private ItemStack cad;
 
-    /**
-     * setCad メソッドの先頭に処理を注入します。
-     * PsiEX の CAD フラグが立っている場合、本来の instanceof チェックが走る前に
-     * 自前で値をセットして、メソッド全体をキャンセル（早期終了）させます。
-     */
     @Inject(method = "setCad", at = @At("HEAD"), cancellable = true,remap = false)
     private void onSetCad(ItemStack newCad, CallbackInfo ci) {
         if (newCad != null && !newCad.isEmpty() && CadBehavior.isCAD(newCad)) {

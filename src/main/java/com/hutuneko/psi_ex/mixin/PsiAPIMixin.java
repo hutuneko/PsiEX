@@ -14,12 +14,6 @@ import vazkii.psi.common.item.ItemCAD;
 @Mixin(value = PsiAPI.class, remap = false)
 public class PsiAPIMixin {
 
-    /**
-     * getPlayerCAD 内のループで各スロットをチェックする際、
-     * instanceof ICAD の判定結果を無視して、フラグがない場合は「次へ」飛ばすように制御します。
-     * * ここでは単純に「ループ内の stackAt 判定」を上書きするのではなく、
-     * メソッド全体に対して Inject し、自前でループを回して「正しいCAD」が見つかったらそれを返すようにします。
-     */
     @Inject(method = "getPlayerCAD", at = @At("HEAD"), cancellable = true)
     private static void onGetPlayerCAD(Player player, CallbackInfoReturnable<ItemStack> cir) {
         if (player == null) {

@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.RegistryObject;
 import vazkii.psi.api.PsiAPI;
 
-public class DefaultCompatModule extends AddonModule {
+public class DefaultCompatModule implements AddonModule {
     public DefaultCompatModule() {
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_data"), PieceSelector_data.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "copy"), PieceTrick_copy.class);

@@ -22,7 +22,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.PsiAPI;
 
-public class CuriosCompatModule extends AddonModule {
+public class CuriosCompatModule implements AddonModule {
     public CuriosCompatModule() {
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getspell"), PieceOperator_getSpell.class);
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_executespell"), PieceTrick_ExecuteSpell.class);

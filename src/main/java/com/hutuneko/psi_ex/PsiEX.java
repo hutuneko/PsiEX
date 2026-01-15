@@ -21,6 +21,7 @@ public class PsiEX {
     public static final String MOD_ID = "psi_ex";
     public static final Logger LOGGER = LogUtils.getLogger();
     public PsiEX() {
+        Config.config(FMLJavaModLoadingContext.get());
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(this::commonSetup);
         PsiEXRegistry.ITEMS.register(modBus);

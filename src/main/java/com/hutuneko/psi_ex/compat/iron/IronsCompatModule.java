@@ -23,7 +23,7 @@ import vazkii.psi.api.spell.SpellContext;
 
 import java.util.Optional;
 
-public class IronsCompatModule extends AddonModule {
+public class IronsCompatModule implements AddonModule {
     public IronsCompatModule() {
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_castscroll"), PieceTrick_CastScroll.class);
         PsiEXRegistry.PSI_SPELLBOOK = PsiEXRegistry.ITEMS.register("psi_spellbook", () -> new PsiSpellBook(12));

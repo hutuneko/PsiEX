@@ -10,40 +10,44 @@ import com.hutuneko.psi_ex.compat.iron.IronsCompatModule;
 import com.hutuneko.psi_ex.compat.mek.MekanismCompatModule;
 import com.hutuneko.psi_ex.compat.tic.TiCCompatModule;
 import moffy.addonapi.AddonModuleProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class CompatModule extends AddonModuleProvider {
+    public CompatModule(FMLJavaModLoadingContext context) {
+        super(context);
+    }
+
     @Override
     public void registerRawModules() {
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "defaultcompatmodule"),
+        addRawModule("defaultcompatmodule",
         "Default Compat",
                 DefaultCompatModule.class,
                 new String[] { "psi", PsiEX.MOD_ID});
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "botaniacompat"),
+        addRawModule("botaniacompat",
                 "Botania Compat",
                 BotaniaCompatModule.class,
                 new String[] { "psi", "botania" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "arscompat"),
+        addRawModule("arscompat",
                 "Ars Nouveau Compat",
                 ArsCompatModule.class,
                 new String[] { "psi", "ars_nouveau" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "ironscompat"),
+        addRawModule("ironscompat",
                 "Iron's Compat",
                 IronsCompatModule.class,
                 new String[] { "psi", "irons_spellbooks" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "mekcompat"),
+        addRawModule("mekcompat",
                 "Mekanism Compat",
                 MekanismCompatModule.class,
                 new String[] { "psi", "mekanism" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "curioscompat"),
+        addRawModule("curioscompat",
                 "Curios Compat",
                 CuriosCompatModule.class,
                 new String[] { "psi", "curios" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "ccccompat"),
+        addRawModule("ccccompat",
                 "CCC Compat",
                 CCCuriosModule.class,
                 new String[] { "psi", "curios", "computercraft" });
-        addRawModule(new ResourceLocation(PsiEX.MOD_ID, "ticcompat"),
+        addRawModule("ticcompat",
                 "TiC Compat",
                 TiCCompatModule.class,
                 new String[] { "psi", "tconstruct" });

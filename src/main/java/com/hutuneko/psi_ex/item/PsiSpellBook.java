@@ -25,7 +25,7 @@ public class PsiSpellBook extends SpellBook {
         return slot;
     }
     public PsiSpellBook(int maxStackSize) {
-        super(maxStackSize,SpellRarity.LEGENDARY,new Item.Properties().stacksTo(maxStackSize));
+        super(maxStackSize,new Item.Properties().stacksTo(maxStackSize));
         this.maxStackSize = maxStackSize;
     }
 

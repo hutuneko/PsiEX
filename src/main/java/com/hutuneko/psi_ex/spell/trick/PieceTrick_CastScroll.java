@@ -21,6 +21,7 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.NotNull;
 import vazkii.psi.api.internal.Vector3;
 import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.param.ParamVector;
@@ -79,20 +80,7 @@ public class PieceTrick_CastScroll extends PieceTrick {
         fake.setXRot(player.getXRot());
         fake.setYHeadRot(player.getYHeadRot());
         CopyPlayerInventory.copyFeke((ServerPlayer) player,fake);
-        long currentTick = sWorld.getGameTime();
-        long removeTick = currentTick + 20 * 10;
-
-        Object removalListener = new Object() {
-            @SubscribeEvent(priority = EventPriority.NORMAL)
-            public void onServerTick(TickEvent.ServerTickEvent evt) {
-                if (evt.phase == TickEvent.Phase.END && sWorld.getGameTime() >= removeTick) {
-                    if (fake.isAlive()) {
-                        fake.remove(Entity.RemovalReason.DISCARDED);
-                    }
-                    MinecraftForge.EVENT_BUS.unregister(this);
-                }
-            }
-        };
+        Object removalListener = getevent(sWorld, fake);
 
         Item scrollItem = PsiEXRegistry.CAST_SCROLL.get();
         ItemStack scrollStack = new ItemStack(scrollItem);
@@ -115,7 +103,6 @@ public class PieceTrick_CastScroll extends PieceTrick {
         if (diff.magSquared() > maxRange * maxRange) {
             throw new SpellRuntimeException("射程外です");
         }
-
         for (int i = 0; i < count; i++) {
             SpellData data = container.getSpellAtIndex(i);
             AbstractSpell spell = data.getSpell();
@@ -134,5 +121,22 @@ public class PieceTrick_CastScroll extends PieceTrick {
         }
         MinecraftForge.EVENT_BUS.register(removalListener);
         return null;
+    }
+
+    private @NotNull Object getevent(ServerLevel sWorld, ServerPlayer fake) {
+        long currentTick = sWorld.getGameTime();
+        long removeTick = currentTick + 20 * 10;
+
+        return new Object() {
+            @SubscribeEvent(priority = EventPriority.NORMAL)
+            public void onServerTick(TickEvent.ServerTickEvent evt) {
+                if (evt.phase == TickEvent.Phase.END && sWorld.getGameTime() >= removeTick) {
+                    if (fake.isAlive()) {
+                        fake.remove(Entity.RemovalReason.DISCARDED);
+                    }
+                    MinecraftForge.EVENT_BUS.unregister(this);
+                }
+            }
+        };
     }
 }

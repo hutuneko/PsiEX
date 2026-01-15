@@ -3,20 +3,21 @@ package com.hutuneko.psi_ex;
 import com.hutuneko.psi_ex.compat.CompatModule;
 import moffy.addonapi.AddonModuleRegistry;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class Config {
-    public static final ForgeConfigSpec COMMON_SPEC;
-    public static final Common COMMON;
+    public static ForgeConfigSpec COMMON_SPEC;
+    public static Common COMMON;
 
-    private static final ForgeConfigSpec.Builder BUILDER;
+    private static ForgeConfigSpec.Builder BUILDER;
 
-    static {
+    public static void config(FMLJavaModLoadingContext context) {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         BUILDER = builder;
 
         COMMON = new Common(builder);
 
-        AddonModuleRegistry.INSTANCE.LoadModule(new CompatModule(), BUILDER);
+        AddonModuleRegistry.INSTANCE.LoadModule(new CompatModule(context), BUILDER);
 
         COMMON_SPEC = BUILDER.build();
     }

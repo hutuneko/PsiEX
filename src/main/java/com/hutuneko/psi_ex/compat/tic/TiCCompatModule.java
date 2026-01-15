@@ -23,7 +23,7 @@ import vazkii.psi.api.PsiAPI;
 
 import java.util.function.Supplier;
 
-public class TiCCompatModule extends AddonModule {
+public class TiCCompatModule implements AddonModule {
     public static ItemObject<ToolPartItem> TIC_CAD_CORE = null;
     public static ItemObject<ToolPartItem> TIC_CAD_SOCKET = null;
     public static ItemObject<ToolPartItem> TIC_CAD_ASSEMBLY = null;

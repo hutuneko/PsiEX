@@ -6,7 +6,7 @@ import mekanism.common.registration.impl.GasRegistryObject;
 import moffy.addonapi.AddonModule;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class MekanismCompatModule extends AddonModule {
+public class MekanismCompatModule implements AddonModule {
     public static GasRegistryObject PSI_GAS = null;
     public static final GasDeferredRegister GASES =
             new GasDeferredRegister(PsiEX.MOD_ID);

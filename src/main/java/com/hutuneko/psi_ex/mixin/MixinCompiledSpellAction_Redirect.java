@@ -16,7 +16,6 @@ import vazkii.psi.api.spell.SpellPiece;
 @Mixin(CompiledSpell.Action.class)
 public abstract class MixinCompiledSpellAction_Redirect {
     @Shadow @Final public SpellPiece piece;
-    // MixinCompiledSpellAction_Redirect.java
 
     @Inject(method = "execute", at = @At("HEAD"), remap = false, cancellable = true)
     private void gate$redirectExecute(IPlayerData data, SpellContext ctx, CallbackInfo ci) {
