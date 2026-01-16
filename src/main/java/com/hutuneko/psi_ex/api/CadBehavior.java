@@ -40,11 +40,8 @@ public class CadBehavior {
     public int getStatValue(ItemStack stack, EnumCADStat stat) {
 
         if (isCAD(stack)) {
-            // バニラのステータスを取得するためのヘルパー値を計算
             int durability = stack.getMaxDamage();
-            // 攻撃力 (基本値 1 + 補正値)
-            double attackDamage = 1.0 + getAttributeValue(stack, Attributes.ATTACK_DAMAGE);
-            // 攻撃速度 (基本値 4.0 + 補正値) ※剣などはマイナス補正が入るため加算で正しい値になる
+            double attackDamage = 4 + getAttributeValue(stack, Attributes.ATTACK_DAMAGE);
             double attackSpeed = 4.0 + getAttributeValue(stack, Attributes.ATTACK_SPEED);
 
             int baseStatValue = 0;
@@ -58,7 +55,6 @@ public class CadBehavior {
 
             } else if (stat == EnumCADStat.SOCKETS) {
                 // ソケット数: 耐久力に応じて増える (例: 1000耐久で10スロット+1)
-                // ※最大12なのでキャップが必要かもしれません
                 baseStatValue = Math.min(12, durability / 100 + 1);
 
             } else if (stat == EnumCADStat.SAVED_VECTORS) {
@@ -81,7 +77,6 @@ public class CadBehavior {
                 // 3. 攻撃力ベース (威力、帯域などパワーに関わるもの)
             } else if (stat == EnumCADStat.POTENCY) {
                 // 威力: 攻撃力が高いほど強い
-                // 例: ダイヤ剣(7) -> 7 * 30 = 210
                 baseStatValue = (int) (attackDamage * 30);
 
             } else if (stat == EnumCADStat.BANDWIDTH) {

@@ -1,7 +1,11 @@
 package com.hutuneko.psi_ex.system.attribute;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.LinkedHashMap;
@@ -29,7 +33,7 @@ public record S2COpenEditor(Map<ResourceLocation, Double> values) {
     public static void handle(S2COpenEditor msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             // 直接 Minecraft クラスに触れず、別のメソッドを経由させる
-            if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
+            if (FMLEnvironment.dist == Dist.CLIENT) {
                 ClientHandler.handle(msg);
             }
         });
@@ -37,9 +41,10 @@ public record S2COpenEditor(Map<ResourceLocation, Double> values) {
     }
 
     // クライアント専用の内部クラスを作って隔離する（重要）
+    @OnlyIn(Dist.CLIENT)
     private static class ClientHandler {
         public static void handle(S2COpenEditor msg) {
-            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+            Minecraft mc = Minecraft.getInstance();
             if (mc.player == null) return;
             mc.setScreen(new AttributeEditorScreen(msg.values));
         }

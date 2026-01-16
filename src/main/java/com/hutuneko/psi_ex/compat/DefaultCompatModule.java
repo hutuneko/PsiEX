@@ -3,9 +3,11 @@ package com.hutuneko.psi_ex.compat;
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
+import com.hutuneko.psi_ex.recipe.NbtAddRecipe;
 import com.hutuneko.psi_ex.spell.selector.PieceSelector_ItemData;
 import com.hutuneko.psi_ex.spell.trick.*;
 import moffy.addonapi.AddonModule;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -15,6 +17,12 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import vazkii.psi.api.PsiAPI;
 
@@ -40,6 +48,9 @@ public class DefaultCompatModule implements AddonModule {
 //        );
         PsiEXRegistry.CAST_SCROLL = PsiEXRegistry.ITEMS.register("cast_scroll", () ->
                 new Item(new Item.Properties().stacksTo(1))
+        );
+        PsiEXRegistry.CAD_PATCH = PsiEXRegistry.ITEMS.register("cad_patch", () ->
+                new Item(new Item.Properties())
         );
         PsiEXRegistry.PERSONAL_TUNER = PsiEXRegistry.ITEMS.register("personal_tuner", () ->
                 new ItemPersonalTuner(new Item.Properties().stacksTo(1))
@@ -93,6 +104,28 @@ public class DefaultCompatModule implements AddonModule {
                                 .build(new ResourceLocation(PsiEX.MOD_ID, "needle_projectile").toString()));
         PsiEXRegistry.PSI_FAKE_DAMAGE = ResourceKey.create(
                 Registries.DAMAGE_TYPE, new ResourceLocation(PsiEX.MOD_ID, "psi_fake_damage")
+        );
+        PsiEXRegistry.NBT_ADDING_SERIALIZER =
+                PsiEXRegistry.SERIALIZERS.register("nbt_adding", () -> new SimpleCraftingRecipeSerializer<>(NbtAddRecipe::new));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
+    }
+    @OnlyIn(Dist.CLIENT)
+    private void cevents(){
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegisterRenderers);
+    }
+    @OnlyIn(Dist.CLIENT)
+    private void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e){
+        e.registerEntityRenderer(
+                PsiEXRegistry.PSI_ARROW_ENTITY.get(),
+                PsiArrowRenderer::new
+        );
+        e.registerEntityRenderer(
+                PsiEXRegistry.PSI_NEEDLE_DARTENTITY.get(),
+                ThrownItemRenderer::new
+        );
+        e.registerEntityRenderer(
+                PsiEXRegistry.PSI_COMPRESSIONAIR_ENTITY.get(),
+                ThrownItemRenderer::new
         );
     }
 }

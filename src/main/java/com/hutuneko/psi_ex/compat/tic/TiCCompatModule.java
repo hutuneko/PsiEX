@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -54,14 +55,18 @@ public class TiCCompatModule implements AddonModule {
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onDamage);
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onLightningStrike);
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::tick);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ticattack"), PieceTrick_TiCAttack.class);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     public CastItemObject castItemObject(String name, Supplier<? extends Item> constructor) {
         ItemObject<Item> cast = new ItemObject<>(PsiEXRegistry.ITEMS.register(name + "_cast", constructor));
         ItemObject<Item> sandCast = new ItemObject<>(PsiEXRegistry.ITEMS.register(name + "_sand_cast", constructor));
         ItemObject<Item> redSandCast = new ItemObject<>(PsiEXRegistry.ITEMS.register(name + "_red_sand_cast", constructor));
         return new CastItemObject(new ResourceLocation(PsiEX.MOD_ID,name), cast, sandCast, redSandCast);
+    }
+    @OnlyIn(Dist.CLIENT)
+    private void cevents(){
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     }
     @OnlyIn(Dist.CLIENT)
     @Override

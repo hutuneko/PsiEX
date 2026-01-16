@@ -33,6 +33,7 @@
   "psi_ex.spellpiece.piecetrick_ticattack.desc": "TiC CAD Only",
 
   "item.psi_ex.psi_arrow": "Spell Arrow",
+  "item.psi_ex.cad_patch": "CADPatch",
   "item.psi_ex.extended_cad_socket": "CAD Expansion Slot",
   "item.psi_ex.psi_spellbook": "CAD Spellbook",
   "item.psi_ex.psi_mana_lens": "Mana Lens: Spell",

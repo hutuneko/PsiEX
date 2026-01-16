@@ -19,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.PsiAPI;
 
@@ -42,6 +43,10 @@ public class CuriosCompatModule implements AddonModule {
                         .clientTrackingRange(32)
                         .updateInterval(1)
                         .build(new ResourceLocation(PsiEX.MOD_ID, "barrier").toString()));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
+    }
+    @OnlyIn(Dist.CLIENT)
+    private void cevents(){
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegisterRenderers);
     }
     @OnlyIn(Dist.CLIENT)

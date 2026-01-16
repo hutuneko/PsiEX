@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "psi_ex:item/casts/tic_cad_core_cast"
+    "layer0": "psi_ex:item/casts/tic_cad_core_sand_cast"
   }
 }

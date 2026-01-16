@@ -15,7 +15,6 @@ import net.minecraftforge.network.simple.SimpleChannel;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Net {
 
-    // チャンネルは 1 本化（"main"）
     private static final String PROTOCOL = "1";
     public static SimpleChannel CHANNEL;
     private static int id = 0;

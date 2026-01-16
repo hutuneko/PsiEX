@@ -21,9 +21,9 @@ public class PsiEX {
     public static final String MOD_ID = "psi_ex";
     public static final Logger LOGGER = LogUtils.getLogger();
     public PsiEX() {
-        Config.config(FMLJavaModLoadingContext.get());
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modBus.addListener(this::commonSetup);
+        FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
+        Config.config(context);
+        IEventBus modBus = context.getModEventBus();
         PsiEXRegistry.ITEMS.register(modBus);
         PsiEXRegistry.TYPES.register(modBus);
         PsiEXRegistry.BLOCKS.register(modBus);
@@ -34,12 +34,6 @@ public class PsiEX {
         PsiEXAttributes.register(modBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
     }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-
 
     public static List<String> listAllAttributeNames() {
         List<String> names = new ArrayList<>();

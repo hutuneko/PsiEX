@@ -2,6 +2,7 @@ package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.entity.*;
+import com.hutuneko.psi_ex.recipe.NbtAddRecipe;
 import com.hutuneko.psi_ex.system.attribute.AttributeEditorMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -18,8 +19,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.tconstruct.library.tools.part.ToolPartItem;
 
 public class PsiEXRegistry {
 
@@ -50,7 +49,7 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> PSI_SPELLBOOK = null;
     public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
     public static RegistryObject<Item> PSI_NEEDLE_DART = null;
-
+    public static RegistryObject<Item> CAD_PATCH = null;
 
     public static RegistryObject<Item> PSI_BOW = null;
     public static RegistryObject<Item> STORAGE = null;
@@ -67,4 +66,5 @@ public class PsiEXRegistry {
     public static RegistryObject<CreativeModeTab> CREATIVE_TAB_ITEMS = null;
 
     public static ResourceKey<DamageType> PSI_FAKE_DAMAGE = null;
+    public static RegistryObject<RecipeSerializer<NbtAddRecipe>> NBT_ADDING_SERIALIZER = null;
 }

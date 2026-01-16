@@ -14,14 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientSetup {
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e) {
-        e.registerEntityRenderer(
-                PsiEXRegistry.PSI_ARROW_ENTITY.get(),
-                PsiArrowRenderer::new
-        );
 
-        e.registerEntityRenderer(PsiEXRegistry.PSI_NEEDLE_DARTENTITY.get(),
-                ThrownItemRenderer::new);
-        e.registerEntityRenderer(PsiEXRegistry.PSI_COMPRESSIONAIR_ENTITY.get(),
-                ThrownItemRenderer::new);
     }
 }
