@@ -31,6 +31,8 @@
   "psi_ex.spellpiece.piecetrick_geteye.desc": "Retrieves an entity from the spirit's eye",
   "psi_ex.spellpiece.piecetrick_ticattack": "Tinker's Assault!!",
   "psi_ex.spellpiece.piecetrick_ticattack.desc": "TiC CAD Only",
+  "psi_ex.spellpiece.piecetrick_selfbigexplosion": "Explosion",
+  "psi_ex.spellpiece.piecetrick_selfbigexplosion.desc": "Self...?",
 
   "item.psi_ex.psi_arrow": "Spell Arrow",
   "item.psi_ex.cad_patch": "CADPatch",

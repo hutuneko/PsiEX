@@ -31,6 +31,8 @@
   "psi_ex.spellpiece.piecetrick_geteye.desc": "精霊の眼からエンティティを取得します",
   "psi_ex.spellpiece.piecetrick_ticattack": "鍛冶屋構築アタック！！",
   "psi_ex.spellpiece.piecetrick_ticattack.desc": "※TiCCAD限定",
+  "psi_ex.spellpiece.piecetrick_selfbigexplosion": "爆発",
+  "psi_ex.spellpiece.piecetrick_selfbigexplosion.desc": "安価って面白いなぁ",
 
   "item.psi_ex.psi_arrow": "術式矢",
   "item.psi_ex.cad_patch": "CAD化パッチ",

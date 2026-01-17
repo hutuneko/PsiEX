@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "type": "addonlib:mods_available",
+      "type": "addonapi:mods_available",
       "required_raw_module": "botaniacompat"
     }
   ],
