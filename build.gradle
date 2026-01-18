@@ -230,7 +230,7 @@ minecraft {
             jvmArgs "-Dmixin.env.remapRefMap=true"
             jvmArgs "-Dforge.logging.mojang.level=debug"
             jvmArgs "-Dmixin.debug.export=true"
-            jvmArgs "-XX:+AllowEnhancedClassRedefinition"
+//            jvmArgs "-XX:+AllowEnhancedClassRedefinition"
         }
     }
 }

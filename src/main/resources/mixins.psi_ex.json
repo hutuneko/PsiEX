@@ -12,7 +12,9 @@
     "ItemMixin",
     "MixinCompiledSpellAction_Redirect",
     "MixinSLevel",
-    "PsiAPIMixin"
+    "PsiAPIMixin",
+    "SpellContextMixin",
+    "SpellHelpersMixin"
   ],
   "injectors": {
     "defaultRequire": 1
