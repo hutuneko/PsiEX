@@ -32,21 +32,16 @@ public record S2COpenEditor(Map<ResourceLocation, Double> values) {
     }
     public static void handle(S2COpenEditor msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            // 直接 Minecraft クラスに触れず、別のメソッドを経由させる
             if (FMLEnvironment.dist == Dist.CLIENT) {
-                ClientHandler.handle(msg);
+                clienthandle(msg);
             }
         });
         ctx.get().setPacketHandled(true);
     }
-
-    // クライアント専用の内部クラスを作って隔離する（重要）
     @OnlyIn(Dist.CLIENT)
-    private static class ClientHandler {
-        public static void handle(S2COpenEditor msg) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player == null) return;
-            mc.setScreen(new AttributeEditorScreen(msg.values));
-        }
+    public static void clienthandle(S2COpenEditor msg) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+        mc.setScreen(new AttributeEditorScreen(msg.values));
     }
 }

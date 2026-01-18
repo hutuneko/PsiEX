@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "defaultcompatmodule"
+    }
+  ],
+  "pattern": [
+    " B ",
+    "BAB",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "psi:psigem"
+    },
+    "B": {
+      "item": "psi:psimetal"
+    }
+  },
+  "result": {
+    "item": "psi_ex:personal_tuner",
+    "count": 1
+  }
+}

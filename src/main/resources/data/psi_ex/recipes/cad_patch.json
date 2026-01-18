@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "defaultcompatmodule"
+    }
+  ],
+  "pattern": [
+    " C ",
+    "BAB",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "psi:cad"
+    },
+    "B": {
+      "item": "psi:ivory_psimetal"
+    },
+    "C": {
+      "item": "psi:ebony_psimetal"
+    }
+  },
+  "result": {
+    "item": "psi_ex:cad_patch",
+    "count": 1
+  }
+}
