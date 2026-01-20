@@ -10,6 +10,6 @@
     { "type": "attribute_at_least", "attribute": "psi_ex:psi_emission_point", "value": 500, "mode": "TOTAL" },
     { "type": "attribute_at_least", "attribute": "psi_ex:psi_ancientrites_point", "value": 500, "mode": "TOTAL" }
   ],
-  "message": "psi_ex:psi_absorption_pointが5000.0必要です",
+  "message": "attribute.name.psi_ex.psi_absorption_pointが5000.0必要です",
   "piece": "psi_ex:coordinate_eidos_renewal"
 }

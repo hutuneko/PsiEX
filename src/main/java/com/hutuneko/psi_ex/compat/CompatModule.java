@@ -2,6 +2,7 @@ package com.hutuneko.psi_ex.compat;
 
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.compat.apo.ApoCompatModule;
 import com.hutuneko.psi_ex.compat.ars.ArsCompatModule;
 import com.hutuneko.psi_ex.compat.botania.BotaniaCompatModule;
 import com.hutuneko.psi_ex.compat.cc.CCCuriosModule;
@@ -51,6 +52,10 @@ public class CompatModule extends AddonModuleProvider {
                 "TiC Compat",
                 TiCCompatModule.class,
                 new String[] { "psi", "tconstruct" });
+        addRawModule("apocompat",
+                "Apo Compat",
+                ApoCompatModule.class,
+                new String[] { "psi", "apotheosis" });
     }
     @Override
     public String getModId() {

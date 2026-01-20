@@ -16,15 +16,11 @@ import java.util.Objects;
 
 @Mixin(SpellHelpers.class)
 public class SpellHelpersMixin {
-//    @Inject(at = @At("HEAD"),method = "rangeLimitParam", remap = false)
-//    private static void rangeLimitParam(SpellPiece piece, SpellContext context, SpellParam<Number> param, double max, CallbackInfoReturnable<Double> cir){
-//        max = Objects.requireNonNull(context.caster.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get())).getValue();
-//    }
     @ModifyVariable(
-            method = "rangeLimitParam", // 対象のメソッド名
-            at = @At("HEAD"),    // メソッドの開始時点
-            ordinal = 0,         // double型の「0番目」の引数（max）を指定
-            argsOnly = true,      // ローカル変数ではなく引数のみを対象にする
+            method = "rangeLimitParam",
+            at = @At("HEAD"),
+            ordinal = 0,
+            argsOnly = true,
             remap = false
     )
     private static double rangeLimitParam(double max, SpellPiece piece, SpellContext context, SpellParam<Number> param){

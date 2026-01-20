@@ -3,6 +3,8 @@ package com.hutuneko.psi_ex.mixin;
 import com.hutuneko.psi_ex.Config;
 import com.hutuneko.psi_ex.api.SpellTriggerContext;
 import com.hutuneko.psi_ex.system.PieceConditionRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,6 +35,9 @@ public abstract class MixinCompiledSpellAction_Redirect {
                 }
                 if (!ok) {
                     var msg = cond.failMessage();
+                    if (msg instanceof MutableComponent com) {
+                        msg = com.append(Component.translatable("message.psi_ex.requirement_suffix"));
+                    }
                     if (msg != null && ctx != null && ctx.caster != null && !ctx.caster.level().isClientSide) {
                         ctx.caster.sendSystemMessage(msg);
                     }

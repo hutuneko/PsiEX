@@ -4,13 +4,13 @@ import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.entity.PsiBarrierEntity;
 import com.hutuneko.psi_ex.entity.PsiBarrierRenderer;
+import com.hutuneko.psi_ex.item.CuriosItem;
 import com.hutuneko.psi_ex.item.PsiCuriosbullet;
 import com.hutuneko.psi_ex.spell.operator.PieceOperator_getSpell;
 import com.hutuneko.psi_ex.spell.selector.PieceSelector_getEye;
 import com.hutuneko.psi_ex.spell.trick.PieceTrick_ExecuteSpell;
 import com.hutuneko.psi_ex.spell.trick.PieceTrick_EyeSave;
 import com.hutuneko.psi_ex.spell.trick.PieceTrick_SummonBarrier;
-import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import moffy.addonapi.AddonModule;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +36,7 @@ public class CuriosCompatModule implements AddonModule {
                 new PsiCuriosbullet(new Item.Properties().stacksTo(1))
         );
         PsiEXRegistry.PSI_SPIRITS_EYE = PsiEXRegistry.ITEMS.register("psi_spirits_eye", () ->
-                new CurioBaseItem(new Item.Properties().stacksTo(1)));
+                new CuriosItem(new Item.Properties().stacksTo(1)));
         PsiEXRegistry.PSI_BRRIER_ENTITY = PsiEXRegistry.ENTITIES.register("barrier",
                 () -> EntityType.Builder.of(PsiBarrierEntity::new, MobCategory.MISC)
                         .sized(0.5f, 0.5f)

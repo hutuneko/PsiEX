@@ -3,6 +3,5 @@
     { "type": "attribute_at_least", "attribute": "psi_ex:psi_acceleration_point", "value": 200, "mode": "TOTAL" },
     { "type": "attribute_at_least", "attribute": "psi_ex:psi_movement_point", "value": 200, "mode": "TOTAL" }
   ],
-  "message": "psi_ex:psi_acceleration_pointが200.0、psi_ex:psi_movement_pointが200.0必要です",
   "piece": "psi:trick_mass_add_motion"
 }

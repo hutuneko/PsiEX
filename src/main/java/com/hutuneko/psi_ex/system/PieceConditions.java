@@ -1,9 +1,11 @@
 package com.hutuneko.psi_ex.system;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellPiece;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,10 +34,37 @@ public final class PieceConditions {
 
     /** すべて満たす（空なら true） */
     public static PieceCondition all(List<? extends PieceCondition> list) {
-        return (ctx, piece) -> {
-            if (list == null || list.isEmpty()) return true;
-            for (PieceCondition c : list) if (!c.test(ctx, piece)) return false;
-            return true;
+        return new PieceCondition() {
+            @Override
+            public boolean test(SpellContext ctx, SpellPiece piece) {
+                if (list == null || list.isEmpty()) return true;
+                for (PieceCondition c : list) if (!c.test(ctx, piece)) return false;
+                return true;
+            }
+
+            @Override
+            public Component failMessage() {
+                if (list == null || list.isEmpty()) return null;
+
+                MutableComponent combined = Component.empty();
+                List<Component> parts = new ArrayList<>();
+
+                for (PieceCondition c : list) {
+                    Component msg = c.failMessage();
+                    if (msg != null) parts.add(msg);
+                }
+
+                if (parts.isEmpty()) return null;
+
+                for (int i = 0; i < parts.size(); i++) {
+                    combined.append(parts.get(i));
+                    if (i < parts.size() - 1) {
+                        combined.append(Component.translatable("message.psi_ex.requirement_separator"));
+                    }
+                }
+
+                return combined;
+            }
         };
     }
 

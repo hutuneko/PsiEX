@@ -5,6 +5,5 @@
     "mode": "TOTAL",
     "value": 200.0
   },
-  "message": "psi_ex:psi_movement_pointが200.0必要です",
   "piece": "psi:trick_move_block_sequence"
 }

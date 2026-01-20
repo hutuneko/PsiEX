@@ -3,7 +3,9 @@ package com.hutuneko.psi_ex.spell.trick;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.api.CopyPlayerInventory;
 import com.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
+import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.authlib.GameProfile;
+import io.redspace.ironsspellbooks.api.magic.SpellSelectionManager;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.api.spells.SpellData;
@@ -22,11 +24,13 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
+import vazkii.psi.api.internal.MathHelper;
 import vazkii.psi.api.internal.Vector3;
 import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.param.ParamVector;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class PieceTrick_CastScroll extends PieceTrick {
@@ -79,7 +83,7 @@ public class PieceTrick_CastScroll extends PieceTrick {
         fake.setYRot(player.getYRot());
         fake.setXRot(player.getXRot());
         fake.setYHeadRot(player.getYHeadRot());
-        CopyPlayerInventory.copyFeke((ServerPlayer) player,fake);
+        CopyPlayerInventory.copyFeke((ServerPlayer) player, fake);
         Object removalListener = getevent(sWorld, fake);
 
         Item scrollItem = PsiEXRegistry.CAST_SCROLL.get();
@@ -94,31 +98,28 @@ public class PieceTrick_CastScroll extends PieceTrick {
 
         ISpellContainer container = ISpellContainer.get(scrollStack);
 
-        int count = container.getActiveSpellCount();
         ItemStack scrollCopy = scrollStack.copy();
-        fake.setInvulnerable(true);
         Vector3 casterPos = Vector3.fromEntity(context.caster);
-        double maxRange = 32;
         Vector3 diff = vv.copy().subtract(casterPos);
-        if (diff.magSquared() > maxRange * maxRange) {
+        if (MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z)
+                >= Objects.requireNonNull(context.caster.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get())).getValue()) {
             throw new SpellRuntimeException("射程外です");
         }
-        for (int i = 0; i < count; i++) {
-            SpellData data = container.getSpellAtIndex(i);
-            AbstractSpell spell = data.getSpell();
-            int level = data.getLevel();
-            if (spell == null) continue;
+        System.out.println(container);
+        SpellData data = ISpellContainer.getOrCreate(scrollStack).getSpellAtIndex(0);
+        AbstractSpell spell = data.getSpell();
+        if (spell == null) throw new SpellRuntimeException("spellがありません");
+        sWorld.addFreshEntity(fake);
+        spell.attemptInitiateCast(
+                scrollCopy,
+                spell.getLevelFor(data.getLevel(), player),
+                sWorld,
+                fake,
+                CastSource.SCROLL,
+                false,
+                SpellSelectionManager.MAINHAND
+        );
 
-            spell.attemptInitiateCast(
-                    scrollCopy,
-                    level,
-                    sWorld,
-                    fake,
-                    CastSource.SCROLL,
-                    true,
-                    "fake"
-            );
-        }
         MinecraftForge.EVENT_BUS.register(removalListener);
         return null;
     }

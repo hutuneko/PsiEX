@@ -51,7 +51,7 @@
   "pattern.psi_ex.tic_cad_core": "TiCCADコア",
   "pattern.psi_ex.tic_cad_assembly": "TiCCAD素体",
   "pattern.psi_ex.tic_cad_battery": "TiCCADバッテリー",
-  "pattern.psi_ex.tic_cad_battery": "TiCCADソケット",
+  "pattern.psi_ex.tic_cad_socket": "TiCCADソケット",
 
   "item.psi_ex.tic_cad_core_cast": "TiCCADコア金型",
   "item.psi_ex.tic_cad_assembly_cast": "TiCCAD素体金型",
@@ -66,7 +66,43 @@
   "item.psi_ex.tic_cad_battery_red_sand_cast": "TiCCADバッテリー赤砂型",
   "item.psi_ex.tic_cad_socket_red_sand_cast": "TiCCADソケット赤砂型",
 
+
+  "attribute.name.psi_ex.psi_ancientrites_point": "古式",
+  "attribute.name.psi_ex.psi_emission_point": "放出",
+  "attribute.name.psi_ex.psi_absorption_point": "吸収",
+  "attribute.name.psi_ex.psi_divergence_point": "発散",
+  "attribute.name.psi_ex.psi_convergence_point": "収束",
+  "attribute.name.psi_ex.psi_vibration_point": "振動",
+  "attribute.name.psi_ex.psi_movement_point": "移動",
+  "attribute.name.psi_ex.psi_weighting_point": "加重",
+  "attribute.name.psi_ex.psi_acceleration_point": "加速",
+  "attribute.name.psi_ex.psi_spell_range": "スペル射程距離",
+
+  "affix.psi_ex:cad/attribute/ancientrites": "古式と",
+  "affix.psi_ex:cad/attribute/ancientrites.suffix": "古式の",
+  "affix.psi_ex:cad/attribute/emission": "放出と",
+  "affix.psi_ex:cad/attribute/emission.suffix": "放出の",
+  "affix.psi_ex:cad/attribute/absorption": "吸収と",
+  "affix.psi_ex:cad/attribute/absorption.suffix": "吸収の",
+  "affix.psi_ex:cad/attribute/divergence": "発散と",
+  "affix.psi_ex:cad/attribute/divergence.suffix": "発散の",
+  "affix.psi_ex:cad/attribute/convergence": "収束と",
+  "affix.psi_ex:cad/attribute/convergence.suffix": "収束の",
+  "affix.psi_ex:cad/attribute/vibration": "振動と",
+  "affix.psi_ex:cad/attribute/vibration.suffix": "振動の",
+  "affix.psi_ex:cad/attribute/movement": "移動と",
+  "affix.psi_ex:cad/attribute/movement.suffix": "移動の",
+  "affix.psi_ex:cad/attribute/weighting": "加重と",
+  "affix.psi_ex:cad/attribute/weighting.suffix": "加重の",
+  "affix.psi_ex:cad/attribute/acceleration": "加速と",
+  "affix.psi_ex:cad/attribute/acceleration.suffix": "加速の",
+  "affix.psi_ex:cad/attribute/range": "遠隔と",
+  "affix.psi_ex:cad/attribute/range.suffix": "遠隔の",
+
+  "message.psi_ex.attribute_requirement": "%sが%s",
+  "message.psi_ex.requirement_suffix": "必要です",
+  "message.psi_ex.requirement_separator": "、",
+
   "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
-
 }

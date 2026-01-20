@@ -1,5 +1,7 @@
 package com.hutuneko.psi_ex.system.attribute;
 
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,5 +26,12 @@ public final class AllowedAttributes {
 
     public static boolean isAllowed(ResourceLocation id) {
         return ALLOWED.contains(id);
+    }
+    public static MutableComponent getAttributeName(ResourceLocation attributeId) {
+        String translationKey = String.format("attribute.name.%s.%s",
+                attributeId.getNamespace(),
+                attributeId.getPath());
+
+        return Component.translatable(translationKey);
     }
 }

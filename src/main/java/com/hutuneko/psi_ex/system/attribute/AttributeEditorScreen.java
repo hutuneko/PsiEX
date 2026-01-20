@@ -35,7 +35,7 @@ public class AttributeEditorScreen extends Screen {
         EditBox editBox;
         Row(ResourceLocation id, double current) {
             this.id = id;
-            this.label = Component.literal(id.toString());
+            this.label = AllowedAttributes.getAttributeName(id);
             this.current = current;
         }
     }
@@ -54,19 +54,14 @@ public class AttributeEditorScreen extends Screen {
         int sliderX = this.width / 2 - 30;
         int sliderW = 210;
 
-        // 修正: EditBoxのX座標を右端の現在値ラベルの位置に合わせる
-        // 以前の valX = this.width / 2 + 190 を使用します。
         int editBoxX = this.width / 2 + 190;
-        int editBoxW = 70; // 幅を少し広げても良いかもしれません
+        int editBoxW = 70;
 
         for (Row r : rows) {
-            // スライダーの初期化... (変更なし)
             double norm = denormalize(r.current);
             r.slider = new Slider(sliderX, y - 4, sliderW, 20, r, norm);
             addRenderableWidget(r.slider);
 
-            // EditBoxの初期化 (座標を修正)
-            // Y座標はスライダーに合わせて y-4 に修正
             r.editBox = new EditBox(
                     this.font, editBoxX, y - 4, editBoxW, 20, Component.empty()
             );
@@ -75,7 +70,6 @@ public class AttributeEditorScreen extends Screen {
             r.editBox.setFilter(s -> s.matches("^-?\\d*(\\.\\d*)?$"));
             r.editBox.setResponder(this::onEditBoxChange);
 
-            // 修正: 右端のラベルと位置を合わせるため、右寄せにする
             r.editBox.setResponder(this::onEditBoxChange);
 
             addRenderableWidget(r.editBox);
@@ -83,7 +77,6 @@ public class AttributeEditorScreen extends Screen {
             y += 24;
         }
 
-        // Close ボタン... (変更なし)
         addRenderableWidget(Button.builder(Component.literal("Close"), b -> onClose())
                 .bounds(this.width / 2, this.height - 28, 80, 20).build());
     }
@@ -127,7 +120,6 @@ public class AttributeEditorScreen extends Screen {
 
         @Override
         protected void updateMessage() {
-            // ここではボタン上に数値は描かず、右側に描画しているため空でOK
             setMessage(Component.empty());
         }
 

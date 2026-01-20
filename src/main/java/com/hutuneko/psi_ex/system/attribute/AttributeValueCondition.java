@@ -44,6 +44,10 @@ public final class AttributeValueCondition implements PieceCondition {
 
     @Override
     public Component failMessage() {
-        return message;
+        if (this.message != null) return this.message;
+        String translationKey = "attribute.name." + attrId.getNamespace() + "." + attrId.getPath();
+        Component attrName = Component.translatable(translationKey);
+
+        return Component.translatable("message.psi_ex.attribute_requirement", attrName, threshold);
     }
 }

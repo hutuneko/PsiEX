@@ -5,6 +5,5 @@
     "mode": "TOTAL",
     "value": 1000.0
   },
-  "message": "psi_ex:psi_emission_pointが1000.0必要です",
   "piece": "psi_ex:piecetrick_executespell"
 }
