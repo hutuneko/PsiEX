@@ -103,7 +103,7 @@ public class PieceTrick_CastScroll extends PieceTrick {
         Vector3 diff = vv.copy().subtract(casterPos);
         if (MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z)
                 >= Objects.requireNonNull(context.caster.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get())).getValue()) {
-            throw new SpellRuntimeException("射程外です");
+            throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
         }
         System.out.println(container);
         SpellData data = ISpellContainer.getOrCreate(scrollStack).getSpellAtIndex(0);

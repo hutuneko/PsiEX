@@ -42,7 +42,6 @@ public record C2SSetAttribute(ResourceLocation attributeId, double baseValue) {
                 sp.setHealth(Math.min(sp.getHealth(), (float) sp.getMaxHealth()));
             }
 
-            // クライアントに確定値を返す（必要なら）
             Net.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp),
                     new S2CUpdateAttribute(msg.attributeId.toLanguageKey(), value));
         });

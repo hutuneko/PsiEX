@@ -31,6 +31,7 @@ public class PsiEX {
         PsiEXRegistry.BLOCK_ENTITIES.register(modBus);
         PsiEXRegistry.ENTITIES.register(modBus);
         PsiEXRegistry.TABS.register(modBus);
+        PsiEXRegistry.MOB_EFFECTS.register(modBus);
         PsiEXAttributes.register(modBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
     }

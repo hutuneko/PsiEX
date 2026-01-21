@@ -102,6 +102,9 @@
   "message.psi_ex.requirement_suffix": " required",
   "message.psi_ex.requirement_separator": ", ",
 
+  "psi_ex.spellerror.castjamming": "Cast Jamming active!",
+  "psi_ex.spellerror.nocurios": "Cannot retrieve from Curios slot",
+
   "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
 

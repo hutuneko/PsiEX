@@ -54,7 +54,7 @@ public class PieceTrick_LunaStrike extends PieceTrick {
         double d = n.doubleValue();
         Entity t = getParamValue(context, targetParam);
         if (!(t instanceof ServerPlayer target)){
-            throw new SpellRuntimeException("有効なターゲットを選択してください");
+            throw new SpellRuntimeException(SpellRuntimeException.IMMUNE_TARGET);
         }
         target.getCapability(PsionProvider.CAP).ifPresent(now -> {
             now.hurt(d);            // 減算

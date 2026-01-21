@@ -103,6 +103,9 @@
   "message.psi_ex.requirement_suffix": "必要です",
   "message.psi_ex.requirement_separator": "、",
 
+  "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
+  "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
+
   "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
 }

@@ -1,6 +1,7 @@
 package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.effect.CastJammingEffect;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
 import com.hutuneko.psi_ex.recipe.NbtAddRecipe;
@@ -9,21 +10,19 @@ import com.hutuneko.psi_ex.spell.trick.*;
 import moffy.addonapi.AddonModule;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegistryObject;
 import vazkii.psi.api.PsiAPI;
 
 public class DefaultCompatModule implements AddonModule {
@@ -55,6 +54,9 @@ public class DefaultCompatModule implements AddonModule {
         PsiEXRegistry.PERSONAL_TUNER = PsiEXRegistry.ITEMS.register("personal_tuner", () ->
                 new ItemPersonalTuner(new Item.Properties().stacksTo(1))
         );
+        PsiEXRegistry.PSIKILLER = PsiEXRegistry.ITEMS.register("psikiller", () ->
+                new PsiKiller(Tiers.WOOD,1,1,new Item.Properties().stacksTo(1).defaultDurability(Integer.MAX_VALUE))
+        );
         PsiEXRegistry.PSI_ARROW = PsiEXRegistry.ITEMS.register("psi_arrow", () ->
                 new PsiArrowItem(new Item.Properties()));
         PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
@@ -81,19 +83,6 @@ public class DefaultCompatModule implements AddonModule {
 //                        .sized(0.6f, 1.95f)      // 村人サイズ
 //                        .clientTrackingRange(8)
 //                        .build(new ResourceLocation(PsiEX.MOD_ID, "dummy_villager").toString()));
-        PsiEXRegistry.CREATIVE_TAB_ITEMS = PsiEXRegistry.TABS.register(PsiEX.MOD_ID, () ->
-                CreativeModeTab.builder()
-                        .title(Component.translatable("itemGroup.tab." + PsiEX.MOD_ID))
-                        .icon(() -> new ItemStack(PsiEXRegistry.PSI_ARROW.get()))
-                        .displayItems((params, output) -> {
-                            for (RegistryObject<Item> regObj : PsiEXRegistry.ITEMS.getEntries()) {
-                                if (!(regObj == PsiEXRegistry.CAST_SCROLL)){
-                                    output.accept(regObj.get());
-                                }
-                            }
-                        })
-                        .build()
-        );
         PsiEXRegistry.PSI_COMPRESSIONAIR_ENTITY =
                 PsiEXRegistry.ENTITIES.register("needle_projectile",
                         () -> EntityType.Builder
@@ -107,6 +96,10 @@ public class DefaultCompatModule implements AddonModule {
         );
         PsiEXRegistry.NBT_ADDING_SERIALIZER =
                 PsiEXRegistry.SERIALIZERS.register("nbt_adding", () -> new SimpleCraftingRecipeSerializer<>(NbtAddRecipe::new));
+        PsiEXRegistry.CASTJAMMING =
+                PsiEXRegistry.MOB_EFFECTS.register("castjamming",() -> new CastJammingEffect(MobEffectCategory.BENEFICIAL,0xFF0000));
+
+
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     @OnlyIn(Dist.CLIENT)

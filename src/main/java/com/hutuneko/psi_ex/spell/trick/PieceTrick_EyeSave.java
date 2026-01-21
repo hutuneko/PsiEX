@@ -35,9 +35,9 @@ public class PieceTrick_EyeSave extends PieceTrick {
         Player p = ctx.caster;
         if (p == null) throw new SpellRuntimeException("No caster");
         Optional<SlotResult> res = CuriosUtil.findFirstByItem(p, PsiEXRegistry.PSI_SPIRITS_EYE.get());
-        if (res.isEmpty()) throw new SpellRuntimeException("キュリオスから取得できません");
+        if (res.isEmpty()) throw new SpellRuntimeException("psi_ex.spellerror.nocurios");
         ItemStack eye = res.get().stack();
-        if (eye.isEmpty()) throw new SpellRuntimeException("キュリオスから取得できません");
+        if (eye.isEmpty()) throw new SpellRuntimeException("psi_ex.spellerror.nocurios");
         CompoundTag tag = eye.getOrCreateTag();
         tag.putUUID("psi_ex:eyeuuid",v);
         return null;

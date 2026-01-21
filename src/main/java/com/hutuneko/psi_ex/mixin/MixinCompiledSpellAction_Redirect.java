@@ -2,6 +2,7 @@ package com.hutuneko.psi_ex.mixin;
 
 import com.hutuneko.psi_ex.Config;
 import com.hutuneko.psi_ex.api.SpellTriggerContext;
+import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.system.PieceConditionRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -15,14 +16,18 @@ import vazkii.psi.api.internal.IPlayerData;
 import vazkii.psi.api.spell.CompiledSpell;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellPiece;
+import vazkii.psi.api.spell.SpellRuntimeException;
+
 @Mixin(CompiledSpell.Action.class)
 public abstract class MixinCompiledSpellAction_Redirect {
     @Shadow @Final public SpellPiece piece;
 
     @Inject(method = "execute", at = @At("HEAD"), remap = false, cancellable = true)
-    private void gate$redirectExecute(IPlayerData data, SpellContext ctx, CallbackInfo ci) {
+    private void gate$redirectExecute(IPlayerData data, SpellContext ctx, CallbackInfo ci) throws SpellRuntimeException {
         SpellTriggerContext.set(ctx);
-
+        if (ctx.caster.hasEffect(PsiEXRegistry.CASTJAMMING.get())){
+            throw new SpellRuntimeException("psi_ex.spellerror.castjamming");
+        }
         var id = ((AccessorSpellPiece) this.piece).getRegistryKey();
         var cond = PieceConditionRegistry.get(id).orElse(null);
         if (Config.COMMON.spellgeat.get()) {
@@ -39,7 +44,8 @@ public abstract class MixinCompiledSpellAction_Redirect {
                         msg = com.append(Component.translatable("message.psi_ex.requirement_suffix"));
                     }
                     if (msg != null && ctx != null && ctx.caster != null && !ctx.caster.level().isClientSide) {
-                        ctx.caster.sendSystemMessage(msg);
+//                        ctx.caster.sendSystemMessage(msg);
+                        throw new SpellRuntimeException(msg.getString());
                     }
 
                     SpellTriggerContext.remove();
