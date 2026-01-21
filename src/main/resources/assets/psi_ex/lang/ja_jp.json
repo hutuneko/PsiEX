@@ -41,6 +41,7 @@
   "item.psi_ex.psi_mana_lens": "マナレンズ: 術式",
   "item.psi_ex.psi_spirits_eye": "精霊の眼",
   "item.psi_ex.psi_needle": "術式針",
+  "item.psi_ex.psikiller": "Psiキラー",
   "item.psi_ex.personal_tuner": "パーソナルチューナー",
   "item.psi_ex.tic_cad_core": "TiCCADコア",
   "item.psi_ex.tic_cad_assembly": "TiCCAD素体",
@@ -105,6 +106,8 @@
 
   "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
+
+  "effect.psi_ex.castjamming": "キャストジャミング",
 
   "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
