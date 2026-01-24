@@ -18,9 +18,9 @@ public class PieceTrick_PoisonousBee extends PieceTrick {
     @Override
     public void initParams() {
 
-        addParam(targetParam = new ParamEntity(SpellParam.GENERIC_NAME_TARGET,SpellParam.GREEN,false,false// エンティティ描画用レンダラー
+        addParam(targetParam = new ParamEntity(SpellParam.GENERIC_NAME_TARGET,SpellParam.GREEN,false,false
         ));
-        addParam(valueParam = new ParamNumber(SpellParam.GENERIC_NAME_NUMBER,SpellParam.BLUE,true,true
+        addParam(valueParam = new ParamNumber(SpellParam.GENERIC_NAME_NUMBER,SpellParam.BLUE,false,false
         ));
     }
 

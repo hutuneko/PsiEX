@@ -1,19 +1,20 @@
 package com.hutuneko.psi_ex.spell.trick;
 
-import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.api.CopyPlayerInventory;
 import com.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
+import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.authlib.GameProfile;
 import io.redspace.ironsspellbooks.api.magic.SpellSelectionManager;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.api.spells.SpellData;
-import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +31,6 @@ import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.param.ParamVector;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class PieceTrick_CastScroll extends PieceTrick {
@@ -101,8 +101,12 @@ public class PieceTrick_CastScroll extends PieceTrick {
         ItemStack scrollCopy = scrollStack.copy();
         Vector3 casterPos = Vector3.fromEntity(context.caster);
         Vector3 diff = vv.copy().subtract(casterPos);
-        if (MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z)
-                >= Objects.requireNonNull(context.caster.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get())).getValue()) {
+        AttributeInstance instance = player.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get());
+        boolean isR = false;
+        if (instance != null) {
+            isR = MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z) <= instance.getValue();
+        }
+        if (isR) {
             throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
         }
         System.out.println(container);

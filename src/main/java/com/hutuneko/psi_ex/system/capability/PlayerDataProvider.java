@@ -20,7 +20,7 @@ public class PlayerDataProvider implements ICapabilityProvider, net.minecraftfor
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == CAP ? opt.cast() : null;
+        return cap == CAP ? opt.cast() : LazyOptional.empty();
     }
 
     @Override public CompoundTag serializeNBT(){ return impl.save(); }

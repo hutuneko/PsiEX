@@ -4,13 +4,16 @@ import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.hutuneko.psi_ex.system.PsiPieceConditionReloadListener;
+import com.hutuneko.psi_ex.system.capability.PlayerDataProvider;
 import com.hutuneko.psi_ex.system.capability.PsionProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -107,6 +110,17 @@ public final class ForgeEventBus {
             recentlyShotBows.remove(player.getUUID());
         }
     }
+    @SubscribeEvent
+    public static void onAttach(AttachCapabilitiesEvent<Entity> e){
+        if (e.getObject() instanceof Player) {
+            e.addCapability(new ResourceLocation(PsiEX.MOD_ID,"psion"), new PsionProvider());
+            e.addCapability(new ResourceLocation(PsiEX.MOD_ID,"datas"), new PlayerDataProvider());
+        }
+    }
 
-
+    @SubscribeEvent
+    public static void onClone(PlayerEvent.Clone e){
+        e.getOriginal().getCapability(PsionProvider.CAP).ifPresent(old ->
+                e.getEntity().getCapability(PsionProvider.CAP).ifPresent(now -> now.setPsion(old.getPsion())));
+    }
 }

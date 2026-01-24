@@ -1,9 +1,12 @@
 package com.hutuneko.psi_ex.system;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,4 +28,5 @@ public class ModEventHandlers {
         event.add(EntityType.PLAYER, PsiEXAttributes.PSI_VIBRATION_POINT.get());
         event.add(EntityType.PLAYER, PsiEXAttributes.PSI_ANCIENTRITES_POINT.get());
     }
+
 }

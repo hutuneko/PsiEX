@@ -7,28 +7,37 @@ import vazkii.psi.api.spell.SpellPiece;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /** 条件を合成するための補助クラス */
 public final class PieceConditions {
 
     private PieceConditions() {}
 
-    /** a AND b */
     public static PieceCondition and(PieceCondition a, PieceCondition b) {
-        Objects.requireNonNull(a); Objects.requireNonNull(b);
+        if (a == null || b == null) {
+            return (ctx, piece) -> false;
+        }
         return (ctx, piece) -> a.test(ctx, piece) && b.test(ctx, piece);
     }
 
-    /** a OR b */
     public static PieceCondition or(PieceCondition a, PieceCondition b) {
-        Objects.requireNonNull(a); Objects.requireNonNull(b);
+        // nullチェック：両方nullならfalse、片方nullならもう片方を評価
+        if (a == null && b == null) {
+            return (ctx, piece) -> false;
+        }
+        if (a == null) {
+            return b;
+        }
+        if (b == null) {
+            return a;
+        }
         return (ctx, piece) -> a.test(ctx, piece) || b.test(ctx, piece);
     }
 
-    /** NOT a */
     public static PieceCondition not(PieceCondition a) {
-        Objects.requireNonNull(a);
+        if (a == null) {
+            return (ctx, piece) -> true;
+        }
         return (ctx, piece) -> !a.test(ctx, piece);
     }
 

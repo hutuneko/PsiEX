@@ -7,6 +7,7 @@ import com.hutuneko.psi_ex.system.attribute.AttributeEditorMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -65,14 +66,17 @@ public class PsiEXRegistry {
     public static RegistryObject<EntityType<PsiArrowEntity>> PSI_ARROW_ENTITY = null;
     public static RegistryObject<EntityType<PsiNeedleDartEntity>> PSI_NEEDLE_DARTENTITY = null;
     public static RegistryObject<EntityType<PsiBarrierEntity>> PSI_BRRIER_ENTITY = null;
-    public static RegistryObject<EntityType<PsiTestEntity>> PSI_TEST_ENTITY = null;
     public static RegistryObject<EntityType<PsiAirEntity>> PSI_COMPRESSIONAIR_ENTITY = null;
+    public static RegistryObject<EntityType<Railgun>> RAILGUN = null;
 
     public static RegistryObject<MobEffect> CASTJAMMING = null;
+    public static RegistryObject<MobEffect> PARADE = null;
 
     public static RegistryObject<MenuType<AttributeEditorMenu>> ATTRIBUTE_EDITOR = null;
 
-    public static ResourceKey<DamageType> PSI_FAKE_DAMAGE = null;
+    public static final ResourceKey<DamageType> PSI_FAKE_DAMAGE = ResourceKey.create(
+            Registries.DAMAGE_TYPE, new ResourceLocation(PsiEX.MOD_ID, "psi_fake_damage")
+    );
 
     public static RegistryObject<RecipeSerializer<NbtAddRecipe>> NBT_ADDING_SERIALIZER = null;
 
