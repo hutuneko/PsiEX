@@ -1,5 +1,6 @@
-package com.hutuneko.psi_ex.api; // パッケージ名は適宜合わせてください
+package com.hutuneko.psi_ex.api;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -14,10 +15,12 @@ public class CapabilityHandler {
     public static void attachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
         ItemStack stack = event.getObject();
 
-        // ここで「このアイテムがCADとして振る舞うべきか」を判定
         if (CadBehavior.isCAD(stack)) {
-            // Psi標準のCADData (ICapabilityProvider) をアタッチする
+            CompoundTag nbt = stack.getTag();
             CADData data = new CADData(stack);
+            if (nbt != null && nbt.contains("Parent", 10)) {
+                data.deserializeNBT(nbt.getCompound("Parent"));
+            }
             event.addCapability(CAD_DATA_ID, data);
         }
     }

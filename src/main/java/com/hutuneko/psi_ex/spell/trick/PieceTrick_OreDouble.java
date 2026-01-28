@@ -48,8 +48,12 @@ public class PieceTrick_OreDouble extends PieceTrick {
     @Override
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
         super.addToMetadata(meta);
+        Double powerVal = this.<Double>getParamEvaluation(doudleParam);
+        if(powerVal == null) {
+            powerVal = 1D;
+        }
         meta.addStat(EnumSpellStat.POTENCY, 20);
-        meta.addStat(EnumSpellStat.COST, 50 * 555);
+        meta.addStat(EnumSpellStat.COST, (int) (50 * Math.abs(powerVal)));
     }
 
     @Override

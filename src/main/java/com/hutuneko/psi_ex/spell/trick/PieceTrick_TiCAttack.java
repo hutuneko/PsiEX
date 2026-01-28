@@ -12,10 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import vazkii.psi.api.PsiAPI;
-import vazkii.psi.api.spell.Spell;
-import vazkii.psi.api.spell.SpellContext;
-import vazkii.psi.api.spell.SpellParam;
-import vazkii.psi.api.spell.SpellRuntimeException;
+import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.param.ParamEntity;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
@@ -30,6 +27,12 @@ public class PieceTrick_TiCAttack extends PieceTrick {
         ));
     }
     @Override
+    public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
+        super.addToMetadata(meta);
+        meta.addStat(EnumSpellStat.POTENCY, 50);
+        meta.addStat(EnumSpellStat.COST, 500);
+    }
+    @Override
     public Object execute(SpellContext context) throws SpellRuntimeException {
         Entity entity = getParamValue(context, tParam);
         if (entity instanceof LivingEntity livingEntity){
@@ -42,7 +45,6 @@ public class PieceTrick_TiCAttack extends PieceTrick {
             Holder<DamageType> damageTypeHolder = registryAccess.registryOrThrow(Registries.DAMAGE_TYPE)
                     .getHolderOrThrow(PsiEXRegistry.PSI_FAKE_DAMAGE);
 
-            // 修正後の DamageSource 構築
             DamageSource source = new DamageSource(damageTypeHolder, player);
 
             livingEntity.hurt(source, 1);

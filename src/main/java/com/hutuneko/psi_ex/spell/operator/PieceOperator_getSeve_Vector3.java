@@ -34,8 +34,6 @@ public class PieceOperator_getSeve_Vector3 extends PieceOperator {
                     v = data.getValue("vector3" + s));
             p.getCapability(PlayerDataProvider.CAP).ifPresent(data ->
                     h = data.getValue("vector3" + s + "_vec"));
-            System.out.println(v);
-            System.out.println(h);
         }
         return v;
     }

@@ -20,7 +20,6 @@ public class PieceTrick_Ejection extends PieceTrick {
     private ParamVector posParam;
     private ParamNumber powerParam;
     private ParamVector dirParam;
-    public static final UUID PSI_FAKE_UUID = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
     public PieceTrick_Ejection(Spell spell) {
         super(spell);
@@ -41,8 +40,12 @@ public class PieceTrick_Ejection extends PieceTrick {
     @Override
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
         super.addToMetadata(meta);
+        Double powerVal = this.<Double>getParamEvaluation(powerParam);
+        if(powerVal == null) {
+            powerVal = 1D;
+        }
         meta.addStat(EnumSpellStat.POTENCY, 50);
-        meta.addStat(EnumSpellStat.COST, 50);
+        meta.addStat(EnumSpellStat.COST, (int) (50 * Math.abs(powerVal)));
     }
 
     @Override

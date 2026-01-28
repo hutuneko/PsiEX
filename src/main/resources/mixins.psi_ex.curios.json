@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hutuneko.psi_ex.mixin.curios",
+  "refmap": "mixins.refmap.psi_ex.json",
+  "plugin": "com.hutuneko.psi_ex.compat.curios.CuriosMixinPlugin",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
+  "mixins": [
+    "SpellPieceMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

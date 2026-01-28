@@ -2,5 +2,15 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "psi_ex:item/psikiller"
+  },
+  "display": {
+    "gui": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 0, 0],
+      "scale": [1.0, 1.0, 1.0]
+    },
+    "ground": {
+      "scale": [1.0, 1.0, 1.0]
+    }
   }
 }

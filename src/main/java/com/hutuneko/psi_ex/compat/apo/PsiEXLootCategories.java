@@ -1,6 +1,7 @@
 package com.hutuneko.psi_ex.compat.apo;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.api.CadBehavior;
 import com.hutuneko.psi_ex.compat.tic.TiCCompatModule;
 import dev.shadowsoffire.apotheosis.adventure.loot.LootCategory;
 import net.minecraft.resources.ResourceLocation;
@@ -16,9 +17,9 @@ public class PsiEXLootCategories {
     public static void init(){
         Predicate<ItemStack> item;
         if (ModList.get().isLoaded("tconstruct")){
-            item = stack -> stack.is(ModItems.cad) || stack.is(TiCCompatModule.TICCAD.asItem());
+            item = stack -> stack.is(ModItems.cad) || stack.is(TiCCompatModule.TICCAD.asItem()) || CadBehavior.isCAD(stack);
         }else{
-            item = stack -> stack.is(ModItems.cad);
+            item = stack -> stack.is(ModItems.cad) || CadBehavior.isCAD(stack);
         }
         CAD = LootCategory.register(null, new ResourceLocation(PsiEX.MOD_ID,"cad").toString(), item, new EquipmentSlot[]{EquipmentSlot.MAINHAND,EquipmentSlot.OFFHAND});
     }

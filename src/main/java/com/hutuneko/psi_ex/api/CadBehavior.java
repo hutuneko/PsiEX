@@ -54,7 +54,7 @@ public class CadBehavior {
                 baseStatValue = durability / 2;
 
             } else if (stat == EnumCADStat.SOCKETS) {
-                // ソケット数: 耐久力に応じて増える (例: 1000耐久で10スロット+1)
+                // ソケット数: 耐久力に応じて増える
                 baseStatValue = Math.min(12, durability / 100 + 1);
 
             } else if (stat == EnumCADStat.SAVED_VECTORS) {

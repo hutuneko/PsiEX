@@ -62,8 +62,10 @@ public class PieceTrick_Railgun extends PieceTrick {
         if (items.isEmpty())return null;
         for (ItemEntity item : items){
             item.kill();
+            speed ++;
         }
         var bullet = new Railgun(PsiEXRegistry.RAILGUN.get(), player, level);
+        bullet.setSpeed(speed);
         bullet.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
         bullet.setPos(pos.x(), pos.y() - 0.1, pos.z());
         level.addFreshEntity(bullet);

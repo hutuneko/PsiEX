@@ -12,6 +12,7 @@
     "ItemMixin",
     "MixinCompiledSpellAction_Redirect",
     "MixinSLevel",
+    "PlayerDataHandlerMixin",
     "PsiAPIMixin",
     "SpellContextMixin",
     "SpellHelpersMixin"

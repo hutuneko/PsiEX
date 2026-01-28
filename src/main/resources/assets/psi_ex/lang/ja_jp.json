@@ -112,9 +112,20 @@
   "affix.psi_ex:cad/attribute/range": "遠隔と",
   "affix.psi_ex:cad/attribute/range.suffix": "遠隔の",
 
+  "affix.psi_ex:cad/special/psi_recovery": "回復の",
+  "affix.psi_ex:cad/special/psi_recovery.suffix": "Psi吸収",
+  "affix.psi_ex:cad/special/psi_recovery.desc": "術式で与えたダメージ * 50 * %sをPsiエネルギーとして回復する(たまに失敗する)",
+  "affix.psi_ex:cad/special/psi_reduction": "軽減の",
+  "affix.psi_ex:cad/special/psi_reduction.suffix": "Psi軽減",
+  "affix.psi_ex:cad/special/psi_reduction.desc": "消費Psi - 100 * %s",
+  "affix.psi_ex:cad/special/psi_replay": "再発の",
+  "affix.psi_ex:cad/special/psi_replay.suffix": "再発",
+  "affix.psi_ex:cad/special/psi_replay.desc": "%s%%でもう一回魔法が発動する",
+
   "message.psi_ex.attribute_requirement": "%sが%s",
   "message.psi_ex.requirement_suffix": "必要です",
   "message.psi_ex.requirement_separator": "、",
+  "message.psi_ex.spellreplay": "もう一回！",
 
   "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
@@ -122,7 +133,5 @@
   "effect.psi_ex.castjamming": "キャストジャミング",
 
   "gui.psi_ex.tic_cad": "TiCCAD",
-  "itemGroup.tab.psi_ex": "PsiEX",
-  "psi_ex.spellpiece.piecetrick_parade": "Trick: Parade",
-  "psi_ex.spellpiece.piecetrick_parade.desc": "Adjust the appearance"
+  "itemGroup.tab.psi_ex": "PsiEX"
 }

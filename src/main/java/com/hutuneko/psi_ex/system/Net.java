@@ -3,6 +3,7 @@ package com.hutuneko.psi_ex.system;
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.system.attribute.C2SSetAttribute;
 import com.hutuneko.psi_ex.system.attribute.S2COpenEditor;
+import com.hutuneko.psi_ex.system.attribute.S2CUpdateAttribute;
 import com.hutuneko.psi_ex.system.capability.SyncPsionS2C;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +49,11 @@ public final class Net {
                     .encoder(S2COpenEditor::encode)
                     .decoder(S2COpenEditor::decode)
                     .consumerMainThread(S2COpenEditor::handle)
+                    .add();
+            CHANNEL.messageBuilder(S2CUpdateAttribute.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                    .encoder(S2CUpdateAttribute::encode)
+                    .decoder(S2CUpdateAttribute::decode)
+                    .consumerMainThread(S2CUpdateAttribute::handle)
                     .add();
         });
     }

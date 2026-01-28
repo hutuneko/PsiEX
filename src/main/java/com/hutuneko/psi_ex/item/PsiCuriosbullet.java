@@ -2,19 +2,17 @@ package com.hutuneko.psi_ex.item;
 
 import com.hutuneko.psi_ex.system.capability.SocketableProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class PsiCuriosbullet extends Item implements ICurioItem {
+public class PsiCuriosbullet extends CuriosItem {
 
     public static final String NBT_SOCKETS  = "psi_sockets";
     public static final String NBT_SELECTED = "psi_selected";
 
     public PsiCuriosbullet(Properties props) {
-        super(props.stacksTo(1));
+        super(props);
     }
 
     @Override
@@ -25,13 +23,5 @@ public class PsiCuriosbullet extends Item implements ICurioItem {
     @Override
     public boolean shouldOverrideMultiplayerNbt() {
         return super.shouldOverrideMultiplayerNbt();
-    }
-
-    public boolean canEquipFromUse(net.minecraft.world.inventory.Slot slot, ItemStack stack, ItemStack curio) {
-        return true;
-    }
-    public net.minecraft.world.InteractionResult onEquipFromUse(
-            net.minecraft.world.inventory.Slot slot, ItemStack stack, ItemStack curio) {
-        return net.minecraft.world.InteractionResult.SUCCESS;
     }
 }

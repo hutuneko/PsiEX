@@ -20,7 +20,7 @@ public class PieceTrick_ExecuteSpell extends PieceTrick {
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
         super.addToMetadata(meta);
         meta.addStat(EnumSpellStat.POTENCY, 5000);
-        meta.addStat(EnumSpellStat.COST, 5);
+        meta.addStat(EnumSpellStat.COST, 500);
     }
     @Override
     public Object execute(SpellContext ctx) throws SpellRuntimeException {

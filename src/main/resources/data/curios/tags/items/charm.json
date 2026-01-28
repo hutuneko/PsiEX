@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "psi_ex:extended_cad_socket",
-    "psi_ex:psi_spirits_eye"
+    "psi_ex:psi_spirits_eye",
+    "psi_ex:rangezero"
   ]
 }

@@ -1,7 +1,6 @@
 package com.hutuneko.psi_ex.compat.tic;
 
 import com.hutuneko.psi_ex.api.SpellTriggerContext;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -28,17 +27,14 @@ public class TiCEvent {
         if (isApplyingTiC) return;
         DamageSource source = event.getSource();
         Entity direct = source.getDirectEntity();
-        Entity attacker = source.getEntity(); // 犯人（プレイヤーなど）
+        Entity attacker = source.getEntity();
         boolean isPsiMagic = false;
-        // 1. ThreadLocalチェック
         if (SpellTriggerContext.isCasting()) {
             isPsiMagic = true;
         }
-        // 2. 直接の実体（雷など）のNBTチェック
         else if (direct != null && direct.getPersistentData().contains("psiex_magic")) {
             isPsiMagic = true;
         }
-        // 3. 犯人エンティティそのものに印がついているケース（一部のMod魔法対策）
         else if (attacker != null && attacker.getPersistentData().contains("psiex_magic")) {
             isPsiMagic = true;
         }
@@ -67,7 +63,6 @@ public class TiCEvent {
             Player player = bolt.getCause();
 
             if (player != null && target instanceof LivingEntity livingTarget) {
-                player.sendSystemMessage(Component.literal("§6[PsiEX]§r 雷撃の魔法を検知しました"));
                 isApplyingTiC = true;
                 ticDamage(player, livingTarget);
                 isApplyingTiC = false;
@@ -104,9 +99,6 @@ public class TiCEvent {
                 entry.getHook(ModifierHooks.MELEE_HIT).afterMeleeHit(cad, entry, context, damage);
             }
         }
-    }
-    public static void tick(TickEvent e){
-        SpellTriggerContext.remove();
     }
     private static void ticDamage(Player player, LivingEntity target) {
         ItemStack cadStack = PsiAPI.getPlayerCAD(player);

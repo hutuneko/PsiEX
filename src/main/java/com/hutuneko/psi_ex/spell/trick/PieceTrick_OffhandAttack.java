@@ -29,7 +29,7 @@ public class PieceTrick_OffhandAttack extends PieceTrick {
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
         super.addToMetadata(meta);
         meta.addStat(EnumSpellStat.POTENCY, 10);
-        meta.addStat(EnumSpellStat.COST,    30);
+        meta.addStat(EnumSpellStat.COST,    300);
     }
 
     @Override

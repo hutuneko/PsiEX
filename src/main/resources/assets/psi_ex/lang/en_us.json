@@ -111,9 +111,20 @@
   "affix.psi_ex:cad/attribute/range": "Ranging and",
   "affix.psi_ex:cad/attribute/range.suffix": "of Ranging",
 
+  "affix.psi_ex:cad/special/psi_recovery": "Psi-Recovering",
+  "affix.psi_ex:cad/special/psi_recovery.suffix": "of Psi Absorption",
+  "affix.psi_ex:cad/special/psi_recovery.desc": "Restores Psi Energy equal to (Spell Damage * 50 * %s). May occasionally fail.",
+  "affix.psi_ex:cad/special/psi_reduction": "Reducing",
+  "affix.psi_ex:cad/special/psi_reduction.suffix": "of Psi Reduction",
+  "affix.psi_ex:cad/special/psi_reduction.desc": "Decreases Psi cost by 100 * %s",
+  "affix.psi_ex:cad/special/psi_replay": "Replaying",
+  "affix.psi_ex:cad/special/psi_replay.suffix": "of Recurrence",
+  "affix.psi_ex:cad/special/psi_replay.desc": "%s%% chance to cast the spell an additional time",
+
   "message.psi_ex.attribute_requirement": "%2$s %1$s",
   "message.psi_ex.requirement_suffix": " required",
   "message.psi_ex.requirement_separator": ", ",
+  "message.psi_ex.spellreplay": "Encore!",
 
   "psi_ex.spellerror.castjamming": "Cast Jamming active!",
   "psi_ex.spellerror.nocurios": "Cannot retrieve from Curios slot",

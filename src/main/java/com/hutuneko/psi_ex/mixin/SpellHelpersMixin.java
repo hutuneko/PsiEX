@@ -18,7 +18,7 @@ public class SpellHelpersMixin {
             argsOnly = true,
             remap = false,
             name = "arg3")
-    private static double rangeLimitParam(double max, SpellPiece piece, SpellContext context, SpellParam<Number> param){
+    private static double psi_ex_1_20_1$rangeLimitParam(double max, SpellPiece piece, SpellContext context, SpellParam<Number> param){
         AttributeInstance instance = context.caster.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get());
         return instance != null ? instance.getValue() : 32;
     }

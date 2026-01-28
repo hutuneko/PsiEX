@@ -27,9 +27,13 @@ public class PieceTrick_PoisonousBee extends PieceTrick {
 
     @Override
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
-            super.addToMetadata(meta);
-            meta.addStat(EnumSpellStat.POTENCY, 50);
-            meta.addStat(EnumSpellStat.COST, 100);
+        super.addToMetadata(meta);
+        Double powerVal = this.<Double>getParamEvaluation(valueParam);
+        if(powerVal == null) {
+            powerVal = 1.0;
+        }
+        meta.addStat(EnumSpellStat.POTENCY, 50);
+        meta.addStat(EnumSpellStat.COST, (int) (50 * Math.abs(powerVal)));
     }
 
     @Override

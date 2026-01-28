@@ -30,7 +30,7 @@ public class PsiEXAPI {
             ctx.cspell.safeExecute(ctx);
         }
     }
-    public static void applyExplosionEffect(Level level, Vec3 center, double maxRadius) {
+    public static void applyExplosionEffect(Level level, Vec3 center, double maxRadius,float speed) {
         AABB area = new AABB(
                 center.x - maxRadius, center.y - maxRadius, center.z - maxRadius,
                 center.x + maxRadius, center.y + maxRadius, center.z + maxRadius
@@ -44,7 +44,7 @@ public class PsiEXAPI {
 
             // 距離に応じてダメージ減衰（線形補間）
             float damageRatio = 1.0f - (float)(Math.sqrt(distance) / maxRadius);
-            float damage = 20.0f * damageRatio; // 最大20ダメージ
+            float damage = 20.0f * damageRatio * speed;
 
             // ノックバック（中心から外へ）
             Vec3 knockback = target.position().subtract(center).normalize().scale(damageRatio * 2.0);

@@ -15,7 +15,7 @@ import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.NotNull;
 
 public class Railgun extends Projectile {
-    private static final double SPEED = 5.0;
+    private double speed;
     private int life = 100;
 
     public Railgun(EntityType<? extends Railgun> type, Level level) {
@@ -26,6 +26,7 @@ public class Railgun extends Projectile {
     public Railgun(EntityType<? extends Railgun> type, LivingEntity shooter, Level level) {
         super(type, level);
         this.setOwner(shooter);
+        this.speed = 1;
         this.setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
     }
 
@@ -34,9 +35,9 @@ public class Railgun extends Projectile {
         super.tick();
         Vec3 motion = this.getDeltaMovement();
         Vec3 pos = this.position();
-        PsiEXAPI.applyExplosionEffect(level(),pos,5);
+        PsiEXAPI.applyExplosionEffect(level(),pos,5,(float) speed);
         Vec3 nextPos = pos.add(motion);
-        PsiEXAPI.applyExplosionEffect(level(),nextPos,5);
+        PsiEXAPI.applyExplosionEffect(level(),nextPos,5,(float) speed);
         HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
 
         if (hitResult.getType() != HitResult.Type.MISS) {
@@ -94,5 +95,9 @@ public class Railgun extends Projectile {
     @Override
     public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }

@@ -29,6 +29,16 @@ public class PieceTrick_SummonBarrier extends PieceTrick {
     }
 
     @Override
+    public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
+        super.addToMetadata(meta);
+        Double powerVal = this.<Double>getParamEvaluation(durationParam);
+        if(powerVal == null) {
+            powerVal = 1D;
+        }
+        meta.addStat(EnumSpellStat.POTENCY, 50);
+        meta.addStat(EnumSpellStat.COST, (int) (50 * Math.abs(powerVal)));
+    }
+    @Override
     public Object execute(SpellContext ctx) throws SpellRuntimeException {
         Vector3 p = this.getParamValue(ctx, posParam);
         if (p == null) throw new SpellRuntimeException(SpellRuntimeException.NULL_VECTOR);

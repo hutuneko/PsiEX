@@ -85,7 +85,6 @@ public class PsiGlobalAPI implements ILuaAPI {
                 fake.setYHeadRot(player.getYHeadRot());
                 CopyPlayerInventory.copyFeke(player, fake);
                 sc = new SpellContext().setSpell(s).setPlayer(fake);
-                System.out.println(1);
             }else {
                 sc = new SpellContext().setSpell(s).setPlayer(player);
             }

@@ -6,6 +6,7 @@ import com.hutuneko.psi_ex.entity.PsiBarrierEntity;
 import com.hutuneko.psi_ex.entity.PsiBarrierRenderer;
 import com.hutuneko.psi_ex.item.CuriosItem;
 import com.hutuneko.psi_ex.item.PsiCuriosbullet;
+import com.hutuneko.psi_ex.item.RangeZero;
 import com.hutuneko.psi_ex.spell.operator.PieceOperator_getSpell;
 import com.hutuneko.psi_ex.spell.selector.PieceSelector_getEye;
 import com.hutuneko.psi_ex.spell.trick.PieceTrick_ExecuteSpell;
@@ -33,10 +34,12 @@ public class CuriosCompatModule implements AddonModule {
 
 
         PsiEXRegistry.PSI_CURIO_BULLET = PsiEXRegistry.ITEMS.register("extended_cad_socket", () ->
-                new PsiCuriosbullet(new Item.Properties().stacksTo(1))
+                new PsiCuriosbullet(new Item.Properties())
         );
         PsiEXRegistry.PSI_SPIRITS_EYE = PsiEXRegistry.ITEMS.register("psi_spirits_eye", () ->
-                new CuriosItem(new Item.Properties().stacksTo(1)));
+                new CuriosItem(new Item.Properties()));
+        PsiEXRegistry.RANGEZERO = PsiEXRegistry.ITEMS.register("rangezero", () ->
+                new RangeZero(new Item.Properties()));
         PsiEXRegistry.PSI_BRRIER_ENTITY = PsiEXRegistry.ENTITIES.register("barrier",
                 () -> EntityType.Builder.of(PsiBarrierEntity::new, MobCategory.MISC)
                         .sized(0.5f, 0.5f)

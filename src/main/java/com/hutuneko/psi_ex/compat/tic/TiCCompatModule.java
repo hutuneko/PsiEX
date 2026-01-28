@@ -54,7 +54,6 @@ public class TiCCompatModule implements AddonModule {
         TIC_CAD_SOCKET_CAST = castItemObject("tic_cad_socket",() -> new Item(new Item.Properties()));
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onDamage);
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onLightningStrike);
-        MinecraftForge.EVENT_BUS.addListener(TiCEvent::tick);
         PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ticattack"), PieceTrick_TiCAttack.class);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }

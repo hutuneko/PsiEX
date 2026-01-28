@@ -15,7 +15,7 @@ public abstract class AssembleCADEventMixin {
     @Shadow(remap = false) private ItemStack cad;
 
     @Inject(method = "setCad", at = @At("HEAD"), cancellable = true,remap = false)
-    private void onSetCad(ItemStack newCad, CallbackInfo ci) {
+    private void psi_ex_1_20_1$onSetCad(ItemStack newCad, CallbackInfo ci) {
         if (newCad != null && !newCad.isEmpty() && CadBehavior.isCAD(newCad)) {
             this.cad = newCad;
             ci.cancel();

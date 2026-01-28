@@ -123,4 +123,9 @@ public final class ForgeEventBus {
         e.getOriginal().getCapability(PsionProvider.CAP).ifPresent(old ->
                 e.getEntity().getCapability(PsionProvider.CAP).ifPresent(now -> now.setPsion(old.getPsion())));
     }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void tick(TickEvent e){
+        SpellTriggerContext.remove();
+    }
+
 }

@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vazkii.psi.api.cad.EnumCADComponent;
-import vazkii.psi.api.cad.EnumCADStat;
-import vazkii.psi.api.cad.ICAD;
+import vazkii.psi.api.PsiAPI;
+import vazkii.psi.api.cad.*;
 import vazkii.psi.api.internal.Vector3;
+import vazkii.psi.common.core.handler.capability.CADData;
 import vazkii.psi.common.item.ItemCAD;
 
 @Mixin(Item.class)
@@ -28,14 +28,13 @@ public abstract class ItemMixin {
 
     @Unique
     private static final CadBehavior psi_ex_1_20_1$cad = new CadBehavior();
-
     public ItemStack icad$getComponentInSlot(ItemStack stack, EnumCADComponent type) {
-        if (!CadBehavior.isCAD(stack)) return ItemStack.EMPTY; // 修正: 自分自身ではなく空を返す
+        if (!CadBehavior.isCAD(stack)) return ItemStack.EMPTY;
         return psi_ex_1_20_1$cad.getCad().getComponentInSlot(stack, type);
     }
 
     public int icad$getStatValue(ItemStack stack, EnumCADStat stat) {
-        if (!CadBehavior.isCAD(stack)) return -1; // 修正: -1 は ICADとして無効の意味
+        if (!CadBehavior.isCAD(stack)) return -1;
         return psi_ex_1_20_1$cad.getStatValue(stack, stat);
     }
 
