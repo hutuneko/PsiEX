@@ -54,7 +54,10 @@
   "item.psi_ex.psi_spirits_eye": "精霊の眼",
   "item.psi_ex.psi_needle": "術式針",
   "item.psi_ex.psikiller": "Psiキラー",
+  "item.psi_ex.rangezero": "レンジ・ゼロ",
   "item.psi_ex.personal_tuner": "パーソナルチューナー",
+
+
   "item.psi_ex.tic_cad_core": "TiCCADコア",
   "item.psi_ex.tic_cad_assembly": "TiCCAD素体",
   "item.psi_ex.tic_cad_battery": "TiCCADバッテリー",
@@ -79,6 +82,7 @@
   "item.psi_ex.tic_cad_battery_red_sand_cast": "TiCCADバッテリー赤砂型",
   "item.psi_ex.tic_cad_socket_red_sand_cast": "TiCCADソケット赤砂型",
 
+  "tooltip.psi_ex.skillitem.desc": "原作より引用",
 
   "attribute.name.psi_ex.psi_ancientrites_point": "古式",
   "attribute.name.psi_ex.psi_emission_point": "放出",

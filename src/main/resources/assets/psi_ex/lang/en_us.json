@@ -54,7 +54,10 @@
   "item.psi_ex.psi_spirits_eye": "Spirit Eye",
   "item.psi_ex.psi_needle": "Spell Needle",
   "item.psi_ex.psikiller": "Psi Killer",
+  "item.psi_ex.rangezero": "Range Zero",
   "item.psi_ex.personal_tuner": "Personal Tuner",
+
+
   "item.psi_ex.tic_cad_core": "TiC CAD Core",
   "item.psi_ex.tic_cad_assembly": "TiC CAD Assembly",
   "item.psi_ex.tic_cad_battery": "TiC CAD Battery",
@@ -78,6 +81,8 @@
   "item.psi_ex.tic_cad_assembly_red_sand_cast": "TiC CAD Assembly Red Sand Cast",
   "item.psi_ex.tic_cad_battery_red_sand_cast": "TiC CAD Battery Red Sand Cast",
   "item.psi_ex.tic_cad_socket_red_sand_cast": "TiC CAD Socket Red Sand Cast",
+
+  "tooltip.psi_ex.skillitem.desc": "Quoted from the original work",
 
   "attribute.name.psi_ex.psi_ancientrites_point": "Ancient Rites",
   "attribute.name.psi_ex.psi_emission_point": "Emission",
