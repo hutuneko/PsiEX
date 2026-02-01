@@ -45,6 +45,8 @@
   "psi_ex.spellpiece.piecetrick_seve_vector.desc": "ベクトルをセーブします。",
   "psi_ex.spellpiece.piecetrick_poisonousbee": "作動式：毒蜂",
   "psi_ex.spellpiece.piecetrick_poisonousbee.desc": "与えているダメージに応じてダメージを与えます。(原作から引用)",
+  "psi_ex.spellpiece.piecetrick_eclair": "作動式：稲妻",
+  "psi_ex.spellpiece.piecetrick_eclair.desc": "見えた相手にすっ飛んで行きます(原作から引用)",
 
   "item.psi_ex.psi_arrow": "術式矢",
   "item.psi_ex.cad_patch": "CAD化パッチ",
@@ -55,6 +57,7 @@
   "item.psi_ex.psi_needle": "術式針",
   "item.psi_ex.psikiller": "Psiキラー",
   "item.psi_ex.rangezero": "レンジ・ゼロ",
+  "item.psi_ex.eclair": "エクレール",
   "item.psi_ex.personal_tuner": "パーソナルチューナー",
 
 
@@ -133,6 +136,7 @@
 
   "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
+  "psi_ex.spellerror.exclusive_failed": "使用出来ません。",
 
   "effect.psi_ex.castjamming": "キャストジャミング",
 

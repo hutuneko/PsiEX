@@ -1,5 +1,6 @@
 package com.hutuneko.psi_ex;
 
+import com.hutuneko.psi_ex.api.PsiEXAPI;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.logging.LogUtils;
@@ -12,6 +13,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+import vazkii.psi.api.PsiAPI;
+import vazkii.psi.api.spell.SpellPiece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,11 @@ public class PsiEX {
         PsiEXRegistry.TABS.register(modBus);
         PsiEXRegistry.MOB_EFFECTS.register(modBus);
         PsiEXAttributes.register(modBus);
+
+        for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"com.hutuneko.psi_ex.spell")){
+            PsiAPI.addPieceToGroup(c, new ResourceLocation(MOD_ID, "psiex"),false);
+        }
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
     }
 

@@ -3,7 +3,7 @@ package com.hutuneko.psi_ex.compat.tic;
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.item.TiCCAD;
-import com.hutuneko.psi_ex.spell.trick.PieceTrick_TiCAttack;
+import com.hutuneko.psi_ex.spell.trick.skill.PieceTrick_TiCAttack;
 import moffy.addonapi.AddonModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;

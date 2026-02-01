@@ -1,5 +1,6 @@
-package com.hutuneko.psi_ex.item;
+package com.hutuneko.psi_ex.item.SkillItem;
 
+import com.hutuneko.psi_ex.item.CuriosItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SkillItem extends CuriosItem{
+public class SkillItem extends CuriosItem {
     public SkillItem(Properties pProperties) {
         super(pProperties);
     }

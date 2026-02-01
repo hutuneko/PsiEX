@@ -1,6 +1,7 @@
-package com.hutuneko.psi_ex.spell.trick;
+package com.hutuneko.psi_ex.spell.trick.skill;
 
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
+import com.hutuneko.psi_ex.api.piece.PieceTrickExclusive;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -10,17 +11,23 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.spell.*;
 import vazkii.psi.api.spell.param.ParamEntity;
-import vazkii.psi.api.spell.piece.PieceTrick;
 
-public class PieceTrick_TiCAttack extends PieceTrick {
+public class PieceTrick_TiCAttack extends PieceTrickExclusive {
     private ParamEntity tParam;
     public PieceTrick_TiCAttack(Spell spell) {
         super(spell);
     }
+
+    @Override
+    public boolean isCast(Player caster, SpellContext ctx) {
+        return !(PsiAPI.getPlayerCAD(caster).getItem() instanceof IModifiable);
+    }
+
     @Override
     public void initParams() {
         addParam(tParam = new ParamEntity(SpellParam.GENERIC_NAME_NUMBER,SpellParam.GREEN,false,false
@@ -37,7 +44,6 @@ public class PieceTrick_TiCAttack extends PieceTrick {
         Entity entity = getParamValue(context, tParam);
         if (entity instanceof LivingEntity livingEntity){
             if (!(context.caster instanceof ServerPlayer player)) return null;
-            if (!(PsiAPI.getPlayerCAD(player).getItem() instanceof IModifiable)) throw new SpellRuntimeException("TiCCAD限定");
 
             ServerLevel serverLevel = player.serverLevel();
             RegistryAccess registryAccess = serverLevel.registryAccess();

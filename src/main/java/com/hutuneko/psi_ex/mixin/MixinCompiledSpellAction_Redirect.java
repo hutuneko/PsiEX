@@ -3,6 +3,7 @@ package com.hutuneko.psi_ex.mixin;
 import com.hutuneko.psi_ex.Config;
 import com.hutuneko.psi_ex.api.SpellTriggerContext;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
+import com.hutuneko.psi_ex.api.piece.PieceTrickExclusive;
 import com.hutuneko.psi_ex.system.PieceConditionRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -28,6 +29,9 @@ public abstract class MixinCompiledSpellAction_Redirect {
         if (ctx.caster.hasEffect(PsiEXRegistry.CASTJAMMING.get())){
             throw new SpellRuntimeException("psi_ex.spellerror.castjamming");
         }
+        if (this.piece instanceof PieceTrickExclusive isTrick){
+            if (!isTrick.isCast(ctx.caster, ctx)) throw new SpellRuntimeException("psi_ex.spellerror.exclusive_failed");
+        }
         var id = ((AccessorSpellPiece) this.piece).getRegistryKey();
         var cond = PieceConditionRegistry.get(id).orElse(null);
         if (Config.COMMON.spellgeat.get()) {
@@ -43,8 +47,7 @@ public abstract class MixinCompiledSpellAction_Redirect {
                     if (msg instanceof MutableComponent com) {
                         msg = com.append(Component.translatable("message.psi_ex.requirement_suffix"));
                     }
-                    if (msg != null && ctx != null && ctx.caster != null && !ctx.caster.level().isClientSide) {
-//                        ctx.caster.sendSystemMessage(msg);
+                    if (msg != null && ctx.caster != null && !ctx.caster.level().isClientSide) {
                         throw new SpellRuntimeException(msg.getString());
                     }
 

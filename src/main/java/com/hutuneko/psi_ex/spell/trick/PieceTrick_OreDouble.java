@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,7 +54,7 @@ public class PieceTrick_OreDouble extends PieceTrick {
             powerVal = 1D;
         }
         meta.addStat(EnumSpellStat.POTENCY, 20);
-        meta.addStat(EnumSpellStat.COST, (int) (50 * Math.abs(powerVal)));
+        meta.addStat(EnumSpellStat.COST, (int) (500 * Math.abs(powerVal)));
     }
 
     @Override
@@ -78,24 +79,41 @@ public class PieceTrick_OreDouble extends PieceTrick {
         ServerLevel server = (ServerLevel) level;
         System.out.println(state.getTags());
         if (item.is(Tags.Items.ORES)) {
-            Number nraw = this.getParamValue(context, doudleParam);
-            int n = nraw.intValue();
-            for (int i = 0; i < n; i++) {
-            LootParams.Builder lootBuilder = new LootParams.Builder(server)
-                    .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
-                    .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
+            if (item.getItem() != Items.ANCIENT_DEBRIS){
+                Number nraw = this.getParamValue(context, doudleParam);
+                int n = nraw.intValue();
+                for (int i = 0; i < n; i++) {
+                    LootParams.Builder lootBuilder = new LootParams.Builder(server)
+                            .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                            .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
 
-            List<ItemStack> drops = state.getDrops(lootBuilder);
+                    List<ItemStack> drops = state.getDrops(lootBuilder);
+                    for (ItemStack drop : drops) {
+                        double x = pos.getX() + 0.5;
+                        double y = pos.getY() + 0.5;
+                        double z = pos.getZ() + 0.5;
+                        ItemEntity ent = new ItemEntity(server, x, y, z, drop);
+                        ent.setDeltaMovement(0, 0, 0);
+                        server.addFreshEntity(ent);
+                    }
+                }
+                level.destroyBlock(pos, false);
+            }else {
+                LootParams.Builder lootBuilder = new LootParams.Builder(server)
+                        .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                        .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
+
+                List<ItemStack> drops = state.getDrops(lootBuilder);
                 for (ItemStack drop : drops) {
                     double x = pos.getX() + 0.5;
                     double y = pos.getY() + 0.5;
                     double z = pos.getZ() + 0.5;
                     ItemEntity ent = new ItemEntity(server, x, y, z, drop);
                     ent.setDeltaMovement(0, 0, 0);
-                        server.addFreshEntity(ent);
+                    server.addFreshEntity(ent);
                 }
+                level.destroyBlock(pos, false);
             }
-            level.destroyBlock(pos,false);
         }else{
             throw new SpellRuntimeException("鉱石ではありません。");
         }

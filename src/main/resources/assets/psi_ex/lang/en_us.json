@@ -45,6 +45,8 @@
   "psi_ex.spellpiece.piecetrick_seve_vector.desc": "Saves the input vector into memory.",
   "psi_ex.spellpiece.piecetrick_poisonousbee": "Trick: Poisonous Bee",
   "psi_ex.spellpiece.piecetrick_poisonousbee.desc": "Deals additional damage proportional to the damage already sustained.",
+  "psi_ex.spellpiece.piecetrick_eclair": "Trick: Éclair",
+  "psi_ex.spellpiece.piecetrick_eclair.desc": "Launches the caster toward a sighted target. (Quoted from the original work)",
 
   "item.psi_ex.psi_arrow": "Spell Arrow",
   "item.psi_ex.cad_patch": "CADPatch",
@@ -55,6 +57,8 @@
   "item.psi_ex.psi_needle": "Spell Needle",
   "item.psi_ex.psikiller": "Psi Killer",
   "item.psi_ex.rangezero": "Range Zero",
+  "item.psi_ex.eclair": "Éclair",
+
   "item.psi_ex.personal_tuner": "Personal Tuner",
 
 
@@ -133,6 +137,7 @@
 
   "psi_ex.spellerror.castjamming": "Cast Jamming active!",
   "psi_ex.spellerror.nocurios": "Cannot retrieve from Curios slot",
+  "psi_ex.spellerror.exclusive_failed": "Execution failed: Unauthorized user or condition",
 
   "effect.psi_ex.castjamming": "Cast Jamming",
 

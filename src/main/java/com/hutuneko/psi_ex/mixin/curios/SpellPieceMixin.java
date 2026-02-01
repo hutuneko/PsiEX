@@ -1,7 +1,7 @@
 package com.hutuneko.psi_ex.mixin.curios;
 
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
-import com.hutuneko.psi_ex.item.RangeZero;
+import com.hutuneko.psi_ex.item.SkillItem.RangeZero;
 import com.hutuneko.psi_ex.system.CuriosUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;

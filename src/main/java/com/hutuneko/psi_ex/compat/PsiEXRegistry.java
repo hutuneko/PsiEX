@@ -47,16 +47,19 @@ public class PsiEXRegistry {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, "psi_ex");
 
-    public static RegistryObject<Item> PSI_MANA_LENS = null;
-
     public static RegistryObject<Item> PERSONAL_TUNER = null;
     public static RegistryObject<Item> PSI_ARROW = null;
-    public static RegistryObject<Item> PSI_CURIO_BULLET = null;
-    public static RegistryObject<Item> PSI_SPELLBOOK = null;
-    public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
-    public static RegistryObject<Item> RANGEZERO = null;
     public static RegistryObject<Item> PSI_NEEDLE_DART = null;
     public static RegistryObject<Item> CAD_PATCH = null;
+
+    public static RegistryObject<Item> PSI_MANA_LENS = null;
+
+    public static RegistryObject<Item> PSI_SPELLBOOK = null;
+
+    public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
+    public static RegistryObject<Item> RANGEZERO = null;
+    public static RegistryObject<Item> ECLAIR = null;
+    public static RegistryObject<Item> PSI_CURIO_BULLET = null;
 
     public static RegistryObject<Item> PSI_BOW = null;
     public static RegistryObject<Item> STORAGE = null;
@@ -71,7 +74,7 @@ public class PsiEXRegistry {
     public static RegistryObject<EntityType<Railgun>> RAILGUN = null;
 
     public static RegistryObject<MobEffect> CASTJAMMING = null;
-    public static RegistryObject<MobEffect> PARADE = null;
+    public static RegistryObject<MobEffect> ECLAIREFFECT = null;
 
     public static RegistryObject<MenuType<AttributeEditorMenu>> ATTRIBUTE_EDITOR = null;
 

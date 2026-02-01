@@ -3,15 +3,20 @@ package com.hutuneko.psi_ex.api;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.forgespi.locating.IModFile;
 import org.jetbrains.annotations.Nullable;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;
+import vazkii.psi.api.spell.SpellPiece;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -55,5 +60,90 @@ public class PsiEXAPI {
     }
     public static <T> void ifNotNull(T obj, Consumer<T> action) {
         if (obj != null) action.accept(obj);
+    }
+    public static Entity raycastEntity(Entity caster, double range, double angleDegrees, boolean checkLineOfSight) {
+        Vec3 eyePos = caster.getEyePosition(1.0F);
+        Vec3 lookVec = caster.getLookAngle();
+        double minCos = Math.cos(Math.toRadians(angleDegrees));
+
+        AABB searchBox = caster.getBoundingBox().inflate(range);
+        List<Entity> entities = caster.level().getEntities(caster, searchBox,
+                e -> e.isAlive() && e.isPickable() && e != caster);
+
+        return entities.stream()
+                .filter(e -> {
+                    Vec3 targetPos = e.position().add(0, e.getBbHeight() / 2, 0);
+                    Vec3 toTarget = targetPos.subtract(eyePos);
+                    double distance = toTarget.length();
+
+                    if (distance > range) return false;
+                    if (lookVec.dot(toTarget.normalize()) < minCos) return false;
+
+                    if (checkLineOfSight) {
+                        Vec3 endPos = eyePos.add(toTarget.normalize().scale(distance));
+                        BlockHitResult blockHit = caster.level().clip(new ClipContext(
+                                eyePos,
+                                endPos,
+                                ClipContext.Block.COLLIDER,
+                                ClipContext.Fluid.NONE,
+                                caster
+                        ));
+
+                        if (blockHit.getType() != HitResult.Type.MISS) {
+                            double blockDist = blockHit.getLocation().distanceTo(eyePos);
+                            return !(blockDist < distance - 0.5);
+                        }
+                    }
+
+                    return true;
+                })
+                .min(Comparator.comparingDouble(e -> e.distanceToSqr(caster)))
+                .orElse(null);
+    }
+    public static float[] lookAtRotation(Entity from, Entity to) {
+        Vec3 fromPos = from.getEyePosition(1.0F);
+        Vec3 toPos = to.position().add(0, to.getBbHeight() / 2, 0);
+        Vec3 delta = toPos.subtract(fromPos);
+
+        double horizontalDist = Math.sqrt(delta.x * delta.x + delta.z * delta.z);
+
+        float yRot = (float) Math.toDegrees(Math.atan2(delta.z, delta.x)) - 90;
+        yRot = normalizeYaw(yRot);
+
+        float xRot = (float) Math.toDegrees(-Math.atan2(delta.y, horizontalDist));
+        xRot = Math.max(-90, Math.min(90, xRot));
+
+        return new float[]{yRot, xRot};
+    }
+
+    public static float normalizeYaw(float yaw) {
+        while (yaw < -180) yaw += 360;
+        while (yaw >= 180) yaw -= 360;
+        return yaw;
+    }
+    public static List<Class<? extends SpellPiece>> findSpellPieces(String modId, String packageName) {
+        List<Class<? extends SpellPiece>> classes = new ArrayList<>();
+
+        var modFileInfo = ModList.get().getModFileById(modId);
+
+        if (modFileInfo != null) {
+            IModFile modFile = modFileInfo.getFile();
+
+            modFile.getScanResult().getClasses().forEach(classInfo -> {
+                String className = classInfo.clazz().getClassName();
+
+                if (className.startsWith(packageName)) {
+                    try {
+                        Class<?> clazz = Class.forName(className);
+                        if (SpellPiece.class.isAssignableFrom(clazz)) {
+                            classes.add((Class<? extends SpellPiece>) clazz);
+                        }
+                    } catch (ClassNotFoundException ignored) {
+                    }
+                }
+            });
+        }
+
+        return classes;
     }
 }

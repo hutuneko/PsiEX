@@ -1,4 +1,4 @@
-package com.hutuneko.psi_ex.item;
+package com.hutuneko.psi_ex.item.SkillItem;
 
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import net.minecraft.world.entity.LivingEntity;
