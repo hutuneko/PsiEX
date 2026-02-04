@@ -45,6 +45,10 @@ public class CuriosCompatModule implements AddonModule {
                 new RangeZero(new Item.Properties()));
         PsiEXRegistry.ECLAIR = PsiEXRegistry.ITEMS.register("eclair", () ->
                 new Eclair(new Item.Properties()));
+        PsiEXRegistry.PHANTOM = PsiEXRegistry.ITEMS.register("phantom", () ->
+                new Phantom(new Item.Properties()));
+        PsiEXRegistry.ELFINSNIPER = PsiEXRegistry.ITEMS.register("elfinsniper", () ->
+                new ElfinSniper(new Item.Properties()));
         PsiEXRegistry.PSI_BRRIER_ENTITY = PsiEXRegistry.ENTITIES.register("barrier",
                 () -> EntityType.Builder.of(PsiBarrierEntity::new, MobCategory.MISC)
                         .sized(0.5f, 0.5f)
@@ -53,6 +57,8 @@ public class CuriosCompatModule implements AddonModule {
                         .build(new ResourceLocation(PsiEX.MOD_ID, "barrier").toString()));
         PsiEXRegistry.ECLAIREFFECT =
                 PsiEXRegistry.MOB_EFFECTS.register("eclair",() -> new EclairEffect(MobEffectCategory.HARMFUL,0xFF00FF));
+        var c = FMLJavaModLoadingContext.get().getModEventBus();
+
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     @OnlyIn(Dist.CLIENT)

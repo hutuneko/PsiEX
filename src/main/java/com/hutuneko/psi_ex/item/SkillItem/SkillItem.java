@@ -1,66 +1,77 @@
 package com.hutuneko.psi_ex.item.SkillItem;
 
-import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import com.hutuneko.psi_ex.item.CuriosItem;
-import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import com.hutuneko.psi_ex.system.CuriosUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.*;
 
-public class SkillItem extends CuriosItem {
-    private final UUID ZERO_MODIFIER_UUID;
-    public SkillItem(Properties pProperties, UUID uuid) {
-        super(pProperties);
-        ZERO_MODIFIER_UUID = uuid;
+public abstract class SkillItem extends CuriosItem {
+    private final UUID modifierUuid;
+    private final Map<Attribute, Integer> totalModifiers = new LinkedHashMap<>();
+    private final Map<Attribute, Integer> additionModifiers = new LinkedHashMap<>();
+
+    public SkillItem(Properties props, UUID uuid) {
+        super(props);
+        this.modifierUuid = uuid;
+        initializeAttributes();
     }
-    private static final Map<Attribute,Integer> atMap = new LinkedHashMap<>();
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.psi_ex.skillitem.desc").withStyle(ChatFormatting.GRAY));
+    protected abstract void initializeAttributes();
+
+    // 子クラス用の setter（親クラス内から呼ばれる）
+    protected final void setAttributeTotal(Attribute attribute, int set) {
+        totalModifiers.put(attribute, set);
     }
-    public static void setAttribute(Attribute attribute,int set){
-        atMap.put(attribute,set);
+
+    protected final void setAttributeAddition(Attribute attribute, int set) {
+        additionModifiers.put(attribute, set);
     }
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         LivingEntity entity = slotContext.entity();
-        for (int i = 0;i < atMap.size();i++){
-            Attribute attribute = new ArrayList<>(atMap.keySet()).get(i);
-            int in = new ArrayList<>(atMap.values()).get(i);
-            AttributeInstance inst = entity.getAttribute(attribute);
-            if (inst != null) {
-                AttributeModifier modifier = new AttributeModifier(
-                        ZERO_MODIFIER_UUID,
-                        "Temporary attribute zeroing",
-                        in,
-                        AttributeModifier.Operation.MULTIPLY_TOTAL
-                );
-                inst.addTransientModifier(modifier);
-            }
+        applyModifiers(entity, totalModifiers, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        applyModifiers(entity, additionModifiers, AttributeModifier.Operation.ADDITION);
+    }
+
+    private void applyModifiers(LivingEntity entity, Map<Attribute, Integer> modifiers,
+                                AttributeModifier.Operation op) {
+        for (Map.Entry<Attribute, Integer> entry : modifiers.entrySet()) {
+            AttributeInstance inst = entity.getAttribute(entry.getKey());
+            if (inst == null) continue;
+
+            inst.addTransientModifier(new AttributeModifier(
+                    modifierUuid,
+                    "SkillItem modifier",
+                    entry.getValue(),
+                    op
+            ));
         }
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        LivingEntity entity = slotContext.entity();
-        for (RegistryObject<Attribute> attr : PsiEXRegistry.ATTRIBUTES.getEntries()) {
-            Attribute targetAttr = attr.get();
-            AttributeInstance inst = entity.getAttribute(targetAttr);
+        removeModifiers(slotContext.entity(), totalModifiers.keySet());
+        removeModifiers(slotContext.entity(), additionModifiers.keySet());
+    }
+
+    private void removeModifiers(LivingEntity entity, Set<Attribute> attributes) {
+        for (Attribute attr : attributes) {
+            AttributeInstance inst = entity.getAttribute(attr);
             if (inst != null) {
-                inst.removeModifier(ZERO_MODIFIER_UUID);
+                inst.removeModifier(modifierUuid);
             }
         }
+    }
+
+    @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack) {
+        if (!(slotContext.entity() instanceof Player player)) return false;
+        return CuriosUtil.findFirstByItem(player, this).isEmpty();
     }
 }

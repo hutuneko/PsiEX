@@ -84,7 +84,6 @@ public class PieceTrick_CastScroll extends PieceTrick {
         fake.setXRot(player.getXRot());
         fake.setYHeadRot(player.getYHeadRot());
         CopyPlayerInventory.copyFeke((ServerPlayer) player, fake);
-        Object removalListener = getevent(sWorld, fake);
 
         Item scrollItem = PsiEXRegistry.CAST_SCROLL.get();
         ItemStack scrollStack = new ItemStack(scrollItem);
@@ -95,16 +94,14 @@ public class PieceTrick_CastScroll extends PieceTrick {
             throw new SpellRuntimeException("NBTから復元したスクロールが無効です");
         }
 
-
         ISpellContainer container = ISpellContainer.get(scrollStack);
 
         ItemStack scrollCopy = scrollStack.copy();
         Vector3 casterPos = Vector3.fromEntity(context.caster);
-        Vector3 diff = vv.copy().subtract(casterPos);
         AttributeInstance instance = player.getAttribute(PsiEXAttributes.PSI_SPELL_RANGE.get());
         boolean isR = false;
         if (instance != null) {
-            isR = MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z) <= instance.getValue();
+            isR = MathHelper.pointDistanceSpace(vv.x, vv.y, vv.z, casterPos.x, casterPos.y, casterPos.z) >= instance.getValue();
         }
         if (isR) {
             throw new SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS);
@@ -114,34 +111,14 @@ public class PieceTrick_CastScroll extends PieceTrick {
         AbstractSpell spell = data.getSpell();
         if (spell == null) throw new SpellRuntimeException("spellがありません");
         sWorld.addFreshEntity(fake);
-        spell.attemptInitiateCast(
-                scrollCopy,
-                spell.getLevelFor(data.getLevel(), player),
+        spell.castSpell(
                 sWorld,
+                spell.getLevelFor(data.getLevel(), player),
                 fake,
                 CastSource.SCROLL,
-                false,
-                SpellSelectionManager.MAINHAND
+                false
         );
 
-        MinecraftForge.EVENT_BUS.register(removalListener);
         return null;
-    }
-
-    private @NotNull Object getevent(ServerLevel sWorld, ServerPlayer fake) {
-        long currentTick = sWorld.getGameTime();
-        long removeTick = currentTick + 20 * 10;
-
-        return new Object() {
-            @SubscribeEvent(priority = EventPriority.NORMAL)
-            public void onServerTick(TickEvent.ServerTickEvent evt) {
-                if (evt.phase == TickEvent.Phase.END && sWorld.getGameTime() >= removeTick) {
-                    if (fake.isAlive()) {
-                        fake.remove(Entity.RemovalReason.DISCARDED);
-                    }
-                    MinecraftForge.EVENT_BUS.unregister(this);
-                }
-            }
-        };
     }
 }

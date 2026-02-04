@@ -1,6 +1,7 @@
 package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.block.MultiPageProgrammer;
 import com.hutuneko.psi_ex.effect.CastJammingEffect;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
@@ -15,9 +16,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -64,8 +67,13 @@ public class DefaultCompatModule implements AddonModule {
                 new PsiArrowItem(new Item.Properties()));
         PsiEXRegistry.PSI_NEEDLE_DART = PsiEXRegistry.ITEMS.register("psi_needle", () ->
                 new ItemNeedleDart(new Item.Properties()));
+        PsiEXRegistry.ITEMS.register("multipageprogrammer", () ->
+                new BlockItem(PsiEXRegistry.MULTIPAGEPROGRAMMER.get(), new Item.Properties().stacksTo(1)));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
+
+        PsiEXRegistry.MULTIPAGEPROGRAMMER = PsiEXRegistry.BLOCKS.register("multipageprogrammer",() ->
+                new MultiPageProgrammer(BlockBehaviour.Properties.of()));
 
         PsiEXRegistry.PSI_ARROW_ENTITY = PsiEXRegistry.ENTITIES.register("psi_arrow_entity", () ->
                 EntityType.Builder.<PsiArrowEntity>of(PsiArrowEntity::new, MobCategory.MISC)

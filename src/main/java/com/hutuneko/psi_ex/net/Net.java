@@ -1,4 +1,4 @@
-package com.hutuneko.psi_ex.system;
+package com.hutuneko.psi_ex.net;
 
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.system.attribute.C2SSetAttribute;
@@ -29,14 +29,6 @@ public final class Net {
             );
 
             id = 0;
-
-            // --- Client 向け（サーバ→クライアント）
-            CHANNEL.messageBuilder(SyncPsionS2C.class, id++, NetworkDirection.PLAY_TO_CLIENT)
-                    .encoder(SyncPsionS2C::encode)
-                    .decoder(SyncPsionS2C::decode)
-                    .consumerMainThread(SyncPsionS2C::handle)
-                    .add();
-
             // --- Server 向け（クライアント→サーバ）
             CHANNEL.messageBuilder(C2SSetAttribute.class, id++, NetworkDirection.PLAY_TO_SERVER)
                     .encoder(C2SSetAttribute::encode)
@@ -45,6 +37,16 @@ public final class Net {
                     .add();
 
             // --- Client 向け（サーバ→クライアント）
+            CHANNEL.messageBuilder(SyncPsionS2C.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                    .encoder(SyncPsionS2C::encode)
+                    .decoder(SyncPsionS2C::decode)
+                    .consumerMainThread(SyncPsionS2C::handle)
+                    .add();
+            CHANNEL.messageBuilder(SniperTargetPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                    .encoder(SniperTargetPacket::encode)
+                    .decoder(SniperTargetPacket::decode)
+                    .consumerMainThread(SniperTargetPacket::handle)
+                    .add();
             CHANNEL.messageBuilder(S2COpenEditor.class, id++, NetworkDirection.PLAY_TO_CLIENT)
                     .encoder(S2COpenEditor::encode)
                     .decoder(S2COpenEditor::decode)

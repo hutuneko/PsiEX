@@ -20,12 +20,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class PsiEXRegistry {
-
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, PsiEX.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS =
@@ -59,6 +59,8 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
     public static RegistryObject<Item> RANGEZERO = null;
     public static RegistryObject<Item> ECLAIR = null;
+    public static RegistryObject<Item> PHANTOM = null;
+    public static RegistryObject<Item> ELFINSNIPER = null;
     public static RegistryObject<Item> PSI_CURIO_BULLET = null;
 
     public static RegistryObject<Item> PSI_BOW = null;
@@ -66,6 +68,8 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> CAST_SCROLL = null;
 
     public static RegistryObject<Item> PSIKILLER = null;
+
+    public static RegistryObject<Block> MULTIPAGEPROGRAMMER = null;
 
     public static RegistryObject<EntityType<PsiArrowEntity>> PSI_ARROW_ENTITY = null;
     public static RegistryObject<EntityType<PsiNeedleDartEntity>> PSI_NEEDLE_DARTENTITY = null;

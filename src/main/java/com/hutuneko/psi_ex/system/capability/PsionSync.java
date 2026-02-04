@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.system.capability;
 
-import com.hutuneko.psi_ex.system.Net;
+import com.hutuneko.psi_ex.net.Net;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.PacketDistributor;

@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.system.attribute;
 
-import com.hutuneko.psi_ex.system.Net;
+import com.hutuneko.psi_ex.net.Net;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
@@ -214,8 +214,9 @@ public class AttributeEditorScreen extends Screen {
         rows.forEach(r -> Net.CHANNEL.sendToServer(new C2SSetAttribute(r.id, r.current)));
         super.removed();
     }
+    private boolean isUpdating = false;
     private void onEditBoxChange(String text) {
-        // 現在フォーカスされている EditBox を特定する
+        if (isUpdating) return;
         Row targetRow = null;
         for (Row r : rows) {
             if (r.editBox != null && r.editBox.isFocused()) {
@@ -230,6 +231,7 @@ public class AttributeEditorScreen extends Screen {
         }
 
         try {
+            isUpdating = true;
             double proposedValue = Double.parseDouble(text);
 
             // 1. 合計上限チェックとクランプ

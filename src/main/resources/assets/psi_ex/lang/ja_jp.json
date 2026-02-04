@@ -138,6 +138,8 @@
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
   "psi_ex.spellerror.exclusive_failed": "使用出来ません。",
 
+  "psi_ex.gui.multiprogrammer": "マルチページ",
+
   "effect.psi_ex.castjamming": "キャストジャミング",
 
   "gui.psi_ex.tic_cad": "TiCCAD",

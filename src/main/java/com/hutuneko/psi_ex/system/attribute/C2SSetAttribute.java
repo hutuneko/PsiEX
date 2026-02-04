@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.system.attribute;
 
-import com.hutuneko.psi_ex.system.Net;
+import com.hutuneko.psi_ex.net.Net;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
