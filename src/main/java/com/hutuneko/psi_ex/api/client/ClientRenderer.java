@@ -34,7 +34,7 @@ public class ClientRenderer {
 
     @SubscribeEvent
     public static void onRenderWorld(RenderLevelStageEvent e) {
-        if (e.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
+        if (e.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) return;
 
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
@@ -55,14 +55,9 @@ public class ClientRenderer {
             float sizeY = (float)(bb.maxY - bb.minY);
             float sizeZ = (float)(bb.maxZ - bb.minZ);
             ps.pushPose();
-//            ps.translate(entity.xo, entity.yo, entity.zo);
-            ps.mulPose(cameraRotation);
-            RenderUtils.renderWireCube(ps, buffers,
-                    BlockPos.containing(entity.getX(),entity.getY(),entity.getZ()),
-                    new float[]{1.0f, 0.0f, 0.0f}, // 赤
-                    1f, // 透明度
-                    Math.max(sizeX, Math.max(sizeY, sizeZ))
-            );
+            ps.translate(entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ()); // 位置適用
+//            ps.mulPose(cameraRotation);
+            RenderUtils.renderWireCubeRelative(ps, buffers, Math.max(sizeX, Math.max(sizeY, sizeZ)), new float[]{1.0f, 0.0f, 0.0f});
             ps.popPose();
         }
 

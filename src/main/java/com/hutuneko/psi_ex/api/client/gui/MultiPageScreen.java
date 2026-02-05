@@ -47,9 +47,9 @@ public class MultiPageScreen extends Screen {
 
         // ページ切り替えボタン
         this.addRenderableWidget(Button.builder(Component.literal("◀"), btn -> prevPage())
-                .bounds(this.leftPos - 30, this.topPos + 100, 25, 20).build());
+                .bounds(this.leftPos - 30, this.topPos - 20, 25, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal("▶"), btn -> nextPage())
-                .bounds(this.leftPos + this.imageWidth + 5, this.topPos + 100, 25, 20).build());
+                .bounds(this.leftPos + this.imageWidth + 5, this.topPos - 20, 25, 20).build());
 
         // 全ページを初期化
         for (Page page : pages) {

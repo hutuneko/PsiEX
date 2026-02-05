@@ -17,10 +17,11 @@ import vazkii.psi.common.block.BlockProgrammer;
 
 import javax.annotation.Nonnull;
 
-public class MultiPageProgrammer extends BlockProgrammer{
+public class MultiPageProgrammer extends BlockProgrammer {
     public MultiPageProgrammer(Properties props) {
         super(props);
     }
+
     @Override
     public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
         return new MultiPageTileProgrammer(pos, state);
@@ -28,27 +29,28 @@ public class MultiPageProgrammer extends BlockProgrammer{
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-        ItemStack heldItem = player.getItemInHand(hand);
-        MultiPageTileProgrammer programmer = (MultiPageTileProgrammer)worldIn.getBlockEntity(pos);
-        if (programmer == null) {
-            return InteractionResult.PASS;
-        } else {
-            InteractionResult result = this.setSpell(worldIn, pos, player, heldItem);
-            if (result != InteractionResult.SUCCESS) {
-                boolean enabled = programmer.isEnabled();
-                if (!enabled || programmer.playerLock.isEmpty()) {
-                    programmer.playerLock = player.getName().getString();
-                }
-
-                if (player instanceof ServerPlayer) {
-                    VanillaPacketDispatcher.dispatchTEToPlayer(programmer, (ServerPlayer) player);
-                }
-                if (worldIn.isClientSide) {
-                    MultiProgrammerScreen.openGUI(programmer, programmer.getCurrentPage());
-                }
-
-            }
-            return InteractionResult.SUCCESS;
+        BlockEntity be = worldIn.getBlockEntity(pos);
+        if (!(be instanceof MultiPageTileProgrammer programmer)) {
+            return super.use(state, worldIn, pos, player, hand, rayTraceResult);
         }
+
+        ItemStack heldItem = player.getItemInHand(hand);
+
+        InteractionResult result = this.setSpell(worldIn, pos, player, heldItem);
+
+        if (result != InteractionResult.SUCCESS) {
+            boolean enabled = programmer.isEnabled();
+            if (!enabled || programmer.playerLock.isEmpty()) {
+                programmer.playerLock = player.getName().getString();
+            }
+
+            if (player instanceof ServerPlayer) {
+                VanillaPacketDispatcher.dispatchTEToPlayer(programmer, (ServerPlayer) player);
+            }
+            if (worldIn.isClientSide) {
+                MultiProgrammerScreen.openGUI(programmer, programmer.getCurrentPage());
+            }
+        }
+        return InteractionResult.SUCCESS;
     }
 }

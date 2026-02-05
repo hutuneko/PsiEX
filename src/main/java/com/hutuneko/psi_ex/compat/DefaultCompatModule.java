@@ -2,6 +2,7 @@ package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.block.MultiPageProgrammer;
+import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import com.hutuneko.psi_ex.effect.CastJammingEffect;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -74,6 +76,10 @@ public class DefaultCompatModule implements AddonModule {
 
         PsiEXRegistry.MULTIPAGEPROGRAMMER = PsiEXRegistry.BLOCKS.register("multipageprogrammer",() ->
                 new MultiPageProgrammer(BlockBehaviour.Properties.of()));
+        PsiEXRegistry.MULTI_PROGRAMMER =
+                PsiEXRegistry.BLOCK_ENTITIES.register("multi_programmer",
+                        () -> BlockEntityType.Builder.of(MultiPageTileProgrammer::new, PsiEXRegistry.MULTIPAGEPROGRAMMER.get())
+                                .build(null));
 
         PsiEXRegistry.PSI_ARROW_ENTITY = PsiEXRegistry.ENTITIES.register("psi_arrow_entity", () ->
                 EntityType.Builder.<PsiArrowEntity>of(PsiArrowEntity::new, MobCategory.MISC)

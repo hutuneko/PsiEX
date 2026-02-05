@@ -181,7 +181,9 @@ public class GuiProgrammerPage extends GuiProgrammer implements MultiPageScreen.
 
         super.onSpellChanged(nameOnly);
     }
-
+    public Spell getSpell() {
+        return this.spell != null ? this.spell.copy() : new Spell();
+    }
     // GuiProgrammerのprotectedメンバにアクセスするためのアクセッサ
     public int getLeft() { return left; }
     public int getTop() { return top; }

@@ -1,6 +1,7 @@
 package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.recipe.NbtAddRecipe;
 import com.hutuneko.psi_ex.system.attribute.AttributeEditorMenu;
@@ -76,6 +77,9 @@ public class PsiEXRegistry {
     public static RegistryObject<EntityType<PsiBarrierEntity>> PSI_BRRIER_ENTITY = null;
     public static RegistryObject<EntityType<PsiAirEntity>> PSI_COMPRESSIONAIR_ENTITY = null;
     public static RegistryObject<EntityType<Railgun>> RAILGUN = null;
+
+    public static  RegistryObject<BlockEntityType<MultiPageTileProgrammer>> MULTI_PROGRAMMER = null;
+
 
     public static RegistryObject<MobEffect> CASTJAMMING = null;
     public static RegistryObject<MobEffect> ECLAIREFFECT = null;

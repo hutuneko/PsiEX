@@ -47,7 +47,4 @@ public record C2SSetAttribute(ResourceLocation attributeId, double baseValue) {
         });
         ctx.get().setPacketHandled(true);
     }
-
-
-
 }
