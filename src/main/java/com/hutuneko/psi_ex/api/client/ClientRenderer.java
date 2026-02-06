@@ -27,7 +27,6 @@ public class ClientRenderer {
     private static final Set<Integer> targetEntityIds = new HashSet<>();
 
     public static void updateTargets(List<Integer> ids) {
-        PsiEX.LOGGER.error("tests");
         targetEntityIds.clear();
         targetEntityIds.addAll(ids);
     }
@@ -44,7 +43,6 @@ public class ClientRenderer {
 
         ps.pushPose();
         ps.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-        Quaternionf cameraRotation = e.getCamera().rotation();
         for (int entityId : targetEntityIds) {
             Entity entity = mc.level.getEntity(entityId);
             if (entity == null || !entity.isAlive()) continue;

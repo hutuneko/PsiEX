@@ -1,6 +1,5 @@
 package com.hutuneko.psi_ex.block;
 
-import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.common.block.tile.TileProgrammer;
+
+import java.util.Objects;
 
 public class MultiPageTileProgrammer extends TileProgrammer {
     private static final String TAG_PAGES = "pages";
@@ -35,12 +36,8 @@ public class MultiPageTileProgrammer extends TileProgrammer {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-
-        PsiEX.LOGGER.error("===== load CALLED =====");
-        PsiEX.LOGGER.error("Tag contents: {}", tag.getAllKeys());
-
+        
         this.currentPage = tag.getInt(TAG_CURRENT_PAGE);
-        PsiEX.LOGGER.error("Loaded currentPage from NBT: {}", currentPage);
 
         if (currentPage < 0 || currentPage >= pageSpells.length) {
             currentPage = 0;
@@ -48,37 +45,23 @@ public class MultiPageTileProgrammer extends TileProgrammer {
 
         if (tag.contains(TAG_PAGES, 9)) { 
             ListTag pagesTag = tag.getList(TAG_PAGES, 10);
-            PsiEX.LOGGER.error("Found pages list with {} entries", pagesTag.size());
 
             for (int i = 0; i < Math.min(pageSpells.length, pagesTag.size()); i++) {
                 CompoundTag spellTag = pagesTag.getCompound(i);
-                PsiEX.LOGGER.error("Loading page {} from NBT, tag keys: {}", i, spellTag.getAllKeys());
 
                 Spell loaded = Spell.createFromNBT(spellTag);
-                if (loaded != null) {
-                    PsiEX.LOGGER.error("Loaded spell {}: name={}, valid={}",
-                            i, loaded.name, loaded.grid != null);
-                    pageSpells[i] = loaded;
-                } else {
-                    PsiEX.LOGGER.error("Failed to load spell {}, creating new", i);
-                    pageSpells[i] = new Spell();
-                }
+                pageSpells[i] = Objects.requireNonNullElseGet(loaded, Spell::new);
             }
-        } else {
-            PsiEX.LOGGER.error("No 'pages' tag found in NBT!");
         }
-
         this.spell = pageSpells[currentPage];
-        PsiEX.LOGGER.error("Final spell set to page {}: {}", currentPage, this.spell.name);
+        
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        PsiEX.LOGGER.error("saveAdditional called on class: {}", this.getClass().getName());
         if (currentPage >= 0 && currentPage < pageSpells.length && this.spell != null) {
             pageSpells[currentPage] = this.spell;
         }
-
         ListTag pagesTag = new ListTag();
         for (Spell pageSpell : pageSpells) {
             CompoundTag spellTag = new CompoundTag();
@@ -89,8 +72,6 @@ public class MultiPageTileProgrammer extends TileProgrammer {
         }
         tag.put(TAG_PAGES, pagesTag);
         tag.putInt(TAG_CURRENT_PAGE, this.currentPage);
-
-        PsiEX.LOGGER.error("saveAdditional: Saved {} pages at {}", pagesTag.size(), worldPosition);
 
         super.saveAdditional(tag);
     }
@@ -113,7 +94,7 @@ public class MultiPageTileProgrammer extends TileProgrammer {
                 this.spell = spell;
             }
             setChanged();
-            PsiEX.LOGGER.error("setPageSpell called for page {}, setChanged() invoked", page);
+            
         }
     }
 

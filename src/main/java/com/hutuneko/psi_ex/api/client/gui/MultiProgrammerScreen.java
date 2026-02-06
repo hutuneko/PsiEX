@@ -2,6 +2,7 @@ package com.hutuneko.psi_ex.api.client.gui;
 
 import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
+import com.hutuneko.psi_ex.net.C2SProgrammerPagePacket;
 import com.hutuneko.psi_ex.net.C2SSpellPagePacket;
 import com.hutuneko.psi_ex.net.Net;
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,8 @@ public class MultiProgrammerScreen extends MultiPageScreen {
         super.nextPage();
 
         programmer.setCurrentPage(currentPageIndex, false);
+        Net.CHANNEL.sendToServer(new C2SProgrammerPagePacket(
+                programmer.getBlockPos(), currentPageIndex));
         loadCurrentPage();
     }
 
@@ -48,6 +51,8 @@ public class MultiProgrammerScreen extends MultiPageScreen {
         super.prevPage();
 
         programmer.setCurrentPage(currentPageIndex, false);
+        Net.CHANNEL.sendToServer(new C2SProgrammerPagePacket(
+                programmer.getBlockPos(), currentPageIndex));
         loadCurrentPage();
     }
 
@@ -60,6 +65,8 @@ public class MultiProgrammerScreen extends MultiPageScreen {
         super.setPage(page);
 
         programmer.setCurrentPage(page, false);
+        Net.CHANNEL.sendToServer(new C2SProgrammerPagePacket(
+                programmer.getBlockPos(), page));
         loadCurrentPage();
     }
 
@@ -68,7 +75,6 @@ public class MultiProgrammerScreen extends MultiPageScreen {
         if (currentPageObj instanceof GuiProgrammerPage programmerPage) {
             programmerPage.onPageDeselected();
             Spell spell = programmerPage.getSpell();
-            PsiEX.LOGGER.error("{}ページ目の{}を保存しました", currentPageIndex, spell);
             programmer.setPageSpell(currentPageIndex, spell);
             CompoundTag spellTag = new CompoundTag();
             spell.writeToNBT(spellTag);

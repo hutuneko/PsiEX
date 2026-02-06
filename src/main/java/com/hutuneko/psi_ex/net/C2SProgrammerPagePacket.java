@@ -1,6 +1,5 @@
 package com.hutuneko.psi_ex.net;
 
-import com.hutuneko.psi_ex.PsiEX;
 import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -12,28 +11,23 @@ import vazkii.psi.api.spell.Spell;
 
 import java.util.function.Supplier;
 
-public record C2SSpellPagePacket(BlockPos pos, int page, CompoundTag spellTag) {
-    public static void encode(C2SSpellPagePacket msg, FriendlyByteBuf buf) {
+public record C2SProgrammerPagePacket(BlockPos pos, int page) {
+    public static void encode(C2SProgrammerPagePacket msg, FriendlyByteBuf buf) {
         buf.writeBlockPos(msg.pos);
         buf.writeInt(msg.page);
-        buf.writeNbt(msg.spellTag);
     }
-    public static C2SSpellPagePacket decode(FriendlyByteBuf buf) {
-        return new C2SSpellPagePacket(buf.readBlockPos(), buf.readInt(),buf.readNbt());
+    public static C2SProgrammerPagePacket decode(FriendlyByteBuf buf) {
+        return new C2SProgrammerPagePacket(buf.readBlockPos(), buf.readInt());
     }
-    public static void handle(C2SSpellPagePacket msg, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(C2SProgrammerPagePacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
                 Level level = player.level();
                 if (level.getBlockEntity(msg.pos) instanceof MultiPageTileProgrammer tile) {
-                    Spell spell = Spell.createFromNBT(msg.spellTag);
-                    if (spell != null) {
-                        tile.setPageSpell(msg.page, spell);
-
-                        tile.setChanged();
-                        level.sendBlockUpdated(msg.pos, tile.getBlockState(), tile.getBlockState(), 2);
-                    }
+                    tile.setCurrentPage(msg.page, false);
+                    tile.setChanged();
+                    level.sendBlockUpdated(msg.pos, tile.getBlockState(), tile.getBlockState(), 2);
                 }
             }
         });
