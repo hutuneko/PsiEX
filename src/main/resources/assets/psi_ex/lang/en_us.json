@@ -49,7 +49,7 @@
   "psi_ex.spellpiece.piecetrick_eclair.desc": "Launches the caster toward a sighted target. (Quoted from the original work)",
 
   "item.psi_ex.psi_arrow": "Spell Arrow",
-  "item.psi_ex.cad_patch": "CADPatch",
+  "item.psi_ex.cad_patch": "CAD Patch",
   "item.psi_ex.extended_cad_socket": "CAD Expansion Slot",
   "item.psi_ex.psi_spellbook": "CAD Spellbook",
   "item.psi_ex.psi_mana_lens": "Mana Lens: Spell",
@@ -58,9 +58,10 @@
   "item.psi_ex.psikiller": "Psi Killer",
   "item.psi_ex.rangezero": "Range Zero",
   "item.psi_ex.eclair": "Éclair",
-
+  "item.psi_ex.phantom": "Phantom",
+  "item.psi_ex.elfinsniper": "Elfin Sniper",
   "item.psi_ex.personal_tuner": "Personal Tuner",
-
+  "block.psi_ex.multipageprogrammer": "Multi-Page Spell Programmer",
 
   "item.psi_ex.tic_cad_core": "TiC CAD Core",
   "item.psi_ex.tic_cad_assembly": "TiC CAD Assembly",
@@ -139,9 +140,11 @@
   "psi_ex.spellerror.nocurios": "Cannot retrieve from Curios slot",
   "psi_ex.spellerror.exclusive_failed": "Execution failed: Unauthorized user or condition",
 
+  "psi_ex.gui.multiprogrammer": "Multi-Page",
+
   "effect.psi_ex.castjamming": "Cast Jamming",
+  "effect.psi_ex.eclair": "Éclair",
 
   "gui.psi_ex.tic_cad": "TiCCAD",
   "itemGroup.tab.psi_ex": "PsiEX"
-
 }

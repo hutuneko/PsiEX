@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "addonapi:mods_available",
+      "required_raw_module": "defaultcompatmodule"
+    }
+  ],
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "psi:programmer"
+    }
+  },
+  "result": {
+    "item": "psi_ex:multipageprogrammer",
+    "count": 1
+  }
+}

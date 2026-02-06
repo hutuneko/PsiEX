@@ -20,7 +20,7 @@ public class MultiProgrammerScreen extends MultiPageScreen {
     protected MultiProgrammerScreen(Component title, MultiPageTileProgrammer programmer, int page) {
         super(title);
         this.programmer = programmer;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 9; i++) {
             addPage(new GuiProgrammerPage(programmer, i));
         }
         setPage(page);
