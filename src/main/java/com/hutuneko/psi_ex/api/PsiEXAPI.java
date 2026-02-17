@@ -146,4 +146,9 @@ public class PsiEXAPI {
 
         return classes;
     }
+    public static LivingEntity findNearest(List<LivingEntity> entities, Vec3 position) {
+        return entities.stream()
+                .min(Comparator.comparingDouble(e -> e.distanceToSqr(position)))
+                .orElse(null);
+    }
 }

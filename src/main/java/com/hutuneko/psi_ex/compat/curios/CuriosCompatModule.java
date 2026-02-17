@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.PsiAPI;
@@ -49,6 +50,10 @@ public class CuriosCompatModule implements AddonModule {
                 new Phantom(new Item.Properties()));
         PsiEXRegistry.ELFINSNIPER = PsiEXRegistry.ITEMS.register("elfinsniper", () ->
                 new ElfinSniper(new Item.Properties()));
+        PsiEXRegistry.SWORDMAJIAM = PsiEXRegistry.ITEMS.register("swordmajiam", () ->
+                new SwordMajiam(new Item.Properties()));
+        PsiEXRegistry.OROCHIMARU = PsiEXRegistry.ITEMS.register("orochimaru", () ->
+                new Orochimaru(new Item.Properties()));
         PsiEXRegistry.PSI_BRRIER_ENTITY = PsiEXRegistry.ENTITIES.register("barrier",
                 () -> EntityType.Builder.of(PsiBarrierEntity::new, MobCategory.MISC)
                         .sized(0.5f, 0.5f)
@@ -57,8 +62,8 @@ public class CuriosCompatModule implements AddonModule {
                         .build(new ResourceLocation(PsiEX.MOD_ID, "barrier").toString()));
         PsiEXRegistry.ECLAIREFFECT =
                 PsiEXRegistry.MOB_EFFECTS.register("eclair",() -> new EclairEffect(MobEffectCategory.HARMFUL,0xFF00FF));
-        var c = FMLJavaModLoadingContext.get().getModEventBus();
-
+        MinecraftForge.EVENT_BUS.addListener(CuriosEvent::onPlayerTickE);
+        MinecraftForge.EVENT_BUS.addListener(CuriosEvent::onPlayerTickO);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     @OnlyIn(Dist.CLIENT)

@@ -2,12 +2,18 @@ package com.hutuneko.psi_ex.item.SkillItem;
 
 import com.hutuneko.psi_ex.item.CuriosItem;
 import com.hutuneko.psi_ex.system.CuriosUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.*;
@@ -29,8 +35,8 @@ public abstract class SkillItem extends CuriosItem {
         totalModifiers.put(attribute, set);
     }
 
-    protected final void setAttributeAddition(Attribute attribute, int set) {
-        additionModifiers.put(attribute, set);
+    protected final void setAttributeAddition(Attribute attribute, int add) {
+        additionModifiers.put(attribute, add);
     }
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
@@ -73,5 +79,9 @@ public abstract class SkillItem extends CuriosItem {
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         if (!(slotContext.entity() instanceof Player player)) return false;
         return CuriosUtil.findFirstByItem(player, this).isEmpty();
+    }
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltip, @NotNull TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.psi_ex.skillitem.desc").withStyle(ChatFormatting.GRAY));
     }
 }

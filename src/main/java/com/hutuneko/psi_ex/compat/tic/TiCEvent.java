@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -87,6 +86,7 @@ public class TiCEvent {
             for (ModifierEntry entry : cad.getModifierList()) {
                 damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(cad, entry, context, 0, damage);
             }
+            damage = damage + event.getAmount();
             if (damage <= 0) {
                 event.setCanceled(true);
                 return;

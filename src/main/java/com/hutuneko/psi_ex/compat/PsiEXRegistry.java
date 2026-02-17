@@ -62,6 +62,8 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> ECLAIR = null;
     public static RegistryObject<Item> PHANTOM = null;
     public static RegistryObject<Item> ELFINSNIPER = null;
+    public static RegistryObject<Item> SWORDMAJIAM = null;
+    public static RegistryObject<Item> OROCHIMARU = null;
     public static RegistryObject<Item> PSI_CURIO_BULLET = null;
 
     public static RegistryObject<Item> PSI_BOW = null;

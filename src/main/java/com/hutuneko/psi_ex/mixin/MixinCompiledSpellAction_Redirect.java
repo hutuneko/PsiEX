@@ -7,6 +7,7 @@ import com.hutuneko.psi_ex.api.piece.PieceTrickExclusive;
 import com.hutuneko.psi_ex.system.PieceConditionRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,7 +58,6 @@ public abstract class MixinCompiledSpellAction_Redirect {
             }
         }
     }
-
     @Inject(method = "execute", at = @At("RETURN"), remap = false)
     private void psiEX$afterExecute(IPlayerData data, SpellContext context, CallbackInfo ci) {
         SpellTriggerContext.remove();

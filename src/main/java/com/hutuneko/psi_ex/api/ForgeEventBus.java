@@ -36,40 +36,6 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = PsiEX.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ForgeEventBus {
-    private static final Map<UUID,Entity> target = new HashMap<>();
-    @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent e) {
-        if (!(e.player instanceof ServerPlayer player)) return;
-
-        if (player.getEffect(PsiEXRegistry.ECLAIREFFECT.get()) == null) return;
-
-        Entity entity = target.get(player.getUUID());
-
-        if (entity == null || !entity.isAlive()) {
-            Entity newTarget = PsiEXAPI.raycastEntity(player, 32,60,true);
-            target.remove(player.getUUID());
-            target.put(player.getUUID(), newTarget);
-
-            if (newTarget != null) {
-                Vec3 eyePos = player.getEyePosition(1.0F);
-                Vec3 entityPos = newTarget.position().add(0, newTarget.getBbHeight() / 2, 0);
-                Vec3 toEntity = entityPos.subtract(eyePos);
-                double distance = toEntity.length();
-
-                Vec3 teleportPos = eyePos.add(toEntity.normalize().scale(Math.max(0.1, distance - 1)));
-                float[] rot = PsiEXAPI.lookAtRotation(player, newTarget);
-
-                player.teleportTo(
-                        player.serverLevel(),
-                        teleportPos.x,
-                        teleportPos.y,
-                        teleportPos.z,
-                        rot[0],
-                        rot[1]
-                );
-            }
-        }
-    }
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
@@ -149,11 +115,6 @@ public final class ForgeEventBus {
         }
     }
 
-    @SubscribeEvent
-    public static void onClone(PlayerEvent.Clone e){
-        e.getOriginal().getCapability(PsionProvider.CAP).ifPresent(old ->
-                e.getEntity().getCapability(PsionProvider.CAP).ifPresent(now -> now.setPsion(old.getPsion())));
-    }
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void tick(TickEvent e){
         SpellTriggerContext.remove();
