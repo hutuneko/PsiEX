@@ -21,7 +21,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -48,6 +47,7 @@ public class PsiEXRegistry {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, "psi_ex");
 
+    public static RegistryObject<Item> PIECE_PROGRAM = null;
     public static RegistryObject<Item> PERSONAL_TUNER = null;
     public static RegistryObject<Item> PSI_ARROW = null;
     public static RegistryObject<Item> PSI_NEEDLE_DART = null;

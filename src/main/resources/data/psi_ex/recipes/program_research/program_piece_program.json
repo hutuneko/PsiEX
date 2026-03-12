@@ -1,0 +1,34 @@
+{
+  "type": "psitweaks:program_research",
+  "energy": 4000000,
+  "inputs": [
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "psi_ex:cad_patch"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "psi_ex:multipageprogrammer"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "psi:psidust"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "psi:psigem"
+      }
+    }
+  ],
+  "output": {
+    "item": "psi_ex:piece_program"
+  },
+  "time": 400
+}

@@ -1,0 +1,6 @@
+{
+  "piece": "psi_ex:piecetrick_executespell",
+  "unlock_item": "psi_ex:piece_program",
+  "command_id": "psi_ex:piecetrick_executespell",
+  "unlock_tag": "psi_ex.unlock.executespell"
+}

@@ -11,7 +11,7 @@ public class SwordMajiam extends SkillItem{
 
     @Override
     protected void initializeAttributes() {
-        setAttributeTotal(PsiEXAttributes.PSI_SPELL_RANGE.get(),-1);
+        setAttributeTotal(PsiEXAttributes.PSI_SPELL_RANGE.get(),2);
         setAttributeAddition(PsiEXAttributes.PSI_ACCELERATION_POINT.get(),500);
         setAttributeAddition(PsiEXAttributes.PSI_MOVEMENT_POINT.get(),500);
         setAttributeAddition(PsiEXAttributes.PSI_WEIGHTING_POINT.get(),500);

@@ -54,11 +54,10 @@ public class ClientRenderer {
             float sizeZ = (float)(bb.maxZ - bb.minZ);
             ps.pushPose();
             ps.translate(entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ()); // 位置適用
-//            ps.mulPose(cameraRotation);
             RenderUtils.renderWireCubeRelative(ps, buffers, Math.max(sizeX, Math.max(sizeY, sizeZ)), new float[]{1.0f, 0.0f, 0.0f});
             ps.popPose();
         }
-
+        ps.popPose();
 
         buffers.endBatch();
     }

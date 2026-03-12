@@ -62,6 +62,9 @@ public class DefaultCompatModule implements AddonModule {
         PsiEXRegistry.PERSONAL_TUNER = PsiEXRegistry.ITEMS.register("personal_tuner", () ->
                 new ItemPersonalTuner(new Item.Properties().stacksTo(1))
         );
+        PsiEXRegistry.PIECE_PROGRAM = PsiEXRegistry.ITEMS.register("piece_program", () ->
+                new Item(new Item.Properties().stacksTo(1))
+        );
         PsiEXRegistry.PSIKILLER = PsiEXRegistry.ITEMS.register("psikiller", () ->
                 new PsiKiller(Tiers.WOOD,1,1,new Item.Properties().stacksTo(1).defaultDurability(Integer.MAX_VALUE))
         );
