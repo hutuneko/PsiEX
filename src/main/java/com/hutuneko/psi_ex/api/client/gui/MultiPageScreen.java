@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiPageScreen extends Screen {
+public abstract class MultiPageScreen extends Screen implements IMultiPageScreen{
     protected int leftPos, topPos;
     protected int imageWidth = 174;
     protected int imageHeight = 184;
@@ -20,23 +20,6 @@ public class MultiPageScreen extends Screen {
 
     protected MultiPageScreen(Component title) {
         super(title);
-    }
-
-    public interface Page {
-        void init(MultiPageScreen parent, int x, int y, int width, int height);
-        void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick);
-        void tick();
-
-        boolean mouseClicked(double mouseX, double mouseY, int button);
-        boolean mouseReleased(double mouseX, double mouseY, int button);
-        boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY);
-        boolean mouseScrolled(double mouseX, double mouseY, double delta);
-        void mouseMoved(double mouseX, double mouseY);
-        boolean keyReleased(int keyCode, int scanCode, int modifiers);
-        boolean charTyped(char codePoint, int modifiers);
-
-        void onPageSelected();
-        void onPageDeselected();
     }
 
     @Override
@@ -57,6 +40,21 @@ public class MultiPageScreen extends Screen {
         }
 
         initCurrentPage();
+    }
+
+    @Override
+    public List<Page> getPages() {
+        return pages;
+    }
+
+    @Override
+    public int getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+
+    @Override
+    public void setCurrentPageIndex(int index) {
+        currentPageIndex = index;
     }
 
     protected void initCurrentPage() {
@@ -172,7 +170,8 @@ public class MultiPageScreen extends Screen {
 
     // === ページ管理 ===
 
-    protected void addPage(Page page) {
+    @Override
+    public void addPage(Page page) {
         this.pages.add(page);
     }
 
@@ -191,13 +190,7 @@ public class MultiPageScreen extends Screen {
             initCurrentPage();
         }
     }
-    protected void setPage(int page){
-        if (page <= pages.size()){
-            pages.get(currentPageIndex).onPageDeselected();
-            currentPageIndex = page;
-            initCurrentPage();
-        }
-    }
+
     private final List<AbstractWidget> pageWidgets = new ArrayList<>();
 
     public void clearPageWidgets() {

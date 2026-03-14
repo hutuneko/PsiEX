@@ -1,12 +1,14 @@
-package com.hutuneko.psi_ex.api.client.gui;
+package com.hutuneko.psi_ex.cliant.gui;
 
+import com.hutuneko.psi_ex.api.client.gui.MultiPageScreen;
+import com.hutuneko.psi_ex.api.client.gui.Page;
 import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.client.gui.GuiProgrammer;
 
-public class GuiProgrammerPage extends GuiProgrammer implements MultiPageScreen.Page {
+public class GuiProgrammerPage extends GuiProgrammer implements Page {
 
     private boolean isActive = false;
     private boolean initialized = false;

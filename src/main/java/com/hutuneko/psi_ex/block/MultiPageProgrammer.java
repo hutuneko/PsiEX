@@ -1,6 +1,6 @@
 package com.hutuneko.psi_ex.block;
 
-import com.hutuneko.psi_ex.api.client.gui.MultiProgrammerScreen;
+import com.hutuneko.psi_ex.cliant.gui.MultiProgrammerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

@@ -1,6 +1,7 @@
-package com.hutuneko.psi_ex.api.client.gui;
+package com.hutuneko.psi_ex.cliant.gui;
 
-import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.api.client.gui.MultiPageScreen;
+import com.hutuneko.psi_ex.api.client.gui.Page;
 import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import com.hutuneko.psi_ex.net.C2SProgrammerPagePacket;
 import com.hutuneko.psi_ex.net.C2SSpellPagePacket;
@@ -57,7 +58,7 @@ public class MultiProgrammerScreen extends MultiPageScreen {
     }
 
     @Override
-    protected void setPage(int page) {
+    public void setPage(int page) {
         if (currentPageIndex >= 0 && currentPageIndex < pages.size()) {
             saveAndSyncCurrentPage();
         }
