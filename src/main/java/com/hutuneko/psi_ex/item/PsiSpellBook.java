@@ -2,11 +2,13 @@ package com.hutuneko.psi_ex.item;
 
 import com.hutuneko.psi_ex.system.capability.SocketableProvider;
 import com.hutuneko.psi_ex.system.capability.StackSocketable;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.magic.SpellSelectionManager;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -16,11 +18,10 @@ import javax.annotation.Nullable;
 
 public class PsiSpellBook extends SpellBook {
     private final int maxStackSize;
-    public static int getIndex(ItemStack stack){
+    public static int getIndex(ItemStack stack, Player player){
         int slot = -1;
-        SpellSelectionManager spellSelectionManager = ClientMagicData.getSpellSelectionManager();
         if (stack.getItem() instanceof SpellBook book) {
-            slot = spellSelectionManager.getSelectionIndex();
+            slot = MagicData.getPlayerMagicData(player).getSyncedData().getSpellSelection().index;
         }
         return slot;
     }

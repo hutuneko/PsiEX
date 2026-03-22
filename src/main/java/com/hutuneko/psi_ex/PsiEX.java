@@ -34,12 +34,13 @@ public class PsiEX {
         PsiEXRegistry.ENTITIES.register(modBus);
         PsiEXRegistry.TABS.register(modBus);
         PsiEXRegistry.MOB_EFFECTS.register(modBus);
+        PsiEXRegistry.MENUS.register(modBus);
         PsiEXAttributes.register(modBus);
 
         for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"com.hutuneko.psi_ex.spell")){
             PsiAPI.addPieceToGroup(c, new ResourceLocation(MOD_ID, "psiex"),false);
         }
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
     }
 
     public static List<String> listAllAttributeNames() {

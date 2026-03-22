@@ -47,7 +47,7 @@ public class IronsCompatModule implements AddonModule {
         if (spellbook.isEmpty()) return;
         ISocketable sock = ISocketable.socketable(spellbook);
         if (sock == null ) return;
-        int idx = PsiSpellBook.getIndex(spellbook);
+        int idx = PsiSpellBook.getIndex(spellbook,p);
         ItemStack bullet = sock.getBulletInSocket(idx);
         if (bullet == null) return;
         if (!ISpellAcceptor.hasSpell(bullet)) return;

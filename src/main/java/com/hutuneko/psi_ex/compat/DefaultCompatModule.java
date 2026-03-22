@@ -1,8 +1,12 @@
 package com.hutuneko.psi_ex.compat;
 
 import com.hutuneko.psi_ex.PsiEX;
+import com.hutuneko.psi_ex.block.GPTCADSettingBlock;
+import com.hutuneko.psi_ex.block.GPTCADSettingTile;
 import com.hutuneko.psi_ex.block.MultiPageProgrammer;
 import com.hutuneko.psi_ex.block.MultiPageTileProgrammer;
+import com.hutuneko.psi_ex.cliant.gui.GPTCADSettingGUI;
+import com.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
 import com.hutuneko.psi_ex.effect.CastJammingEffect;
 import com.hutuneko.psi_ex.entity.*;
 import com.hutuneko.psi_ex.item.*;
@@ -12,6 +16,7 @@ import com.hutuneko.psi_ex.spell.operator.PieceOperator_getSeve_Vector3;
 import com.hutuneko.psi_ex.spell.selector.PieceSelector_ItemData;
 import com.hutuneko.psi_ex.spell.trick.*;
 import moffy.addonapi.AddonModule;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -26,7 +31,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.PsiAPI;
 
@@ -74,6 +81,8 @@ public class DefaultCompatModule implements AddonModule {
                 new ItemNeedleDart(new Item.Properties()));
         PsiEXRegistry.ITEMS.register("multipageprogrammer", () ->
                 new BlockItem(PsiEXRegistry.MULTIPAGEPROGRAMMER.get(), new Item.Properties().stacksTo(1)));
+        PsiEXRegistry.ITEMS.register("gptcadsetting",() ->
+                new BlockItem(PsiEXRegistry.GPTCADSETTINGBLOCK.get(),new Item.Properties().stacksTo(1)));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
 
@@ -83,6 +92,11 @@ public class DefaultCompatModule implements AddonModule {
                 PsiEXRegistry.BLOCK_ENTITIES.register("multi_programmer",
                         () -> BlockEntityType.Builder.of(MultiPageTileProgrammer::new, PsiEXRegistry.MULTIPAGEPROGRAMMER.get())
                                 .build(null));
+        PsiEXRegistry.GPTCADSETTINGBLOCK = PsiEXRegistry.BLOCKS.register("gptcadsettingblock",() ->
+                new GPTCADSettingBlock(BlockBehaviour.Properties.of()));
+        PsiEXRegistry.GPTCADSETTINGTILE = PsiEXRegistry.BLOCK_ENTITIES.register("gptcadsettingtile",() ->
+                BlockEntityType.Builder.of(GPTCADSettingTile::new,PsiEXRegistry.GPTCADSETTINGBLOCK.get())
+                        .build(null));
 
         PsiEXRegistry.PSI_ARROW_ENTITY = PsiEXRegistry.ENTITIES.register("psi_arrow_entity", () ->
                 EntityType.Builder.<PsiArrowEntity>of(PsiArrowEntity::new, MobCategory.MISC)
@@ -118,11 +132,17 @@ public class DefaultCompatModule implements AddonModule {
         PsiEXRegistry.CASTJAMMING =
                 PsiEXRegistry.MOB_EFFECTS.register("castjamming",() -> new CastJammingEffect(MobEffectCategory.BENEFICIAL,0xFF0000));
 
+        PsiEXRegistry.GPTCAD_SETTING_MENU =
+                PsiEXRegistry.MENUS.register("gptcad_setting_menu",() ->
+                        IForgeMenuType.create(GPTCADSettingMenu::new));
+
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     @OnlyIn(Dist.CLIENT)
     private void cevents(){
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegisterRenderers);
+         var ctx = FMLJavaModLoadingContext.get().getModEventBus();
+         ctx.addListener(this::onRegisterRenderers);
+         ctx.addListener(this::onClientSetup);
     }
     @OnlyIn(Dist.CLIENT)
     private void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e){
@@ -142,5 +162,11 @@ public class DefaultCompatModule implements AddonModule {
                 PsiEXRegistry.RAILGUN.get(),
                 RailgunRenderer::new
         );
+    }
+    @OnlyIn(Dist.CLIENT)
+    public void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            MenuScreens.register(PsiEXRegistry.GPTCAD_SETTING_MENU.get(), GPTCADSettingGUI::new);
+        });
     }
 }
