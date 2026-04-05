@@ -46,6 +46,11 @@ public final class Net {
                     .decoder(C2SProgrammerPagePacket::decode)
                     .consumerMainThread(C2SProgrammerPagePacket::handle)
                     .add();
+            CHANNEL.messageBuilder(SpellCastPacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
+                    .encoder(SpellCastPacket::encode)
+                    .decoder(SpellCastPacket::decode)
+                    .consumerMainThread(SpellCastPacket::handle)
+                    .add();
 
             // --- Client 向け（サーバ→クライアント）
             CHANNEL.messageBuilder(SyncPsionS2C.class, id++, NetworkDirection.PLAY_TO_CLIENT)

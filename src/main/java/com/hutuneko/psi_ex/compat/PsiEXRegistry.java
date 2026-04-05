@@ -57,6 +57,7 @@ public class PsiEXRegistry {
 
     public static RegistryObject<Item> PSI_SPELLBOOK = null;
 
+    public static RegistryObject<Item> GPTCAD = null;
     public static RegistryObject<Item> PSI_SPIRITS_EYE = null;
     public static RegistryObject<Item> RANGEZERO = null;
     public static RegistryObject<Item> ECLAIR = null;
@@ -69,6 +70,13 @@ public class PsiEXRegistry {
     public static RegistryObject<Item> PSI_BOW = null;
     public static RegistryObject<Item> STORAGE = null;
     public static RegistryObject<Item> CAST_SCROLL = null;
+
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_IRON = null;
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_GOLD = null;
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_PSIMETAL = null;
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_EBONY = null;
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_IVORY = null;
+    public static RegistryObject<Item> GPTCAD_ASSEMBLY_CREATIVE = null;
 
     public static RegistryObject<Item> PSIKILLER = null;
 

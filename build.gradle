@@ -276,6 +276,7 @@ mixin {
     add sourceSets.main, "mixins.refmap.${mod_id}.json"
 
     config "mixins.${mod_id}.json"
+    config "mixins.psi_ex.curios.json"
     debug.verbose = true
     debug.export = true
     dumpTargetOnFailure = true

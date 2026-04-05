@@ -1,5 +1,7 @@
 package com.hutuneko.psi_ex.api;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -150,5 +152,27 @@ public class PsiEXAPI {
         return entities.stream()
                 .min(Comparator.comparingDouble(e -> e.distanceToSqr(position)))
                 .orElse(null);
+    }
+    public static CompoundTag getItemBySlot(CompoundTag data, int slot) {
+        if (!data.contains("items", 10)) {
+            return new CompoundTag();
+        }
+
+        CompoundTag itemsTag = data.getCompound("items");
+
+        if (!itemsTag.contains("Items", 9)) {
+            return new CompoundTag();
+        }
+
+        ListTag itemsList = itemsTag.getList("Items", 10);
+
+        for (int i = 0; i < itemsList.size(); i++) {
+            CompoundTag itemEntry = itemsList.getCompound(i);
+            if (itemEntry.getInt("Slot") == slot) {
+                return itemEntry;
+            }
+        }
+
+        return new CompoundTag();
     }
 }

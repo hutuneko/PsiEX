@@ -25,7 +25,7 @@ public class PieceTrick_TiCAttack extends PieceTrickExclusive {
 
     @Override
     public boolean isCast(Player caster, SpellContext ctx) {
-        return !(PsiAPI.getPlayerCAD(caster).getItem() instanceof IModifiable);
+        return (PsiAPI.getPlayerCAD(caster).getItem() instanceof IModifiable);
     }
 
     @Override

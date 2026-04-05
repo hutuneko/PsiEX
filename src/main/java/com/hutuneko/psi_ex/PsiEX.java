@@ -2,9 +2,12 @@ package com.hutuneko.psi_ex;
 
 import com.hutuneko.psi_ex.api.PsiEXAPI;
 import com.hutuneko.psi_ex.compat.PsiEXRegistry;
+import com.hutuneko.psi_ex.compat.curios.CuriosCompatModule;
 import com.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.logging.LogUtils;
+import moffy.addonapi.AddonAPI;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;

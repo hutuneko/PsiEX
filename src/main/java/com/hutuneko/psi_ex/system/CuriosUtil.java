@@ -1,4 +1,5 @@
 package com.hutuneko.psi_ex.system;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -6,6 +7,8 @@ import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -37,5 +40,27 @@ public final class CuriosUtil {
                     return (index >= 0 && index < stacks.getSlots()) ? stacks.getStackInSlot(index) : ItemStack.EMPTY;
                 })
                 .orElse(ItemStack.EMPTY);
+    }
+
+    /** 4) 特定アイテムが2つ以上あったら EMPTY を返し、1つならその SlotResult を返す */
+    public static ItemStack findFirstStrict(Player player, Item target) {
+        return getHandler(player).flatMap(inv -> {
+            List<ItemStack> found = new ArrayList<>();
+
+            inv.getCurios().forEach((id, stacksHandler) -> {
+                var stacks = stacksHandler.getStacks();
+                for (int i = 0; i < stacks.getSlots(); i++) {
+                    ItemStack stack = stacks.getStackInSlot(i);
+                    if (!stack.isEmpty() && stack.getItem() == target) {
+                        found.add(stack);
+                    }
+                }
+            });
+            
+            if (found.size() != 1) {
+                return Optional.of(ItemStack.EMPTY);
+            }
+            return Optional.of(found.get(0));
+        }).orElse(ItemStack.EMPTY);
     }
 }

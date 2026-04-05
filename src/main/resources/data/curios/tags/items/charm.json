@@ -6,6 +6,7 @@
     "psi_ex:rangezero",
     "psi_ex:eclair",
     "psi_ex:phantom",
-    "psi_ex:elfinsniper"
+    "psi_ex:elfinsniper",
+    "psi_ex:gptcad"
   ]
 }
