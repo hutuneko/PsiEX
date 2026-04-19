@@ -8,6 +8,8 @@ import moffy.addonapi.AddonModuleRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoader;
 import vazkii.psi.common.item.base.ModItems;
 
 import java.util.function.Predicate;
@@ -16,7 +18,8 @@ public class PsiEXLootCategories {
     public static LootCategory CAD;
     public static void init(){
         Predicate<ItemStack> item;
-        if (AddonModuleRegistry.INSTANCE.getLoadedModules().containsKey(new ResourceLocation(PsiEX.MOD_ID,"ticcompat"))){
+//        AddonModuleRegistry.INSTANCE.getLoadedModules().containsKey(new ResourceLocation(PsiEX.MOD_ID,"ticcompat"))
+        if (ModList.get().isLoaded("tconstruct")){
             item = stack -> stack.is(ModItems.cad) || stack.is(TiCCompatModule.TICCAD.asItem()) || CadBehavior.isCAD(stack);
         }else{
             item = stack -> stack.is(ModItems.cad) || CadBehavior.isCAD(stack);

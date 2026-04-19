@@ -34,7 +34,7 @@ public abstract class MixinCompiledSpellAction_Redirect {
         }
         var id = ((AccessorSpellPiece) this.piece).getRegistryKey();
         var cond = PieceConditionRegistry.get(id).orElse(null);
-        if (Config.SERVER.spellgeat.get()) {
+        if (Config.spellgeat.get()) {
             if (cond != null) {
                 boolean ok;
                 try {

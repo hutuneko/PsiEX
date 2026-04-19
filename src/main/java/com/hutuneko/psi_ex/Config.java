@@ -7,30 +7,21 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class Config {
     public static ForgeConfigSpec SERVER_SPEC;
-    public static Server SERVER;
-
-    private static ForgeConfigSpec.Builder BUILDER;
-
+    public static ForgeConfigSpec COMMON_SPEC;
+    public static ForgeConfigSpec.BooleanValue spellgeat;
     public static void config(FMLJavaModLoadingContext context) {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        BUILDER = builder;
-        var spec = builder.configure(Server::new);
-        SERVER_SPEC = spec.getRight();
-        SERVER = spec.getLeft();
+        ForgeConfigSpec.Builder server = new ForgeConfigSpec.Builder();
+        ForgeConfigSpec.Builder common = new ForgeConfigSpec.Builder();
 
-        AddonModuleRegistry.INSTANCE.LoadModule(new CompatModule(context), BUILDER);
+        server.push("features");
 
-        SERVER_SPEC = BUILDER.build();
-    }
+        spellgeat = server
+                .define("spellgeat", true);
+        server.pop();
 
-    public static class Server {
-        public final ForgeConfigSpec.BooleanValue spellgeat;
-        Server(ForgeConfigSpec.Builder builder) {
-            builder.push("features");
+        AddonModuleRegistry.INSTANCE.LoadModule(new CompatModule(context), common);
 
-            spellgeat = builder
-                    .define("spellgeat", true);
-            builder.pop();
-        }
+        SERVER_SPEC = server.build();
+        COMMON_SPEC = common.build();
     }
 }

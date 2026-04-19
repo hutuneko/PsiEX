@@ -21,13 +21,14 @@ import javax.annotation.Nonnull;
 
 public class CadBehavior {
     private ItemCAD cad;
-    public CadBehavior() {}
-    public ItemCAD getCad() {
-        if (cad == null){
-            if (ModItems.cad instanceof ItemCAD newcad){
-                this.cad = newcad;
-            }
+    public static CadBehavior getCADBehavior() {
+        CadBehavior cadBehavior = new CadBehavior();
+        if (ModItems.cad instanceof ItemCAD itemCAD){
+            cadBehavior.cad = itemCAD;
         }
+        return cadBehavior;
+    }
+    public ItemCAD cad(){
         return cad;
     }
     public static boolean isCAD(ItemStack stack){
@@ -95,7 +96,7 @@ public class CadBehavior {
         return -1;
     }
 
-    private double getAttributeValue(ItemStack stack, net.minecraft.world.entity.ai.attributes.Attribute attribute) {
+    private double getAttributeValue(ItemStack stack, Attribute attribute) {
         double total = 0;
         // メインハンドに装備した時の属性を取得
         Multimap<Attribute, AttributeModifier> modifiers =

@@ -10,6 +10,7 @@
     "AccessorSpellPiece",
     "AssembleCADEventMixin",
     "ItemMixin",
+    "ItemStackMixin",
     "MixinCompiledSpellAction_Redirect",
     "MixinSLevel",
     "PlayerDataHandlerMixin",
