@@ -141,6 +141,7 @@
   "message.psi_ex.requirement_separator": "、",
   "message.psi_ex.spellreplay": "もう一回！",
 
+  "psi_ex.spellerror.nospell": "spellがありません",
   "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
   "psi_ex.spellerror.exclusive_failed": "使用出来ません。",
