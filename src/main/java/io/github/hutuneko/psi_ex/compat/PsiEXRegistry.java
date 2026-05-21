@@ -3,7 +3,7 @@ package io.github.hutuneko.psi_ex.compat;
 import io.github.hutuneko.psi_ex.PsiEX;
 import io.github.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
-import com.hutuneko.psi_ex.entity.*;
+import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.recipe.NbtAddRecipe;
 import net.minecraft.core.registries.Registries;
