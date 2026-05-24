@@ -37,7 +37,7 @@ public class PsiEX {
         PsiEXRegistry.MENUS.register(modBus);
         PsiEXAttributes.register(modBus);
 
-        for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"com.hutuneko.psi_ex.spell")){
+        for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"io.hutuneko.hutuneko.psi_ex.spell")){
             PsiAPI.addPieceToGroup(c, new ResourceLocation(MOD_ID, "psiex"),false);
         }
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
