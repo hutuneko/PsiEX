@@ -261,7 +261,7 @@ dependencies {
         implementation fg.deobf("curse.maven:jei-238222:6600311")
         implementation fg.deobf("curse.maven:jade-324717:6855440")
         implementation fg.deobf("curse.maven:placebo-283644:6274231")
-        implementation fg.deobf("curse.maven:psitweaks-1458446:7638911")
+        implementation fg.deobf("curse.maven:psitweaks-1458446:8097112")
         implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:6860192")
         implementation fg.deobf("curse.maven:selene-499980:7388296")
         implementation fg.deobf("curse.maven:ticex-tinkers-construct-ex-1242469:7457419")
