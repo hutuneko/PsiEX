@@ -4,17 +4,14 @@ import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.CasterUtil;
 import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
-import io.github.hutuneko.psi_ex.api.CopyPlayerInventory;
-import com.mojang.authlib.GameProfile;
 import io.github.hutuneko.psi_ex.api.spellparam.ParamCompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraft.world.phys.Vec3;
 import vazkii.psi.api.spell.EnumPieceType;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellParam;
@@ -22,9 +19,6 @@ import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.param.ParamVector;
 import vazkii.psi.api.spell.piece.PieceTrick;
 import vazkii.psi.api.internal.Vector3;
-
-import java.util.Objects;
-import java.util.UUID;
 
 public class TrickArsScrollCast extends PieceTrick {
     static {
@@ -77,30 +71,31 @@ public class TrickArsScrollCast extends PieceTrick {
         }
 
         Vector3 v = getParamValue(psiCtx, originParam);
-        ServerPlayer fake = FakePlayerFactory.get(world, new GameProfile(UUID.randomUUID(), "psi_ars_fake"));
-        fake.setPos(v.x, v.y, v.z);
-        fake.setYRot(player.getYRot());
-        fake.setXRot(player.getXRot());
-        CopyPlayerInventory.copyFeke((ServerPlayer) player,fake);
+        Vec3 pos = player.position();
+        player.setPos(v.x, v.y, v.z);
 
         com.hollingsworth.arsnouveau.api.spell.SpellContext arsCtx =
                 com.hollingsworth.arsnouveau.api.spell.SpellContext.fromEntity(
-                        arsSpell, fake, parchmentStack
+                        arsSpell, player, parchmentStack
                 );
         SpellResolver resolver = new SpellResolver(arsCtx);
 
         SpellStats stats = new SpellStats.Builder()
-                .addItemsFromEntity(fake)
+                .addItemsFromEntity(player)
                 .build();
         AbstractCastMethod castMethod = arsSpell.getCastMethod();
-        CastResolveType result = Objects.requireNonNull(castMethod).onCast(
-                parchmentStack,
-                fake,
-                world,
-                stats,
-                arsCtx,
-                resolver
-        );
+        CastResolveType result = null;
+        if (castMethod != null) {
+            result = castMethod.onCast(
+                    parchmentStack,
+                    player,
+                    world,
+                    stats,
+                    arsCtx,
+                    resolver
+            );
+        }
+        player.setPos(pos);
         if (result != CastResolveType.SUCCESS) {
             throw new SpellRuntimeException("スペルの発動に失敗しました");
         }
