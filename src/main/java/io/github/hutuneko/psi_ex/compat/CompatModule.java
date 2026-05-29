@@ -23,39 +23,48 @@ public class CompatModule extends AddonModuleProvider {
         addRawModule("defaultcompatmodule",
         "Default Compat",
                 DefaultCompatModule.class,
-                new String[] { "psi", PsiEX.MOD_ID});
+                new String[] { "psi", PsiEX.MOD_ID},
+                0);
         addRawModule("botaniacompat",
                 "Botania Compat",
                 BotaniaCompatModule.class,
-                new String[] { "psi", "botania" });
+                new String[] { "psi", "botania" },
+                0);
         addRawModule("arscompat",
                 "Ars Nouveau Compat",
                 ArsCompatModule.class,
-                new String[] { "psi", "ars_nouveau" });
+                new String[] { "psi", "ars_nouveau" },
+                0);
         addRawModule("ironscompat",
                 "Iron's Compat",
                 IronsCompatModule.class,
-                new String[] { "psi", "irons_spellbooks" });
+                new String[] { "psi", "irons_spellbooks" },
+                0);
         addRawModule("mekcompat",
                 "Mekanism Compat",
                 MekanismCompatModule.class,
-                new String[] { "psi", "mekanism" });
+                new String[] { "psi", "mekanism" },
+                1);
         addRawModule("curioscompat",
                 "Curios Compat",
                 CuriosCompatModule.class,
-                new String[] { "psi", "curios" });
+                new String[] { "psi", "curios" },
+                1);
         addRawModule("ccccompat",
                 "CCC Compat",
                 CCCuriosModule.class,
-                new String[] { "psi", "curios", "computercraft" });
+                new String[] { "psi", "curios", "computercraft" },
+                1);
         addRawModule("ticcompat",
                 "TiC Compat",
                 TiCCompatModule.class,
-                new String[] { "psi", "tconstruct" });
+                new String[] { "psi", "tconstruct" },
+                1);
         addRawModule("apocompat",
                 "Apo Compat",
                 ApoCompatModule.class,
-                new String[] { "psi", "apotheosis" });
+                new String[] { "psi", "apotheosis" },
+                1);
     }
     @Override
     public String getModId() {

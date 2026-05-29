@@ -2,6 +2,7 @@ package io.github.hutuneko.psi_ex.compat;
 
 import io.github.hutuneko.psi_ex.PsiEX;
 import io.github.hutuneko.psi_ex.block.MultiPageTileProgrammer;
+import io.github.hutuneko.psi_ex.block.PsiCasterBlockEntity;
 import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
 import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.entity.*;
@@ -98,6 +99,10 @@ public class PsiEXRegistry {
     public static RegistryObject<MobEffect> ECLAIREFFECT = null;
 
     public static RegistryObject<MenuType<GPTCADSettingMenu>> GPTCAD_SETTING_MENU = null;
+
+    // PsiEXRegistry.java
+    public static RegistryObject<Item> PSI_CASTER_POCKET_UPGRADE = null;
+    public static RegistryObject<Block> PSI_CASTER_BLOCK = null;
 
     public static final ResourceKey<DamageType> PSI_FAKE_DAMAGE = ResourceKey.create(
             Registries.DAMAGE_TYPE, new ResourceLocation(PsiEX.MOD_ID, "psi_fake_damage")

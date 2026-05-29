@@ -47,6 +47,8 @@
   "psi_ex.spellpiece.piecetrick_poisonousbee.desc": "与えているダメージに応じてダメージを与えます。(原作から引用)",
   "psi_ex.spellpiece.piecetrick_eclair": "作動式：稲妻",
   "psi_ex.spellpiece.piecetrick_eclair.desc": "見えた相手にすっ飛んで行きます(原作から引用)",
+  "psi_ex.spellpiece.pieceselector_cad": "取得子：CAD入力",
+  "psi_ex.spellpiece.pieceselector_cad.desc": "CADからの入力を受け取ります",
 
   "item.psi_ex.psi_arrow": "術式矢",
   "item.psi_ex.cad_patch": "CAD化パッチ",
@@ -65,14 +67,16 @@
   "item.psi_ex.personal_tuner": "パーソナルチューナー",
   "block.psi_ex.multipageprogrammer": "マルチページ魔法構築機",
   "block.psi_ex.gptcadsetting": "汎用型CAD調整器",
-
-
+  "item.psi_ex.gptcad": "CAD-汎用型術式補助演算機-",
+  "item.psi.cad": "CAD-特化型術式補助演算機-",
 
   "item.psi_ex.tic_cad_core": "TiCCADコア",
   "item.psi_ex.tic_cad_assembly": "TiCCAD素体",
+  "item.psi_ex.tic_gptcad_assembly": "TiCGPTCAD素体",
   "item.psi_ex.tic_cad_battery": "TiCCADバッテリー",
   "item.psi_ex.tic_cad_socket": "TiCCADソケット",
-  "item.psi_ex.tic_cad": "TiCCAD",
+  "item.psi_ex.tic_cad": "TiCCAD-特化型術式補助演算機-",
+  "item.psi_ex.tic_gptcad": "TiCCAD-汎用型術式補助演算機-",
 
   "pattern.psi_ex.tic_cad_core": "TiCCADコア",
   "pattern.psi_ex.tic_cad_assembly": "TiCCAD素体",
@@ -91,7 +95,9 @@
   "item.psi_ex.tic_cad_assembly_red_sand_cast": "TiCCAD素体赤砂型",
   "item.psi_ex.tic_cad_battery_red_sand_cast": "TiCCADバッテリー赤砂型",
   "item.psi_ex.tic_cad_socket_red_sand_cast": "TiCCADソケット赤砂型",
-
+  "item.psi_ex.tic_gptcad_assembly_cast": "TiCGPTCAD素体金型",
+  "item.psi_ex.tic_gptcad_assembly_sand_cast": "TiCGPTCAD素体砂型",
+  "item.psi_ex.tic_gptcad_assembly_red_sand_cast": "TiCGPTCAD素体赤砂型",
   "tooltip.psi_ex.skillitem.desc": "原作より引用",
 
   "attribute.name.psi_ex.psi_ancientrites_point": "古式",
@@ -145,8 +151,12 @@
   "psi_ex.spellerror.castjamming": "キャストジャミングを受けている！",
   "psi_ex.spellerror.nocurios": "キュリオスから取得できません",
   "psi_ex.spellerror.exclusive_failed": "使用出来ません。",
+  "psi_ex.spellerror.cad-no-value": "CADからの入力がありません",
 
   "psi_ex.gui.multiprogrammer": "マルチページ",
+
+  "psi_ex.isshutdown": "電源: ",
+  "psi_ex.cad-value": "CADに%sを入力しました。",
 
   "effect.psi_ex.castjamming": "キャストジャミング",
   "effect.psi_ex.eclair": "エクレール",

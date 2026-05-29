@@ -1,24 +1,26 @@
 package io.github.hutuneko.psi_ex.compat.curios;
 
 import io.github.hutuneko.psi_ex.PsiEX;
+import io.github.hutuneko.psi_ex.api.KeyBindings;
 import io.github.hutuneko.psi_ex.api.NumberInputHandler;
+import io.github.hutuneko.psi_ex.block.GPTCADSettingBlock;
+import io.github.hutuneko.psi_ex.block.GPTCADSettingTile;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
 import io.github.hutuneko.psi_ex.effect.EclairEffect;
 import io.github.hutuneko.psi_ex.entity.PsiBarrierEntity;
 import io.github.hutuneko.psi_ex.entity.PsiBarrierRenderer;
-import io.github.hutuneko.psi_ex.item.*;
 import io.github.hutuneko.psi_ex.item.SkillItem.*;
 import io.github.hutuneko.psi_ex.item.CuriosItem;
 import io.github.hutuneko.psi_ex.item.GeneralPurposeTypeCAD;
 import io.github.hutuneko.psi_ex.item.ItemGPTCADAssembly;
 import io.github.hutuneko.psi_ex.item.PsiCuriosbullet;
-import io.github.hutuneko.psi_ex.item.SkillItem.*;
-import io.github.hutuneko.psi_ex.spell.operator.PieceOperator_getSpell;
-import io.github.hutuneko.psi_ex.spell.selector.PieceSelector_getEye;
-import io.github.hutuneko.psi_ex.spell.trick.PieceTrick_ExecuteSpell;
-import io.github.hutuneko.psi_ex.spell.trick.PieceTrick_EyeSave;
-import io.github.hutuneko.psi_ex.spell.trick.PieceTrick_SummonBarrier;
-import io.github.hutuneko.psi_ex.spell.trick.skill.PieceTrick_Eclair;
+import io.github.hutuneko.psi_ex.spell.operator.OperatorGetSpell;
+import io.github.hutuneko.psi_ex.spell.selector.SelectorGetEye;
+import io.github.hutuneko.psi_ex.spell.selector.SelectorCAD;
+import io.github.hutuneko.psi_ex.spell.trick.TrickExecuteSpell;
+import io.github.hutuneko.psi_ex.spell.trick.TrickEyeSave;
+import io.github.hutuneko.psi_ex.spell.trick.TrickSummonBarrier;
+import io.github.hutuneko.psi_ex.spell.trick.skill.TrickEclair;
 import moffy.addonapi.AddonModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
@@ -26,7 +28,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -41,13 +46,13 @@ import vazkii.psi.common.item.component.ItemCADComponent;
 
 public class CuriosCompatModule implements AddonModule {
     public CuriosCompatModule() {
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getspell"), PieceOperator_getSpell.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_executespell"), PieceTrick_ExecuteSpell.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_summonbarrier"), PieceTrick_SummonBarrier.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eyesave"), PieceTrick_EyeSave.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_geteye"), PieceSelector_getEye.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eclair"), PieceTrick_Eclair.class);
-
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getspell"), OperatorGetSpell.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_executespell"), TrickExecuteSpell.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_summonbarrier"), TrickSummonBarrier.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eyesave"), TrickEyeSave.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_geteye"), SelectorGetEye.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eclair"), TrickEclair.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"pieceselector_cad"), SelectorCAD.class);
 
         PsiEXRegistry.PSI_CURIO_BULLET = PsiEXRegistry.ITEMS.register("extended_cad_socket", () ->
                 new PsiCuriosbullet(new Item.Properties())
@@ -68,6 +73,15 @@ public class CuriosCompatModule implements AddonModule {
                 new Orochimaru(new Item.Properties()));
         PsiEXRegistry.GPTCAD = PsiEXRegistry.ITEMS.register("gptcad", () ->
                 new GeneralPurposeTypeCAD(new Item.Properties()));
+
+        PsiEXRegistry.GPTCADSETTINGBLOCK = PsiEXRegistry.BLOCKS.register("gptcadsettingblock",() ->
+                new GPTCADSettingBlock(BlockBehaviour.Properties.of()));
+        PsiEXRegistry.GPTCADSETTINGTILE = PsiEXRegistry.BLOCK_ENTITIES.register("gptcadsettingtile",() ->
+                BlockEntityType.Builder.of(GPTCADSettingTile::new,PsiEXRegistry.GPTCADSETTINGBLOCK.get())
+                        .build(null));
+
+        PsiEXRegistry.ITEMS.register("gptcadsetting",() ->
+                new BlockItem(PsiEXRegistry.GPTCADSETTINGBLOCK.get(),new Item.Properties().stacksTo(1)));
 
         PsiEXRegistry.GPTCAD_ASSEMBLY_IRON = PsiEXRegistry.ITEMS.register("gptcad_assembly_iron", () ->
                 new ItemGPTCADAssembly(new Item.Properties(),10543587));
@@ -129,7 +143,12 @@ public class CuriosCompatModule implements AddonModule {
     private void cevents(){
         var ctx = FMLJavaModLoadingContext.get().getModEventBus();
         ctx.addListener(this::onRegisterRenderers);
-        MinecraftForge.EVENT_BUS.addListener(NumberInputHandler::onKeyInput);
+        ctx.addListener(KeyBindings::registerKeyMappings);
+        var bus = MinecraftForge.EVENT_BUS;
+        bus.addListener(NumberInputHandler::onKeyInput);
+        bus.addListener(NumberInputHandler::onMouseScroll);
+        bus.addListener(NumberInputHandler::onClientTick);
+
     }
     @OnlyIn(Dist.CLIENT)
     public void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e){

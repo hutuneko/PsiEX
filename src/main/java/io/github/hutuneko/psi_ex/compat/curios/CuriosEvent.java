@@ -1,9 +1,14 @@
 package io.github.hutuneko.psi_ex.compat.curios;
 
 import io.github.hutuneko.psi_ex.PsiEX;
+import io.github.hutuneko.psi_ex.api.KeyBindings;
 import io.github.hutuneko.psi_ex.api.PsiEXAPI;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
+import io.github.hutuneko.psi_ex.item.GeneralPurposeTypeCAD;
 import io.github.hutuneko.psi_ex.item.SkillItem.Orochimaru;
+import io.github.hutuneko.psi_ex.system.CuriosUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -121,4 +126,5 @@ public class CuriosEvent {
         player.setDeltaMovement(Vec3.ZERO);
         player.hurtMarked = true;
     }
-}
+
+    }

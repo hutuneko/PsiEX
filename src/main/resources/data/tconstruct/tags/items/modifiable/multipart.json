@@ -3,6 +3,10 @@
     {
       "id": "psi_ex:tic_cad",
       "required": false
+    },
+    {
+      "id": "psi_ex:tic_gptcad",
+      "required": false
     }
   ]
 }

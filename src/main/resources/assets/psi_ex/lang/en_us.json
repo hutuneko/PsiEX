@@ -47,6 +47,8 @@
   "psi_ex.spellpiece.piecetrick_poisonousbee.desc": "Deals additional damage proportional to the damage already sustained.",
   "psi_ex.spellpiece.piecetrick_eclair": "Trick: Éclair",
   "psi_ex.spellpiece.piecetrick_eclair.desc": "Launches the caster toward a sighted target. (Quoted from the original work)",
+  "psi_ex.spellpiece.pieceselector_cad": "Selector: CAD Input",
+  "psi_ex.spellpiece.pieceselector_cad.desc": "Accepts input values from the CAD.",
 
   "item.psi_ex.psi_arrow": "Spell Arrow",
   "item.psi_ex.cad_patch": "CAD Patch",
@@ -56,18 +58,25 @@
   "item.psi_ex.psi_spirits_eye": "Spirit Eye",
   "item.psi_ex.psi_needle": "Spell Needle",
   "item.psi_ex.psikiller": "Psi Killer",
+
   "item.psi_ex.rangezero": "Range Zero",
   "item.psi_ex.eclair": "Éclair",
   "item.psi_ex.phantom": "Phantom",
   "item.psi_ex.elfinsniper": "Elfin Sniper",
+
   "item.psi_ex.personal_tuner": "Personal Tuner",
   "block.psi_ex.multipageprogrammer": "Multi-Page Spell Programmer",
+  "block.psi_ex.gptcadsetting": "General-Purpose CAD Tuner",
+  "item.psi_ex.gptcad": "CAD -General Purpose Spell Auxiliary Computer-",
+  "item.psi.cad": "CAD -Specialized Spell Auxiliary Computer-",
 
   "item.psi_ex.tic_cad_core": "TiC CAD Core",
   "item.psi_ex.tic_cad_assembly": "TiC CAD Assembly",
+  "item.psi_ex.tic_gptcad_assembly": "TiC GPTCAD Assembly",
   "item.psi_ex.tic_cad_battery": "TiC CAD Battery",
   "item.psi_ex.tic_cad_socket": "TiC CAD Socket",
-  "item.psi_ex.tic_cad": "TiC CAD",
+  "item.psi_ex.tic_cad": "TiCCAD -Specialized Spell Auxiliary Computer-",
+  "item.psi_ex.tic_gptcad": "TiCCAD -General Purpose Spell Auxiliary Computer-",
 
   "pattern.psi_ex.tic_cad_core": "TiC CAD Core",
   "pattern.psi_ex.tic_cad_assembly": "TiC CAD Assembly",
@@ -86,7 +95,9 @@
   "item.psi_ex.tic_cad_assembly_red_sand_cast": "TiC CAD Assembly Red Sand Cast",
   "item.psi_ex.tic_cad_battery_red_sand_cast": "TiC CAD Battery Red Sand Cast",
   "item.psi_ex.tic_cad_socket_red_sand_cast": "TiC CAD Socket Red Sand Cast",
-
+  "item.psi_ex.tic_gptcad_assembly_cast": "TiC GPTCAD Assembly Cast",
+  "item.psi_ex.tic_gptcad_assembly_sand_cast": "TiC GPTCAD Assembly Sand Cast",
+  "item.psi_ex.tic_gptcad_assembly_red_sand_cast": "TiC GPTCAD Assembly Red Sand Cast",
   "tooltip.psi_ex.skillitem.desc": "Quoted from the original work",
 
   "attribute.name.psi_ex.psi_ancientrites_point": "Ancient Rites",
@@ -136,11 +147,16 @@
   "message.psi_ex.requirement_separator": ", ",
   "message.psi_ex.spellreplay": "Encore!",
 
+  "psi_ex.spellerror.nospell": "No spell found",
   "psi_ex.spellerror.castjamming": "Cast Jamming active!",
   "psi_ex.spellerror.nocurios": "Cannot retrieve from Curios slot",
   "psi_ex.spellerror.exclusive_failed": "Execution failed: Unauthorized user or condition",
+  "psi_ex.spellerror.cad-no-value": "No input received from CAD",
 
   "psi_ex.gui.multiprogrammer": "Multi-Page",
+
+  "psi_ex.isshutdown": "Power: ",
+  "psi_ex.cad-value": "Entered %s into the CAD.",
 
   "effect.psi_ex.castjamming": "Cast Jamming",
   "effect.psi_ex.eclair": "Éclair",

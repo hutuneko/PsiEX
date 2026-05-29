@@ -1,8 +1,8 @@
 package io.github.hutuneko.psi_ex.compat;
 
 import io.github.hutuneko.psi_ex.PsiEX;
-import io.github.hutuneko.psi_ex.block.GPTCADSettingBlock;
-import io.github.hutuneko.psi_ex.block.GPTCADSettingTile;
+import io.github.hutuneko.psi_ex.api.CadBehavior;
+import io.github.hutuneko.psi_ex.api.KeyBindings;
 import io.github.hutuneko.psi_ex.block.MultiPageProgrammer;
 import io.github.hutuneko.psi_ex.block.MultiPageTileProgrammer;
 import io.github.hutuneko.psi_ex.cliant.gui.GPTCADSettingGUI;
@@ -10,26 +10,33 @@ import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
 import io.github.hutuneko.psi_ex.effect.CastJammingEffect;
 import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.item.*;
-import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.item.ItemNeedleDart;
 import io.github.hutuneko.psi_ex.item.ItemPersonalTuner;
 import io.github.hutuneko.psi_ex.item.PsiArrowItem;
 import io.github.hutuneko.psi_ex.item.PsiKiller;
+import io.github.hutuneko.psi_ex.net.C2SShutdown;
+import io.github.hutuneko.psi_ex.net.Net;
 import io.github.hutuneko.psi_ex.recipe.NbtAddRecipe;
-import io.github.hutuneko.psi_ex.spell.operator.PieceOperator_getSeve_Number;
-import io.github.hutuneko.psi_ex.spell.operator.PieceOperator_getSeve_Vector3;
-import io.github.hutuneko.psi_ex.spell.selector.PieceSelector_ItemData;
+import io.github.hutuneko.psi_ex.spell.operator.OperatorGetSeveNumber;
+import io.github.hutuneko.psi_ex.spell.operator.OperatorGetSeveVector3;
+import io.github.hutuneko.psi_ex.spell.selector.SelectorItemData;
 import io.github.hutuneko.psi_ex.spell.trick.*;
-import io.github.hutuneko.psi_ex.spell.trick.*;
+import io.github.hutuneko.psi_ex.system.CuriosUtil;
+import moffy.addonapi.AddonAPI;
 import moffy.addonapi.AddonModule;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -37,32 +44,35 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import vazkii.psi.api.PsiAPI;
+import vazkii.psi.common.item.ItemCAD;
 
 public class DefaultCompatModule implements AddonModule {
     public DefaultCompatModule() {
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_data"), PieceSelector_data.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "copy"), PieceTrick_copy.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "eidos_renewal"), PieceTrick_Eidos_renewal.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "coordinate_eidos_renewal"), PieceTrick_coordinate_eidos_renewal.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_itemdata"), PieceSelector_ItemData.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_offhandattack"), PieceTrick_OffhandAttack.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_oredouble"), PieceTrick_OreDouble.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ejection"), PieceTrick_Ejection.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "coordinate_eidos_renewal"), TrickCoordinateEidosRenewal.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_itemdata"), SelectorItemData.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_offhandattack"), TrickOffhandAttack.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_oredouble"), TrickOreDouble.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ejection"), TrickEjection.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_lunastrike"), PieceTrick_LunaStrike.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_dirchange"), PieceTrick_DirChange.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_number"), PieceTrick_Seve_Number.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), PieceOperator_getSeve_Number.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_vector"), PieceTrick_Seve_Vector.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_vector3"), PieceOperator_getSeve_Vector3.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_poisonousbee"), PieceTrick_PoisonousBee.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_number"), TrickSeveNumber.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), OperatorGetSeveNumber.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_vector"), TrickSeveVector.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_vector3"), OperatorGetSeveVector3.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_poisonousbee"), TrickPoisonousBee.class);
 //        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_compressedair"), PieceTrick_CompressedAir.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_selfbigexplosion"),PieceTrick_SelfBigExplosion.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_railgun"),PieceTrick_Railgun.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_selfbigexplosion"), TrickSelfBigExplosion.class);
+        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_railgun"), TrickRailgun.class);
 //        PsiEXRegistry.STORAGE = PsiEXRegistry.ITEMS.register("storage", () ->
 //                new ItemStorage(new Item.Properties().stacksTo(1))
 //        );
@@ -87,8 +97,6 @@ public class DefaultCompatModule implements AddonModule {
                 new ItemNeedleDart(new Item.Properties()));
         PsiEXRegistry.ITEMS.register("multipageprogrammer", () ->
                 new BlockItem(PsiEXRegistry.MULTIPAGEPROGRAMMER.get(), new Item.Properties().stacksTo(1)));
-        PsiEXRegistry.ITEMS.register("gptcadsetting",() ->
-                new BlockItem(PsiEXRegistry.GPTCADSETTINGBLOCK.get(),new Item.Properties().stacksTo(1)));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
 
@@ -98,11 +106,6 @@ public class DefaultCompatModule implements AddonModule {
                 PsiEXRegistry.BLOCK_ENTITIES.register("multi_programmer",
                         () -> BlockEntityType.Builder.of(MultiPageTileProgrammer::new, PsiEXRegistry.MULTIPAGEPROGRAMMER.get())
                                 .build(null));
-        PsiEXRegistry.GPTCADSETTINGBLOCK = PsiEXRegistry.BLOCKS.register("gptcadsettingblock",() ->
-                new GPTCADSettingBlock(BlockBehaviour.Properties.of()));
-        PsiEXRegistry.GPTCADSETTINGTILE = PsiEXRegistry.BLOCK_ENTITIES.register("gptcadsettingtile",() ->
-                BlockEntityType.Builder.of(GPTCADSettingTile::new,PsiEXRegistry.GPTCADSETTINGBLOCK.get())
-                        .build(null));
 
         PsiEXRegistry.PSI_ARROW_ENTITY = PsiEXRegistry.ENTITIES.register("psi_arrow_entity", () ->
                 EntityType.Builder.<PsiArrowEntity>of(PsiArrowEntity::new, MobCategory.MISC)
@@ -149,6 +152,7 @@ public class DefaultCompatModule implements AddonModule {
          var ctx = FMLJavaModLoadingContext.get().getModEventBus();
          ctx.addListener(this::onRegisterRenderers);
          ctx.addListener(this::onClientSetup);
+         MinecraftForge.EVENT_BUS.addListener(this::shutdown);
     }
     @OnlyIn(Dist.CLIENT)
     private void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e){
@@ -171,8 +175,71 @@ public class DefaultCompatModule implements AddonModule {
     }
     @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            MenuScreens.register(PsiEXRegistry.GPTCAD_SETTING_MENU.get(), GPTCADSettingGUI::new);
-        });
+        event.enqueueWork(() -> MenuScreens.register(PsiEXRegistry.GPTCAD_SETTING_MENU.get(), GPTCADSettingGUI::new));
+    }
+    public void shutdown(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player == null) return;
+        if (mc.screen != null) return;
+
+        while (KeyBindings.SHUTDOWN_KEY.consumeClick()) {
+
+            if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID, "curioscompat"))) {
+                var result = CuriosUtil.findFirst(player, s -> s.getItem() instanceof GeneralPurposeTypeCAD);
+            }
+            ItemStack stack = findCADToToggle(player);
+            if (stack.isEmpty()) {
+                return;
+            }
+
+            toggleCAD(stack, player);
+        }
+    }
+
+    /** CADを探す：メインハンド優先、なければCurios */
+    private ItemStack findCADToToggle(LocalPlayer player) {
+        ItemStack mainHand = player.getMainHandItem();
+        if (CadBehavior.isCAD(mainHand) || mainHand.getItem() instanceof ItemCAD) {
+            return mainHand;
+        }
+
+        if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID, "curioscompat"))) {
+            var result = CuriosUtil.findFirst(player,
+                    itemStack -> itemStack.getItem() instanceof GeneralPurposeTypeCAD);
+            if (result.isPresent()) {
+                ItemStack curiosStack = result.get().stack();
+                if (CadBehavior.isCAD(curiosStack) || curiosStack.getItem() instanceof ItemCAD) {
+                    return curiosStack;
+                }
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    /** CADのON/OFFを切り替え。true=電源OFF、false=電源ON */
+    private void toggleCAD(ItemStack stack, LocalPlayer player) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (!tag.contains("psi_ex.isshutdown")) {
+            tag.putBoolean("psi_ex.isshutdown", false); // デフォルトはON（false）
+        }
+
+        boolean currentShutdown = tag.getBoolean("psi_ex.isshutdown");
+        boolean newShutdown = !currentShutdown; // trueならfalseに、falseならtrueに
+
+        Net.CHANNEL.sendToServer(new C2SShutdown(newShutdown));
+        tag.putBoolean("psi_ex.isshutdown", newShutdown);
+
+        String stateText = newShutdown ? "OFF" : "ON";
+        player.displayClientMessage(
+                Component.translatable("psi_ex.isshutdown")
+                        .append(stateText)
+                        .append(" ")
+                        .append(stack.getDisplayName().getString()),
+                true
+        );
     }
 }

@@ -16,7 +16,8 @@
     "PlayerDataHandlerMixin",
     "PsiAPIMixin",
     "SpellContextMixin",
-    "SpellHelpersMixin"
+    "SpellHelpersMixin",
+    "ItemCADMixin"
   ],
   "injectors": {
     "defaultRequire": 1

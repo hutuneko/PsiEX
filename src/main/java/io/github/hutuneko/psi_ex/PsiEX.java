@@ -2,6 +2,7 @@ package io.github.hutuneko.psi_ex;
 
 import io.github.hutuneko.psi_ex.api.PsiEXAPI;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
+import io.github.hutuneko.psi_ex.compat.cc.CCCuriosModule;
 import io.github.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -36,11 +37,16 @@ public class PsiEX {
         PsiEXRegistry.MOB_EFFECTS.register(modBus);
         PsiEXRegistry.MENUS.register(modBus);
         PsiEXAttributes.register(modBus);
+        try {
+            CCCuriosModule.POCKET_SERIALIZER.register(modBus);
+        }catch (Exception ignored){
 
+        }
         for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"io.hutuneko.hutuneko.psi_ex.spell")){
             PsiAPI.addPieceToGroup(c, new ResourceLocation(MOD_ID, "psiex"),false);
         }
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
     }
 
     public static List<String> listAllAttributeNames() {

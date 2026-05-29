@@ -31,7 +31,7 @@ public class GuiProgrammerPage extends GuiProgrammer implements Page {
     }
 
     @Override
-    public void init(MultiPageScreen parent, int x, int y, int width, int height) {
+    public void pageInit(MultiPageScreen parent, int x, int y, int width, int height) {
         this.minecraft = Minecraft.getInstance();
         this.font = this.minecraft.font;
         this.width = parent.width;
@@ -66,6 +66,12 @@ public class GuiProgrammerPage extends GuiProgrammer implements Page {
         }
 
         initialized = true;
+    }
+
+    @Override
+    public void pageRender(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        if (!isActive) return;
+        super.render(graphics, mouseX, mouseY, partialTick);
     }
 
     @Override
@@ -111,7 +117,7 @@ public class GuiProgrammerPage extends GuiProgrammer implements Page {
         }
     }
     @Override
-    public void tick() {
+    public void pageTick() {
         if (!isActive) return;
         super.tick();
     }
@@ -123,22 +129,34 @@ public class GuiProgrammerPage extends GuiProgrammer implements Page {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean pageMouseClicked(double mouseX, double mouseY, int button) {
         if (!isActive) return false;
         this.programmer.spell = this.spell;
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean pageMouseReleased(double mouseX, double mouseY, int button) {
         if (!isActive) return false;
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    public boolean pageMouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (!isActive) return false;
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean pageMouseScrolled(double mouseX, double mouseY, double delta) {
+        if (!isActive) return false;
+        return super.mouseScrolled(mouseX, mouseY, delta);
+    }
+
+    @Override
+    public void pageMouseMoved(double mouseX, double mouseY) {
+        if (!isActive) return;
+        super.mouseMoved(mouseX, mouseY);
     }
 
     @Override
@@ -154,14 +172,14 @@ public class GuiProgrammerPage extends GuiProgrammer implements Page {
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+    public boolean pageKeyReleased(int keyCode, int scanCode, int modifiers) {
         if (!isActive) return false;
 
         return super.keyPressed(keyCode,scanCode,modifiers);
     }
 
     @Override
-    public boolean charTyped(char codePoint, int modifiers) {
+    public boolean pageCharTyped(char codePoint, int modifiers) {
         if (!isActive) return false;
 
         boolean result = super.charTyped(codePoint, modifiers);

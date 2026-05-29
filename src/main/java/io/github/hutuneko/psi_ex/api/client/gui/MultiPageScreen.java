@@ -1,7 +1,6 @@
 package io.github.hutuneko.psi_ex.api.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
 
         // 全ページを初期化
         for (Page page : pages) {
-            page.init(this, leftPos, topPos, imageWidth, imageHeight);
+            page.pageInit(this, leftPos, topPos, imageWidth, imageHeight);
         }
 
         initCurrentPage();
@@ -68,7 +67,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     public void tick() {
         super.tick();
         if (!pages.isEmpty()) {
-            pages.get(currentPageIndex).tick();
+            pages.get(currentPageIndex).pageTick();
         }
     }
 
@@ -77,7 +76,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
         this.renderBackground(graphics);
 
         if (!pages.isEmpty()) {
-            pages.get(currentPageIndex).render(graphics, mouseX, mouseY, partialTick);
+            pages.get(currentPageIndex).pageRender(graphics, mouseX, mouseY, partialTick);
         }
 
         // ページインジケーター
@@ -99,14 +98,14 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     public void mouseMoved(double mouseX, double mouseY) {
         super.mouseMoved(mouseX, mouseY);
         if (!pages.isEmpty()) {
-            pages.get(currentPageIndex).mouseMoved(mouseX, mouseY);
+            pages.get(currentPageIndex).pageMouseMoved(mouseX, mouseY);
         }
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).mouseClicked(mouseX, mouseY, button)) {
+            if (pages.get(currentPageIndex).pageMouseClicked(mouseX, mouseY, button)) {
                 return true;
             }
         }
@@ -116,7 +115,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).mouseReleased(mouseX, mouseY, button)) {
+            if (pages.get(currentPageIndex).pageMouseReleased(mouseX, mouseY, button)) {
                 return true;
             }
         }
@@ -126,7 +125,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).mouseDragged(mouseX, mouseY, button, dragX, dragY)) {
+            if (pages.get(currentPageIndex).pageMouseDragged(mouseX, mouseY, button, dragX, dragY)) {
                 return true;
             }
         }
@@ -136,7 +135,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).mouseScrolled(mouseX, mouseY, delta)) {
+            if (pages.get(currentPageIndex).pageMouseScrolled(mouseX, mouseY, delta)) {
                 return true;
             }
         }
@@ -146,7 +145,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).keyReleased(keyCode, scanCode, modifiers)) {
+            if (pages.get(currentPageIndex).pageKeyReleased(keyCode, scanCode, modifiers)) {
                 return true;
             }
         }
@@ -156,7 +155,7 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
     @Override
     public boolean charTyped(char codePoint, int modifiers) {
         if (!pages.isEmpty()) {
-            if (pages.get(currentPageIndex).charTyped(codePoint, modifiers)) {
+            if (pages.get(currentPageIndex).pageCharTyped(codePoint, modifiers)) {
                 return true;
             }
         }
@@ -189,19 +188,5 @@ public abstract class MultiPageScreen extends Screen implements IMultiPageScreen
             currentPageIndex--;
             initCurrentPage();
         }
-    }
-
-    private final List<AbstractWidget> pageWidgets = new ArrayList<>();
-
-    public void clearPageWidgets() {
-        this.renderables.removeAll(pageWidgets);
-        this.children().removeAll(pageWidgets);
-        pageWidgets.clear();
-    }
-
-    public <T extends AbstractWidget> T addPageWidget(T widget) {
-        this.addRenderableWidget(widget);
-        pageWidgets.add(widget);
-        return widget;
     }
 }

@@ -3,6 +3,7 @@ package io.github.hutuneko.psi_ex.mixin;
 import io.github.hutuneko.psi_ex.PsiEX;
 import io.github.hutuneko.psi_ex.api.CadBehavior;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
+import io.github.hutuneko.psi_ex.item.GeneralPurposeTypeCAD;
 import io.github.hutuneko.psi_ex.system.CuriosUtil;
 import moffy.addonapi.AddonAPI;
 import net.minecraft.resources.ResourceLocation;
@@ -25,23 +26,52 @@ public class PsiAPIMixin {
             cir.setReturnValue(ItemStack.EMPTY);
             return;
         }
-        ItemStack foundCad = ItemStack.EMPTY;
-        if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID,"curioscompat"))){
-            foundCad = CuriosUtil.findFirstStrict(player, PsiEXRegistry.GPTCAD.get());
-        }
 
-        for(int i = 0; i < player.getInventory().getContainerSize(); ++i) {
-            ItemStack stackAt = player.getInventory().getItem(i);
-            if (!stackAt.isEmpty() && (stackAt.getItem() instanceof ItemCAD || CadBehavior.isCAD(stackAt))) {
-                if (!foundCad.isEmpty()) {
-                    cir.setReturnValue(ItemStack.EMPTY);
-                    return;
+        // Curios から検索
+        ItemStack curiosCad = ItemStack.EMPTY;
+        if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID, "curioscompat"))) {
+            var result = CuriosUtil.findFirst(player, stack ->
+                    stack.getItem() instanceof GeneralPurposeTypeCAD
+            );
+            if (result.isPresent()) {
+                ItemStack stack = result.get().stack();
+                if (isPoweredOn(stack)) {
+                    curiosCad = stack;
                 }
-
-                foundCad = stackAt;
             }
         }
-        cir.setReturnValue(foundCad);
+
+        // インベントリから検索
+        ItemStack invCad = ItemStack.EMPTY;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (!stack.isEmpty() && (stack.getItem() instanceof ItemCAD || CadBehavior.isCAD(stack))) {
+                if (isPoweredOn(stack)) {
+                    // 2つ目見つかった時点で確定でEMPTY
+                    if (!invCad.isEmpty()) {
+                        cir.setReturnValue(ItemStack.EMPTY);
+                        return;
+                    }
+                    invCad = stack;
+                }
+            }
+        }
+
+        // 両方に存在する場合はEMPTY
+        if (!curiosCad.isEmpty() && !invCad.isEmpty()) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        // どちらか一方にちょうど1つある場合のみ返す
+        ItemStack result = !curiosCad.isEmpty() ? curiosCad : invCad;
+        cir.setReturnValue(result);
+    }
+
+    private static boolean isPoweredOn(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        if (stack.getTag() == null) return true;
+        return !stack.getTag().getBoolean("psi_ex.isshutdown");
     }
 
     @Inject(method = "getPlayerCADSlot", at = @At("HEAD"), cancellable = true)
@@ -50,12 +80,17 @@ public class PsiAPIMixin {
             cir.setReturnValue(-1);
             return;
         }
-        if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID,"curioscompat"))){
-             ItemStack stack = CuriosUtil.findFirstStrict(player, PsiEXRegistry.GPTCAD.get());
-             if (stack != ItemStack.EMPTY) {
-                 cir.setReturnValue(-1);
-                 return;
-             }
+        if (AddonAPI.isModuleAvailable(new ResourceLocation(PsiEX.MOD_ID, "curioscompat"))) {
+            var result = CuriosUtil.findFirst(player, stack ->
+                    stack.getItem() instanceof GeneralPurposeTypeCAD
+            );
+            if (result.isPresent()) {
+                ItemStack stack = result.get().stack();
+                if (isPoweredOn(stack)) {
+                    cir.setReturnValue(-1);
+                    return;
+                }
+            }
         }
         int slot = -1;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {

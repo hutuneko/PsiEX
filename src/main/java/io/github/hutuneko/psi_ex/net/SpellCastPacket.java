@@ -5,6 +5,7 @@ import io.github.hutuneko.psi_ex.item.GeneralPurposeTypeCAD;
 import io.github.hutuneko.psi_ex.system.CuriosUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -24,8 +25,14 @@ public record SpellCastPacket(int index) {
             ServerPlayer player = ctx.get().getSender();
             if (player == null) return;
 
-            var slot = CuriosUtil.findFirstByItem(player, PsiEXRegistry.GPTCAD.get());
-            if (slot.isEmpty() || !(slot.get().stack().getItem() instanceof GeneralPurposeTypeCAD)) return;
+            var slot = CuriosUtil.findFirst(player, itemStack -> itemStack.getItem() instanceof GeneralPurposeTypeCAD);
+            if (slot.isEmpty()) return;
+            ItemStack stack = slot.get().stack();
+            if (stack.getTag() == null) return;
+            if (!stack.getTag().contains("psi_ex.isshutdown")) {
+                stack.getTag().putBoolean("psi_ex.isshutdown",false);
+            }
+            if (stack.getTag().getBoolean("psi_ex.isshutdown"))return;
             GeneralPurposeTypeCAD.spellCast(msg.index, player, slot.get().stack());
         });
         ctx.get().setPacketHandled(true);
