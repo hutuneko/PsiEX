@@ -3,8 +3,10 @@ package io.github.hutuneko.psi_ex.compat.curios;
 import io.github.hutuneko.psi_ex.PsiEX;
 import io.github.hutuneko.psi_ex.api.KeyBindings;
 import io.github.hutuneko.psi_ex.api.NumberInputHandler;
+import io.github.hutuneko.psi_ex.api.PsiEXAPI;
 import io.github.hutuneko.psi_ex.block.GPTCADSettingBlock;
 import io.github.hutuneko.psi_ex.block.GPTCADSettingTile;
+import io.github.hutuneko.psi_ex.client.gui.GPTCADSettingGUI;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
 import io.github.hutuneko.psi_ex.effect.EclairEffect;
 import io.github.hutuneko.psi_ex.entity.PsiBarrierEntity;
@@ -24,6 +26,7 @@ import io.github.hutuneko.psi_ex.spell.trick.skill.TrickEclair;
 import moffy.addonapi.AddonModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
@@ -40,19 +43,18 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.EnumCADStat;
 import vazkii.psi.common.item.component.ItemCADComponent;
 
 public class CuriosCompatModule implements AddonModule {
     public CuriosCompatModule() {
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getspell"), OperatorGetSpell.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_executespell"), TrickExecuteSpell.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_summonbarrier"), TrickSummonBarrier.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eyesave"), TrickEyeSave.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_geteye"), SelectorGetEye.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eclair"), TrickEclair.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"pieceselector_cad"), SelectorCAD.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getspell"), OperatorGetSpell.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_executespell"), TrickExecuteSpell.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_summonbarrier"), TrickSummonBarrier.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eyesave"), TrickEyeSave.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_geteye"), SelectorGetEye.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_eclair"), TrickEclair.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID,"pieceselector_cad"), SelectorCAD.class);
 
         PsiEXRegistry.PSI_CURIO_BULLET = PsiEXRegistry.ITEMS.register("extended_cad_socket", () ->
                 new PsiCuriosbullet(new Item.Properties())
@@ -112,6 +114,7 @@ public class CuriosCompatModule implements AddonModule {
 
     public static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(CuriosCompatModule::setStats);
+        event.enqueueWork(() -> MenuScreens.register(PsiEXRegistry.GPTCAD_SETTING_MENU.get(), GPTCADSettingGUI::new));
     }
     private static void setStats(){
         //Iron

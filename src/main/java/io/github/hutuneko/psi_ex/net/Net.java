@@ -61,6 +61,11 @@ public final class Net {
                     .decoder(C2SCADInput::decode)
                     .consumerMainThread(C2SCADInput::handle)
                     .add();
+            CHANNEL.messageBuilder(IndexMenuPacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
+                    .encoder(IndexMenuPacket::encode)
+                    .decoder(IndexMenuPacket::decode)
+                    .consumerMainThread(IndexMenuPacket::handle)
+                    .add();
 
             // --- Client 向け（サーバ→クライアント）
             CHANNEL.messageBuilder(SyncPsionS2C.class, id++, NetworkDirection.PLAY_TO_CLIENT)

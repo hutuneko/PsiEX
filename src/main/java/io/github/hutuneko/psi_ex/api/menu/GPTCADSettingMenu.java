@@ -1,4 +1,4 @@
-package io.github.hutuneko.psi_ex.cliant.menu;
+package io.github.hutuneko.psi_ex.api.menu;
 
 import io.github.hutuneko.psi_ex.block.GPTCADSettingTile;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;

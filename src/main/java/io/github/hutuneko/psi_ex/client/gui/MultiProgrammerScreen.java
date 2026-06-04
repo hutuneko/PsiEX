@@ -1,4 +1,4 @@
-package io.github.hutuneko.psi_ex.cliant.gui;
+package io.github.hutuneko.psi_ex.client.gui;
 
 import io.github.hutuneko.psi_ex.api.client.gui.MultiPageScreen;
 import io.github.hutuneko.psi_ex.api.client.gui.Page;

@@ -3,10 +3,13 @@ package io.github.hutuneko.psi_ex.compat;
 import io.github.hutuneko.psi_ex.PsiEX;
 import io.github.hutuneko.psi_ex.api.CadBehavior;
 import io.github.hutuneko.psi_ex.api.KeyBindings;
+import io.github.hutuneko.psi_ex.api.PsiEXAPI;
+import io.github.hutuneko.psi_ex.api.menu.IndexMenu;
+import io.github.hutuneko.psi_ex.block.IndexBlock;
 import io.github.hutuneko.psi_ex.block.MultiPageProgrammer;
 import io.github.hutuneko.psi_ex.block.MultiPageTileProgrammer;
-import io.github.hutuneko.psi_ex.cliant.gui.GPTCADSettingGUI;
-import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
+import io.github.hutuneko.psi_ex.api.menu.GPTCADSettingMenu;
+import io.github.hutuneko.psi_ex.client.gui.IndexGUI;
 import io.github.hutuneko.psi_ex.effect.CastJammingEffect;
 import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.item.*;
@@ -55,24 +58,24 @@ import vazkii.psi.common.item.ItemCAD;
 
 public class DefaultCompatModule implements AddonModule {
     public DefaultCompatModule() {
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_data"), PieceSelector_data.class);
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "copy"), PieceTrick_copy.class);
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "eidos_renewal"), PieceTrick_Eidos_renewal.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "coordinate_eidos_renewal"), TrickCoordinateEidosRenewal.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_itemdata"), SelectorItemData.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_offhandattack"), TrickOffhandAttack.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_oredouble"), TrickOreDouble.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ejection"), TrickEjection.class);
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_lunastrike"), PieceTrick_LunaStrike.class);
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_dirchange"), PieceTrick_DirChange.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_number"), TrickSeveNumber.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), OperatorGetSeveNumber.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_vector"), TrickSeveVector.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_vector3"), OperatorGetSeveVector3.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_poisonousbee"), TrickPoisonousBee.class);
-//        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_compressedair"), PieceTrick_CompressedAir.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_selfbigexplosion"), TrickSelfBigExplosion.class);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_railgun"), TrickRailgun.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_data"), PieceSelector_data.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "copy"), PieceTrick_copy.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "eidos_renewal"), PieceTrick_Eidos_renewal.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "coordinate_eidos_renewal"), TrickCoordinateEidosRenewal.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceselector_itemdata"), SelectorItemData.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_offhandattack"), TrickOffhandAttack.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_oredouble"), TrickOreDouble.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ejection"), TrickEjection.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_lunastrike"), PieceTrick_LunaStrike.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_dirchange"), PieceTrick_DirChange.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_number"), TrickSeveNumber.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), OperatorGetSeveNumber.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_vector"), TrickSeveVector.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_vector3"), OperatorGetSeveVector3.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_poisonousbee"), TrickPoisonousBee.class);
+//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_compressedair"), PieceTrick_CompressedAir.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_selfbigexplosion"), TrickSelfBigExplosion.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID,"piecetrick_railgun"), TrickRailgun.class);
 //        PsiEXRegistry.STORAGE = PsiEXRegistry.ITEMS.register("storage", () ->
 //                new ItemStorage(new Item.Properties().stacksTo(1))
 //        );
@@ -97,6 +100,8 @@ public class DefaultCompatModule implements AddonModule {
                 new ItemNeedleDart(new Item.Properties()));
         PsiEXRegistry.ITEMS.register("multipageprogrammer", () ->
                 new BlockItem(PsiEXRegistry.MULTIPAGEPROGRAMMER.get(), new Item.Properties().stacksTo(1)));
+        PsiEXRegistry.ITEMS.register("index", () ->
+                new BlockItem(PsiEXRegistry.INDEX.get(), new Item.Properties()));
 //        PsiEXRegistry.PSI_BOW = PsiEXRegistry.ITEMS.register("psi_bow", () ->
 //                new PsiBow(new Item.Properties().stacksTo(1)));
 
@@ -106,6 +111,9 @@ public class DefaultCompatModule implements AddonModule {
                 PsiEXRegistry.BLOCK_ENTITIES.register("multi_programmer",
                         () -> BlockEntityType.Builder.of(MultiPageTileProgrammer::new, PsiEXRegistry.MULTIPAGEPROGRAMMER.get())
                                 .build(null));
+        PsiEXRegistry.INDEX =
+                PsiEXRegistry.BLOCKS.register("index",() ->
+                        new IndexBlock(BlockBehaviour.Properties.of()));
 
         PsiEXRegistry.PSI_ARROW_ENTITY = PsiEXRegistry.ENTITIES.register("psi_arrow_entity", () ->
                 EntityType.Builder.<PsiArrowEntity>of(PsiArrowEntity::new, MobCategory.MISC)
@@ -144,7 +152,9 @@ public class DefaultCompatModule implements AddonModule {
         PsiEXRegistry.GPTCAD_SETTING_MENU =
                 PsiEXRegistry.MENUS.register("gptcad_setting_menu",() ->
                         IForgeMenuType.create(GPTCADSettingMenu::new));
-
+        PsiEXRegistry.INDEX_MENU =
+                PsiEXRegistry.MENUS.register("index_menu",() ->
+                        IForgeMenuType.create(IndexMenu::fromNetwork));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     @OnlyIn(Dist.CLIENT)
@@ -153,6 +163,7 @@ public class DefaultCompatModule implements AddonModule {
          ctx.addListener(this::onRegisterRenderers);
          ctx.addListener(this::onClientSetup);
          MinecraftForge.EVENT_BUS.addListener(this::shutdown);
+
     }
     @OnlyIn(Dist.CLIENT)
     private void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e){
@@ -175,7 +186,9 @@ public class DefaultCompatModule implements AddonModule {
     }
     @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(PsiEXRegistry.GPTCAD_SETTING_MENU.get(), GPTCADSettingGUI::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(PsiEXRegistry.INDEX_MENU.get(), IndexGUI::new);
+        });
     }
     public void shutdown(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;

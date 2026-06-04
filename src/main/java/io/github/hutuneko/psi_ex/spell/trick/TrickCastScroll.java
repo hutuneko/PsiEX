@@ -46,7 +46,7 @@ public class TrickCastScroll extends PieceTrick {
     public void initParams() {
         addParam(dirParam = new ParamVector(SpellParam.GENERIC_NAME_VECTOR, SpellParam.RED, false, false));
         addParam(dataParam = new ParamCompoundTag("scrollData"));
-        addParam(targetParam = new ParamEntity(SpellParam.GENERIC_NAME_TARGET, SpellParam.BLUE, true, true));
+        addParam(targetParam = new ParamEntity(SpellParam.GENERIC_NAME_TARGET, SpellParam.BLUE, true, false));
     }
 
     @Override

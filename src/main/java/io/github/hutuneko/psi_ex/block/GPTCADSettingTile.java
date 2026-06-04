@@ -1,7 +1,7 @@
 package io.github.hutuneko.psi_ex.block;
 
 import io.github.hutuneko.psi_ex.api.UUIDDataHandler;
-import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
+import io.github.hutuneko.psi_ex.api.menu.GPTCADSettingMenu;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

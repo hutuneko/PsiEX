@@ -42,9 +42,6 @@ public class PsiEX {
         }catch (Exception ignored){
 
         }
-        for (Class<? extends SpellPiece> c :PsiEXAPI.findSpellPieces(MOD_ID,"io.hutuneko.hutuneko.psi_ex.spell")){
-            PsiAPI.addPieceToGroup(c, new ResourceLocation(MOD_ID, "psiex"),false);
-        }
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
     }

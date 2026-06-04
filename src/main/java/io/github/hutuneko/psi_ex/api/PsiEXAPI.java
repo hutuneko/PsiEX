@@ -2,6 +2,7 @@ package io.github.hutuneko.psi_ex.api;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,14 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.forgespi.locating.IModFile;
 import org.jetbrains.annotations.Nullable;
+import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellPiece;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -123,30 +122,9 @@ public class PsiEXAPI {
         while (yaw >= 180) yaw -= 360;
         return yaw;
     }
-    public static List<Class<? extends SpellPiece>> findSpellPieces(String modId, String packageName) {
-        List<Class<? extends SpellPiece>> classes = new ArrayList<>();
-
-        var modFileInfo = ModList.get().getModFileById(modId);
-
-        if (modFileInfo != null) {
-            IModFile modFile = modFileInfo.getFile();
-
-            modFile.getScanResult().getClasses().forEach(classInfo -> {
-                String className = classInfo.clazz().getClassName();
-
-                if (className.startsWith(packageName)) {
-                    try {
-                        Class<?> clazz = Class.forName(className);
-                        if (SpellPiece.class.isAssignableFrom(clazz)) {
-                            classes.add((Class<? extends SpellPiece>) clazz);
-                        }
-                    } catch (ClassNotFoundException ignored) {
-                    }
-                }
-            });
-        }
-
-        return classes;
+    public static void pieceRegister(ResourceLocation location,Class<? extends SpellPiece> clazz) {
+        PsiAPI.registerSpellPieceAndTexture(location,clazz);
+        PsiAPI.addPieceToGroup(clazz, location,false);
     }
     public static LivingEntity findNearest(List<LivingEntity> entities, Vec3 position) {
         return entities.stream()

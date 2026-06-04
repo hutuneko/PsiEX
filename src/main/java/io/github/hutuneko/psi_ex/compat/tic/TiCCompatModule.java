@@ -1,6 +1,7 @@
 package io.github.hutuneko.psi_ex.compat.tic;
 
 import io.github.hutuneko.psi_ex.PsiEX;
+import io.github.hutuneko.psi_ex.api.PsiEXAPI;
 import io.github.hutuneko.psi_ex.compat.PsiEXRegistry;
 import io.github.hutuneko.psi_ex.item.TiCCAD;
 import io.github.hutuneko.psi_ex.item.TiCGPTCAD;
@@ -65,7 +66,7 @@ public class TiCCompatModule implements AddonModule {
 
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onDamage);
         MinecraftForge.EVENT_BUS.addListener(TiCEvent::onLightningStrike);
-        PsiAPI.registerSpellPieceAndTexture(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ticattack"), TrickTiCAttack.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ticattack"), TrickTiCAttack.class);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> this::cevents);
     }
     public CastItemObject castItemObject(String name, Supplier<? extends Item> constructor) {

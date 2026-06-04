@@ -1,10 +1,9 @@
 package io.github.hutuneko.psi_ex.compat;
 
 import io.github.hutuneko.psi_ex.PsiEX;
+import io.github.hutuneko.psi_ex.api.menu.IndexMenu;
 import io.github.hutuneko.psi_ex.block.MultiPageTileProgrammer;
-import io.github.hutuneko.psi_ex.block.PsiCasterBlockEntity;
-import io.github.hutuneko.psi_ex.cliant.menu.GPTCADSettingMenu;
-import io.github.hutuneko.psi_ex.entity.*;
+import io.github.hutuneko.psi_ex.api.menu.GPTCADSettingMenu;
 import io.github.hutuneko.psi_ex.entity.*;
 import io.github.hutuneko.psi_ex.recipe.NbtAddRecipe;
 import net.minecraft.core.registries.Registries;
@@ -84,6 +83,7 @@ public class PsiEXRegistry {
 
     public static RegistryObject<Block> MULTIPAGEPROGRAMMER = null;
     public static RegistryObject<Block> GPTCADSETTINGBLOCK = null;
+    public static RegistryObject<Block> INDEX = null;
 
     public static RegistryObject<EntityType<PsiArrowEntity>> PSI_ARROW_ENTITY = null;
     public static RegistryObject<EntityType<PsiNeedleDartEntity>> PSI_NEEDLE_DARTENTITY = null;
@@ -93,13 +93,13 @@ public class PsiEXRegistry {
 
     public static  RegistryObject<BlockEntityType<MultiPageTileProgrammer>> MULTI_PROGRAMMER = null;
     public static RegistryObject<BlockEntityType<?>> GPTCADSETTINGTILE = null;
-
+    public static RegistryObject<BlockEntityType<?>> INDEXBLOCKENTITY = null;
 
     public static RegistryObject<MobEffect> CASTJAMMING = null;
     public static RegistryObject<MobEffect> ECLAIREFFECT = null;
 
     public static RegistryObject<MenuType<GPTCADSettingMenu>> GPTCAD_SETTING_MENU = null;
-
+    public static RegistryObject<MenuType<IndexMenu>> INDEX_MENU = null;
     // PsiEXRegistry.java
     public static RegistryObject<Item> PSI_CASTER_POCKET_UPGRADE = null;
     public static RegistryObject<Block> PSI_CASTER_BLOCK = null;
