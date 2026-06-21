@@ -11,12 +11,10 @@ import vazkii.psi.api.spell.param.ParamEntity;
 import vazkii.psi.api.spell.param.ParamNumber;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
-public class PieceTrick_LunaStrike extends PieceTrick {
+public class TrickLunaStrike extends PieceTrick {
     private ParamEntity targetParam;
     private ParamNumber damageParam;
-    private double k;
-    private boolean l;
-    public PieceTrick_LunaStrike(Spell spell) {
+    public TrickLunaStrike(Spell spell) {
         super(spell);
     }
 
@@ -31,8 +29,9 @@ public class PieceTrick_LunaStrike extends PieceTrick {
     @Override
     public void addToMetadata(SpellMetadata meta) throws SpellCompilationException {
         super.addToMetadata(meta);
+        Double d = this.getParamEvaluation(damageParam);
         meta.addStat(EnumSpellStat.POTENCY, 20);
-        meta.addStat(EnumSpellStat.COST,   50);
+        meta.addStat(EnumSpellStat.COST,   500*d.intValue());
     }
 
     @Override
@@ -53,16 +52,14 @@ public class PieceTrick_LunaStrike extends PieceTrick {
         Number n = getParamValue(context, damageParam);
         double d = n.doubleValue();
         Entity t = getParamValue(context, targetParam);
-        if (!(t instanceof ServerPlayer target)){
-            throw new SpellRuntimeException(SpellRuntimeException.IMMUNE_TARGET);
+        var cap = t.getCapability(PsionProvider.CAP);
+        if (!cap.isPresent()){
+            throw new SpellRuntimeException(SpellRuntimeException.NULL_TARGET);
         }
-        target.getCapability(PsionProvider.CAP).ifPresent(now -> {
-            now.hurt(d);            // 減算
-            l = now.isPsion();      // 直後の判定（同じインスタンス）
-            k = now.getPsion();});
-        PsionSync.toSelf(target);
-        System.out.println(k);
-        System.out.println(l);
+        cap.ifPresent(now -> now.hurt(d));
+        if (t instanceof ServerPlayer target){
+            PsionSync.toSelf(target);
+        }
         return null;
     }
 }

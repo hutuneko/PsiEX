@@ -1,6 +1,7 @@
 package io.github.hutuneko.psi_ex.system.capability;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
 public interface IPsionData {
@@ -9,7 +10,7 @@ public interface IPsionData {
     void setPsion(double v);
     void add(double v);
     void hurt(double v);
-    void tickRegain(Player p);
+    void tickRegain(LivingEntity p);
     void save(CompoundTag tag);
     void load(CompoundTag tag);
 }

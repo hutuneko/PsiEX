@@ -1,5 +1,6 @@
 package io.github.hutuneko.psi_ex.spell.trick;
 
+import io.github.hutuneko.psi_ex.system.capability.PsionProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import vazkii.psi.api.spell.*;
@@ -57,13 +58,9 @@ public class TrickPoisonousBee extends PieceTrick {
         }
         float max = living.getMaxHealth();
         float current = living.getHealth();
-        float hp = (max - current) * hpVal;
-        if (hp >= current){
-            living.setHealth(0);
-        }else {
-            e.hurt(e.level().damageSources().
-                    thrown(e, e), hp);
-        }
+        float hp = Math.abs(current-max) * hpVal;
+        var cap = living.getCapability(PsionProvider.CAP);
+        cap.ifPresent(iPsionData -> iPsionData.hurt(hp));
         return null;
     }
 

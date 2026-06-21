@@ -2,9 +2,8 @@ package io.github.hutuneko.psi_ex.system.capability;
 
 import io.github.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-
-import java.util.Objects;
 
 public class PsionData implements IPsionData {
     private double psion = 100;
@@ -15,9 +14,18 @@ public class PsionData implements IPsionData {
     @Override public void add(double v){ psion = psion + v; }
     @Override public void hurt(double v){ psion = psion - v; }
 
-    @Override public void tickRegain(Player p){
+    @Override public void tickRegain(LivingEntity p){
+        if (p.isDeadOrDying())return;
+        if (p.level().isClientSide)return;
+        if (psion <= 0){
+            p.setHealth(0);
+            if (p.isDeadOrDying()){
+                p.die(p.level().damageSources().magic());
+            }
+        }
         if (p.level().getGameTime() % 10 == 0) {
-            double max = Objects.requireNonNull(p.getAttribute(PsiEXAttributes.PSI_PSION_POINT.get())).getValue();
+            var attr = p.getAttribute(PsiEXAttributes.PSI_PSION_POINT.get());
+            double max = attr != null ? attr.getValue() : -1;
             if (psion < max) psion = Math.min(max, psion + 1.0);
         }
     }

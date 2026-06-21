@@ -66,7 +66,7 @@ public class DefaultCompatModule implements AddonModule {
         PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_offhandattack"), TrickOffhandAttack.class);
         PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_oredouble"), TrickOreDouble.class);
         PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_ejection"), TrickEjection.class);
-//        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_lunastrike"), PieceTrick_LunaStrike.class);
+        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_lunastrike"), TrickLunaStrike.class);
 //        PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_dirchange"), PieceTrick_DirChange.class);
         PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "piecetrick_seve_number"), TrickSeveNumber.class);
         PsiEXAPI.pieceRegister(new ResourceLocation(PsiEX.MOD_ID, "pieceoperator_getseve_number"), OperatorGetSeveNumber.class);

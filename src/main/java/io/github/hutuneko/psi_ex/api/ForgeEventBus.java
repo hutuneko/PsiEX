@@ -108,8 +108,10 @@ public final class ForgeEventBus {
     @SubscribeEvent
     public static void onAttach(AttachCapabilitiesEvent<Entity> e){
         if (e.getObject() instanceof Player) {
-            e.addCapability(new ResourceLocation(PsiEX.MOD_ID,"psion"), new PsionProvider());
             e.addCapability(new ResourceLocation(PsiEX.MOD_ID,"datas"), new PlayerDataProvider());
+        }
+        if (PsionProvider.is(e.getObject())){
+            e.addCapability(new ResourceLocation(PsiEX.MOD_ID,"psion"), new PsionProvider());
         }
     }
 
