@@ -11,13 +11,12 @@ import vazkii.psi.common.item.ItemCAD;
 
 import java.util.List;
 
-@Mixin(ItemCAD.class)
+@Mixin(value = {ItemCAD.class},remap = false)
 public class ItemCADAssemblyMixin {
 
     @Inject(
             method = "makeCADWithAssembly(Lnet/minecraft/world/item/ItemStack;Ljava/util/List;)Lnet/minecraft/world/item/ItemStack;",
             at = @At("HEAD"),
-            remap = false,
             cancellable = true
     )
     private static void psiex$makeCADWithAssembly(

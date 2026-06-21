@@ -1,5 +1,4 @@
 {
-  "required": true,
   "minVersion": "0.8",
   "package": "io.github.hutuneko.psi_ex.mixin.curios",
   "refmap": "mixins.refmap.psi_ex.json",

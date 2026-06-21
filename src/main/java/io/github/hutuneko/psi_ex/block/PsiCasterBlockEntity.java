@@ -20,7 +20,7 @@ public class PsiCasterBlockEntity extends BlockEntity {
 
     private final BlockPsiCasterPeripheral peripheral;
     private final LazyOptional<IPeripheral> peripheralCap;
-
+    private Player player;
     public PsiCasterBlockEntity(BlockPos pos, BlockState state) {
         super(CCCuriosModule.PSI_CASTER_BE.get(), pos, state);
         this.peripheral = new BlockPsiCasterPeripheral(this);
@@ -29,30 +29,38 @@ public class PsiCasterBlockEntity extends BlockEntity {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == Capabilities.CAPABILITY_PERIPHERAL) {  // CCの周辺機器Capability
+        if (cap == Capabilities.CAPABILITY_PERIPHERAL) {
             return peripheralCap.cast();
         }
         return super.getCapability(cap, side);
     }
 
     public void setPlayer(Player player) {
-        if (peripheral.getOwner() instanceof BlockEntityPeripheralOwner owner){
+        if (peripheral.getOwner() instanceof BlockEntityPeripheralOwner owner) {
             owner.setLastPlayer(player);
+            this.player = player;
         }
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putUUID("psi_ex:casterblock",peripheral.getOwner().getPlayer().getUUID());
+        super.saveAdditional(pTag);
+        Player player = peripheral.getOwner().getPlayer();
+        if (player == null) player = this.player;
+        if (player != null) {
+            pTag.putUUID("psi_ex:casterblock", player.getUUID());
+        }
     }
 
     @Override
     public void load(@NotNull CompoundTag pTag) {
-        if (peripheral.getOwner() instanceof BlockEntityPeripheralOwner owner){
-            if (level != null) {
-                owner.setLastPlayer(level.players().stream()
+        super.load(pTag);
+        if (peripheral.getOwner() instanceof BlockEntityPeripheralOwner owner) {
+            if (level != null && pTag.contains("psi_ex:casterblock")) {
+                level.players().stream()
                         .filter(player -> player.getUUID().equals(pTag.getUUID("psi_ex:casterblock")))
-                        .toList().get(0));
+                        .findFirst()
+                        .ifPresent(owner::setLastPlayer);
             }
         }
     }

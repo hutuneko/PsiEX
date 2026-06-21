@@ -1,8 +1,11 @@
 package io.github.hutuneko.psi_ex.system;
 
+import io.github.hutuneko.psi_ex.item.SkillItem.SkillItem;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
@@ -62,5 +65,14 @@ public final class CuriosUtil {
             }
             return Optional.of(found.get(0));
         }).orElse(ItemStack.EMPTY);
+    }
+    public static ItemStack test(ServerPlayer player){
+        SlotResult slotResult = CuriosApi.getCuriosHelper()
+                .findFirstCurio(player, stack -> stack.getItem() instanceof SkillItem)
+                .orElse(null);
+        if (slotResult != null) {
+            return slotResult.stack();
+        }
+        return null;
     }
 }

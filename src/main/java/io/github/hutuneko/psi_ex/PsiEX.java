@@ -7,6 +7,7 @@ import io.github.hutuneko.psi_ex.system.attribute.PsiEXAttributes;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -37,10 +38,8 @@ public class PsiEX {
         PsiEXRegistry.MOB_EFFECTS.register(modBus);
         PsiEXRegistry.MENUS.register(modBus);
         PsiEXAttributes.register(modBus);
-        try {
+        if (ModList.get().isLoaded("computercraft")){
             CCCuriosModule.POCKET_SERIALIZER.register(modBus);
-        }catch (Exception ignored){
-
         }
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
